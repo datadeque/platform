@@ -1,3 +1,5 @@
+import '../src/styles/globals.scss'
+
 export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },
   controls: {
@@ -7,3 +9,13 @@ export const parameters = {
     },
   },
 }
+
+export const decorators = [
+  (Story) => (
+    <div className="theme-dark">
+      <div className="main" style={{ padding: 50 }}>
+        <Story />
+      </div>
+    </div>
+  ),
+]
