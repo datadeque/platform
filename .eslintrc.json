@@ -1,0 +1,23 @@
+{
+  "plugins": ["@typescript-eslint", "prettier", "react", "react-hooks"],
+  "extends": [
+    "plugin:storybook/recommended",
+    "next/core-web-vitals",
+    "plugin:react/recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:import/errors",
+    "plugin:import/warnings",
+    "plugin:jsx-a11y/recommended",
+    "prettier"
+  ],
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  },
+  "rules": {
+    "prettier/prettier": "error",
+    "react/react-in-jsx-scope": "off",
+    "react/self-closing-comp": "warn"
+  }
+}
