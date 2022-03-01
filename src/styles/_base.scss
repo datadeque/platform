@@ -11,11 +11,11 @@
 }
 
 @mixin rounded {
-  border-width: 10px;
+  border-radius: 10px;
 }
 
 @mixin boxed {
   @include themed-styles {
-    background-color: themed-color('background0');
+    background-color: themed-colour('background0');
   }
 }
