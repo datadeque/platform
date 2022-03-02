@@ -5,7 +5,7 @@ interface Props {
   children: React.ReactNode
 }
 
-export const Compose = (props: Props) => {
+export const Compose: React.FC<Props> = (props: Props) => {
   const { components = [], children } = props
 
   return (

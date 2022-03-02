@@ -1,0 +1,55 @@
+@import '/src/styles/base';
+
+.button {
+  border-radius: 6px;
+  border: none;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 80ms ease-in-out;
+  @include themed-styles {
+    color: themed-colour('text-primary');
+    box-shadow: 1px 1px 3px themed-colour('shadow-primary');
+
+    &:hover {
+      box-shadow: 3px 3px 4px themed-colour('shadow-primary');
+    }
+  }
+}
+
+.lg {
+  padding: 14px 16px;
+  font-size: 16px;
+}
+
+.md {
+  padding: 10px 12px;
+}
+
+.sm {
+  padding: 8px 10px;
+  font-weight: normal;
+}
+
+.contained {
+  height: 100%;
+  width: 100%;
+}
+
+.primary {
+  @include themed-styles {
+    background-color: themed-colour('accent-primary');
+    &:hover {
+      background-color: themed-colour('button-selected-primary');
+    }
+  }
+}
+
+.secondary {
+  @include themed-styles {
+    background-color: themed-colour('accent-secondary');
+    &:hover {
+      background-color: themed-colour('button-selected-secondary');
+    }
+  }
+}
