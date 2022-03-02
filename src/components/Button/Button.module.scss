@@ -6,9 +6,14 @@
   font-size: 14px;
   font-weight: bold;
   cursor: pointer;
+  transition: 80ms ease-in-out;
   @include themed-styles {
     color: themed-colour('text-primary');
-    box-shadow: 2px 2px 2px themed-colour('shadow-primary');
+    box-shadow: 1px 1px 3px themed-colour('shadow-primary');
+
+    &:hover {
+      box-shadow: 3px 3px 4px themed-colour('shadow-primary');
+    }
   }
 }
 
@@ -29,17 +34,22 @@
 .contained {
   height: 100%;
   width: 100%;
-  font-size: 100%;
 }
 
 .primary {
   @include themed-styles {
     background-color: themed-colour('accent-primary');
+    &:hover {
+      background-color: themed-colour('button-selected-primary');
+    }
   }
 }
 
 .secondary {
   @include themed-styles {
     background-color: themed-colour('accent-secondary');
+    &:hover {
+      background-color: themed-colour('button-selected-secondary');
+    }
   }
 }
