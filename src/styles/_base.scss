@@ -1,0 +1,21 @@
+@import './theme';
+
+@mixin row {
+  display: flex;
+  flex-direction: row;
+}
+
+@mixin column {
+  display: flex;
+  flex-direction: column;
+}
+
+@mixin rounded {
+  border-radius: 10px;
+}
+
+@mixin boxed {
+  @include themed-styles {
+    background-color: themed-colour('background0');
+  }
+}
