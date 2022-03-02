@@ -3,14 +3,14 @@ import className from 'classnames'
 import styles from './Button.module.scss'
 
 interface Props {
-  size?: 'lg' | 'med' | 'sm' | 'contained'
+  size?: 'lg' | 'md' | 'sm' | 'contained'
   onClick?: VoidFunction
   variant?: 'primary' | 'secondary'
   label: string
 }
 
 export const Button: React.FC<Props> = (props: Props) => {
-  const { size = 'med', onClick, variant = 'primary', label } = props
+  const { size = 'md', onClick, variant = 'primary', label } = props
 
   return (
     <button

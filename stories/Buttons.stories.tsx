@@ -12,7 +12,7 @@ export const ButtonDefault = () => <Button label="Click Me" />
 
 export const ButtonPrimarySmall = () => <Button label="Click Me" size="sm" />
 
-export const ButtonPrimaryMedium = () => <Button label="Click Me" size="med" />
+export const ButtonPrimaryMedium = () => <Button label="Click Me" size="md" />
 
 export const ButtonPrimaryLarge = () => <Button label="Click Me" size="lg" />
 
@@ -25,7 +25,7 @@ export const ButtonSecondarySmall = () => (
 )
 
 export const ButtonSecondaryMedium = () => (
-  <Button label="Click Me" size="med" variant="secondary" />
+  <Button label="Click Me" size="md" variant="secondary" />
 )
 
 export const ButtonSecondaryLarge = () => (
