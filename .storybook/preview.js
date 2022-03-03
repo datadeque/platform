@@ -12,10 +12,17 @@ export const parameters = {
 
 export const decorators = [
   (Story) => (
-    <div className="theme-dark">
-      <div className="main" style={{ padding: 50 }}>
-        <Story />
+    <>
+      <div className="theme-dark">
+        <div className="main" style={{ padding: 50 }}>
+          <Story />
+        </div>
       </div>
-    </div>
+      <div className="theme-light">
+        <div className="main" style={{ padding: 50 }}>
+          <Story />
+        </div>
+      </div>
+    </>
   ),
 ]
