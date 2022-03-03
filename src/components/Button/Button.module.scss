@@ -8,7 +8,7 @@
   cursor: pointer;
   transition: 80ms ease-in-out;
   @include themed-styles {
-    color: themed-colour('text-primary');
+    color: themed-colour('button-text-primary');
     box-shadow: 1px 1px 3px themed-colour('shadow-primary');
 
     &:hover {
