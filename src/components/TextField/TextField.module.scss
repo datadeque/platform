@@ -1,0 +1,50 @@
+@import '/src/styles/base';
+
+.base {
+  color: red;
+}
+
+.fieldset {
+  display: inline;
+  font-size: 12px;
+  border: none;
+
+  input {
+    border: none;
+    background-color: transparent;
+    padding: 2px;
+    @include themed-styles {
+      color: themed-colour('text-primary');
+      &::placeholder {
+        color: themed-colour('text-primary');
+      }
+    }
+
+    &:focus {
+      outline: none;
+    }
+  }
+}
+
+.standard {
+  @include themed-styles {
+    border-bottom: 1.2px solid themed-colour('text-muted');
+  }
+}
+
+.outlined {
+  @include themed-styles {
+    border: 1px solid themed-colour('text-muted');
+  }
+  border-radius: 6px;
+}
+
+.outlined-error {
+  @extend .base;
+  border: 1px solid red !important;
+}
+
+.standard-error {
+  @extend .base;
+  border-bottom: 1px solid red !important;
+}
