@@ -13,6 +13,7 @@
     border: none;
     background-color: transparent;
     padding: 2px;
+    width: 100%;
     @include themed-styles {
       color: themed-colour('text-primary');
       &::placeholder {
