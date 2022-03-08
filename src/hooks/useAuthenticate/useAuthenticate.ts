@@ -9,7 +9,7 @@ const initialState = {
 
 const validateUsername = (username: string) => {
   if (username.length < 8) return 'Username must have 8 or more characters'
-  if (!username.match('/[^w]|_/g'))
+  if (!username.match('^[a-zA-Z0-9_]+$'))
     return 'Username must only have alpha-numeric characters or _'
   return ''
 }
@@ -48,7 +48,7 @@ export const useAuthenticate = () => {
 
   const [errors, setErrors] = useState({ ...initialState })
 
-  const validate = () => {
+  const validate = useCallback(() => {
     setErrors({
       ...initialState,
       username: validateUsername(data.username),
@@ -62,18 +62,17 @@ export const useAuthenticate = () => {
         data.reEnteredPassword
       ),
     })
-  }
+  }, [data, login])
 
-  const handleToggleLoginClick = () => {
+  const handleToggleLoginClick = useCallback(() => {
     setLogin(!login)
     setData({
-      ...data,
-      username: '',
-      email: '',
-      password: '',
-      reEnteredPassword: '',
+      ...initialState,
     })
-  }
+    setErrors({
+      ...initialState,
+    })
+  }, [login])
 
   const handleSignUp = () => {
     validate()
@@ -119,6 +118,7 @@ export const useAuthenticate = () => {
       setErrors({
         ...errors,
         password: '',
+        reEnteredPassword: '',
       })
     },
     [data, errors]
@@ -132,6 +132,7 @@ export const useAuthenticate = () => {
       })
       setErrors({
         ...errors,
+        password: '',
         reEnteredPassword: '',
       })
     },

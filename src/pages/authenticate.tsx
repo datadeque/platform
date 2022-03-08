@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import type { NextPage } from 'next'
-import { ChangeEvent, useCallback, useEffect, useState } from 'react'
 import { Button, TextField } from 'src/components'
 import styles from 'src/styles/Authenticate.module.scss'
 import { useAuthenticate } from 'src/hooks'
