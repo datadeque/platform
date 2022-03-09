@@ -1,0 +1,64 @@
+@import 'src/styles/base';
+
+.main {
+  height: 100vh;
+  width: 100vw;
+  @include themed-styles {
+    background-color: themed-colour('backdrop');
+  }
+}
+
+.layout {
+  @include row;
+  height: 100%;
+  align-items: center;
+}
+
+@mixin base {
+  @include column;
+  height: inherit;
+  flex: 1;
+}
+
+.login {
+  @include base;
+
+  align-items: center;
+  justify-content: center;
+}
+
+.content {
+  @include base;
+
+  @include mobile {
+    display: none;
+  }
+  @include themed-styles {
+    background-color: themed-colour('background0');
+  }
+}
+
+.authenticate {
+  @include column;
+  width: 80%;
+  gap: 30px;
+  @include mobile {
+    gap: 20px;
+  }
+}
+
+.fields {
+  @include column;
+  width: 100%;
+  gap: 10px;
+  @include mobile {
+    gap: 5px;
+  }
+}
+
+.buttons {
+  @include row;
+  width: 100%;
+  justify-content: flex-start;
+  gap: 30px;
+}
