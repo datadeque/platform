@@ -1,0 +1,36 @@
+@import '/src/styles/base';
+
+.container {
+  @include column;
+  @include boxed;
+  @include rounded;
+
+  padding: 25px;
+
+  @include themed-styles {
+    background-color: themed-colour('background0');
+  }
+}
+
+.header {
+  @include row;
+  h2 {
+    font-size: 35px;
+  }
+
+  justify-content: space-between;
+}
+
+.content {
+  @include column;
+
+  h3 {
+    font-size: 12px;
+    margin-bottom: 10px;
+    @include themed-styles {
+      color: themed-colour('text-muted');
+    }
+  }
+
+  margin-bottom: 10px;
+}

@@ -1,0 +1,50 @@
+@import 'src/styles/base';
+
+.logo {
+  max-width: 64px;
+  margin: 30px;
+  content: url(../../stories/assets/logo.svg);
+  filter: invert(48%) sepia(74%) saturate(5427%) hue-rotate(202deg) brightness(96%) contrast(78%);
+}
+
+.main {
+  height: 100vh;
+  width: 100vw;
+  @include themed-styles {
+    background-color: themed-colour('backdrop');
+  }
+
+  align-items: center;
+}
+
+.layout {
+  @include column;
+  margin: auto;
+
+  height: 100%;
+  width: 80%;
+  align-items: center;
+}
+
+@mixin base {
+  @include column;
+  height: inherit;
+  flex: 1;
+}
+
+.header {
+  @include row;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 15px;
+
+  @include themed-styles {
+    color: themed-colour('text-primary');
+  }
+}
+
+.buttons {
+  @include row;
+  width: 100%;
+  justify-content: flex-end;
+}
