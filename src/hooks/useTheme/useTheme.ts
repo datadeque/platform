@@ -5,7 +5,7 @@ import { Theme } from 'src/types'
 const THEME = 'client:theme'
 
 export const useTheme = (): [Theme, VoidFunction] => {
-  const [theme, setTheme] = useLocalStorage<Theme>(THEME, 'dark')
+  const [theme, setTheme] = useLocalStorage<Theme>(THEME, 'light')
 
   const toggleTheme = useCallback(
     () => setTheme(theme === 'light' ? 'dark' : 'light'),
