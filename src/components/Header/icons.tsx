@@ -2,7 +2,7 @@ export const cancelIcon = (
   <svg
     width="30"
     height="30"
-    viewBox="0 0 24 24"
+    viewBox="0 0 30 30"
     xmlns="http://www.w3.org/2000/svg"
   >
     <path
@@ -23,7 +23,7 @@ export const menuIcon = (
   <svg
     width="30"
     height="30"
-    viewBox="0 0 24 24"
+    viewBox="0 0 30 30"
     xmlns="http://www.w3.org/2000/svg"
   >
     <path

@@ -1,0 +1,43 @@
+@import 'src/styles/base';
+
+@mixin base {
+  @include column;
+  height: inherit;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 42px;
+  gap: 40px;
+
+  @include mobile {
+    font-size: 24px;
+    gap: 30px;
+  }
+}
+
+.container {
+  @include base;
+  padding: 5vh 5vw;
+  @include themed-styles {
+    background: themed-colour('landing-gradient');
+  }
+}
+
+.content {
+  @include base;
+}
+
+.title {
+  text-align: center;
+  font-size: 24px;
+  font-weight: 500;
+  letter-spacing: 10px;
+  @include themed-styles {
+    color: themed-colour('text-muted');
+  }
+
+  @include mobile {
+    font-size: 18px;
+  }
+}

@@ -84,7 +84,8 @@
 .menu {
   @include column;
   align-items: flex-start;
-  z-index: 2;
+  position: relative;
+  z-index: -1;
   width: 75%;
   height: 100vh;
   @include themed-styles {
@@ -100,6 +101,7 @@
     @include animated;
     margin-left: 0px;
     opacity: 1;
+    z-index: 5;
   }
 }
 
@@ -138,13 +140,12 @@
 
 .container {
   display: none;
-  z-index: -1;
+  z-index: 1;
   position: fixed;
   top: 0;
   left: 0;
 
   @include mobile {
-    display: flex;
     height: 100vh;
     width: 100vw;
   }
@@ -159,5 +160,8 @@
   &.active {
     opacity: 1;
     z-index: 5;
+    @include mobile {
+      display: flex;
+    }
   }
 }
