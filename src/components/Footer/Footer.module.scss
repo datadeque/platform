@@ -1,0 +1,14 @@
+@import 'src/styles/base';
+
+.footer {
+  @include row;
+  font-size: 10px;
+  padding: 10px;
+  background-color: transparent;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  @include mobile {
+    padding: 10px 15px 5px;
+  }
+}

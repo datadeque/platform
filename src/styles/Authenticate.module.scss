@@ -1,16 +1,13 @@
 @import 'src/styles/base';
 
 .main {
-  height: 100vh;
-  width: 100vw;
-  @include themed-styles {
-    background-color: themed-colour('backdrop');
-  }
+  display: flex;
+  flex: 1;
 }
 
 .layout {
   @include row;
-  height: 100%;
+  flex: 1;
   align-items: center;
 }
 
@@ -28,6 +25,7 @@
 }
 
 .content {
+  height: 100% !important;
   @include base;
 
   @include mobile {
@@ -40,9 +38,10 @@
 
 .authenticate {
   @include column;
-  width: 80%;
+  width: 60%;
   gap: 30px;
   @include mobile {
+    width: 90%;
     gap: 20px;
   }
 }

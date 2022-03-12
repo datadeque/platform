@@ -1,0 +1,21 @@
+@import '/src/styles/base';
+
+.button {
+  border: none;
+  background-color: transparent;
+  height: 30px;
+  width: 30px;
+  @include themed-styles {
+    fill: themed-colour('text-primary');
+
+    &:hover {
+      fill: themed-colour('accent-primary');
+      transition: 0ms ease-in-out;
+      cursor: pointer;
+
+      @include mobile {
+        fill: themed-colour('text-primary');
+      }
+    }
+  }
+}
