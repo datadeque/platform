@@ -1,4 +1,13 @@
-import { ChangeEvent, useCallback, useState } from 'react'
+import { ApolloError } from '@apollo/client'
+import {
+  ChangeEvent,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from 'react'
+import { AuthContext } from 'src/contexts'
+import { useLoginUserMutation } from 'src/graphql/hooks'
 
 const initialState = {
   username: '',
@@ -42,26 +51,36 @@ const validateReEnteredPassword = (
 }
 
 export const useAuthenticate = () => {
+  const [loginUser] = useLoginUserMutation()
+
+  // TODO: rename to something better
   const [login, setLogin] = useState(true)
-
   const [data, setData] = useState({ ...initialState })
-
   const [errors, setErrors] = useState({ ...initialState })
 
+  const { refetch } = useContext(AuthContext)
+
+  useEffect(() => {
+    setErrors({ ...initialState })
+  }, [login])
+
+  // TODO: validate logic should depend on page state
   const validate = useCallback(() => {
-    setErrors({
+    const newErrors = {
       ...initialState,
       username: validateUsername(data.username),
-      email: validateEmail(data.email),
+      email: login ? '' : validateEmail(data.email),
       password: validatePassword(
         data.password,
         login ? data.password : data.reEnteredPassword
       ),
       reEnteredPassword: validateReEnteredPassword(
         data.password,
-        data.reEnteredPassword
+        login ? data.password : data.reEnteredPassword
       ),
-    })
+    }
+    setErrors(newErrors)
+    return newErrors
   }, [data, login])
 
   const handleToggleLoginClick = useCallback(() => {
@@ -78,9 +97,32 @@ export const useAuthenticate = () => {
     validate()
   }
 
-  const handleSignIn = () => {
-    validate()
-  }
+  const handleSignIn = useCallback(async () => {
+    const errors = validate()
+    if (Object.values(errors).join('').length === 0) {
+      let email, username
+      if (data.username.indexOf('@') !== -1) {
+        email = data.username
+      } else {
+        username = data.username
+      }
+      try {
+        await loginUser({
+          variables: {
+            loginUserInput: {
+              email,
+              username,
+              password: data.password,
+            },
+          },
+        })
+        refetch()
+      } catch (err) {
+        // TODO: remove log, display the error to user
+        console.error((err as ApolloError).message)
+      }
+    }
+  }, [data.password, data.username, loginUser, refetch, validate])
 
   const handleUsernameChange = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
