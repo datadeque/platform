@@ -29,6 +29,13 @@ const validateEmail = (email: string) => {
   return ''
 }
 
+const validateUsernameOrEmail = (user: string) => {
+  if (user.match('@')) {
+    return validateEmail(user)
+  }
+  return validateUsername(user)
+}
+
 const validatePassword = (password: string, reEnteredPassword: string) => {
   if (password != reEnteredPassword) return 'Passwords must match'
   if (password.length < 8) return 'Password must have 8 or more characters'
@@ -53,45 +60,57 @@ const validateReEnteredPassword = (
 export const useAuthenticate = () => {
   const [loginUser] = useLoginUserMutation()
 
-  // TODO: rename to something better
-  const [login, setLogin] = useState(true)
+  const [formState, setFormState] = useState('login')
   const [data, setData] = useState({ ...initialState })
   const [errors, setErrors] = useState({ ...initialState })
+  const [userError, setUserError] = useState('')
+  const [loading, setLoading] = useState(false)
 
   const { refetch } = useContext(AuthContext)
 
   useEffect(() => {
     setErrors({ ...initialState })
-  }, [login])
+  }, [formState])
 
-  // TODO: validate logic should depend on page state
+  useEffect(() => {
+    setUserError('')
+  }, [data, formState])
+
   const validate = useCallback(() => {
-    const newErrors = {
+    let newErrors = {
       ...initialState,
-      username: validateUsername(data.username),
-      email: login ? '' : validateEmail(data.email),
-      password: validatePassword(
-        data.password,
-        login ? data.password : data.reEnteredPassword
-      ),
-      reEnteredPassword: validateReEnteredPassword(
-        data.password,
-        login ? data.password : data.reEnteredPassword
-      ),
+    }
+    if (formState == 'login') {
+      newErrors = {
+        ...newErrors,
+        username: validateUsernameOrEmail(data.username),
+        password: validatePassword(data.password, data.password),
+      }
+    } else {
+      newErrors = {
+        ...newErrors,
+        username: validateUsername(data.username),
+        email: validateEmail(data.email),
+        password: validatePassword(data.password, data.reEnteredPassword),
+        reEnteredPassword: validateReEnteredPassword(
+          data.password,
+          data.reEnteredPassword
+        ),
+      }
     }
     setErrors(newErrors)
     return newErrors
-  }, [data, login])
+  }, [data, formState])
 
   const handleToggleLoginClick = useCallback(() => {
-    setLogin(!login)
+    setFormState(formState == 'login' ? 'signUp' : 'login')
     setData({
       ...initialState,
     })
     setErrors({
       ...initialState,
     })
-  }, [login])
+  }, [formState])
 
   const handleSignUp = () => {
     validate()
@@ -107,22 +126,25 @@ export const useAuthenticate = () => {
         username = data.username
       }
       try {
+        const password = data.password
+        setLoading(true)
+        setData({ ...data, password: '' })
         await loginUser({
           variables: {
             loginUserInput: {
               email,
               username,
-              password: data.password,
+              password,
             },
           },
         })
         refetch()
       } catch (err) {
-        // TODO: remove log, display the error to user
-        console.error((err as ApolloError).message)
+        setUserError((err as ApolloError).message)
       }
+      setLoading(false)
     }
-  }, [data.password, data.username, loginUser, refetch, validate])
+  }, [validate, data, loginUser, refetch])
 
   const handleUsernameChange = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
@@ -182,7 +204,7 @@ export const useAuthenticate = () => {
   )
 
   return {
-    login,
+    formState,
     data,
     errors,
     handleUsernameChange,
@@ -192,5 +214,7 @@ export const useAuthenticate = () => {
     handleToggleLoginClick,
     handleSignUp,
     handleSignIn,
+    userError,
+    loading,
   }
 }
