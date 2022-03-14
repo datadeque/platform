@@ -1,4 +1,13 @@
-import { ChangeEvent, useCallback, useState } from 'react'
+import { ApolloError } from '@apollo/client'
+import {
+  ChangeEvent,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from 'react'
+import { AuthContext } from 'src/contexts'
+import { useLoginUserMutation } from 'src/graphql/hooks'
 
 const initialState = {
   username: '',
@@ -18,6 +27,13 @@ const validateEmail = (email: string) => {
   if (email.length == 0) return 'Email cannot be empty'
   if (!email.match('@')) return 'Email must include @'
   return ''
+}
+
+const validateUsernameOrEmail = (user: string) => {
+  if (user.match('@')) {
+    return validateEmail(user)
+  }
+  return validateUsername(user)
 }
 
 const validatePassword = (password: string, reEnteredPassword: string) => {
@@ -42,45 +58,93 @@ const validateReEnteredPassword = (
 }
 
 export const useAuthenticate = () => {
-  const [login, setLogin] = useState(true)
+  const [loginUser] = useLoginUserMutation()
 
+  const [formState, setFormState] = useState('login')
   const [data, setData] = useState({ ...initialState })
-
   const [errors, setErrors] = useState({ ...initialState })
+  const [userError, setUserError] = useState('')
+  const [loading, setLoading] = useState(false)
+
+  const { refetch } = useContext(AuthContext)
+
+  useEffect(() => {
+    setErrors({ ...initialState })
+  }, [formState])
+
+  useEffect(() => {
+    setUserError('')
+  }, [data, formState])
 
   const validate = useCallback(() => {
-    setErrors({
+    let newErrors = {
       ...initialState,
-      username: validateUsername(data.username),
-      email: validateEmail(data.email),
-      password: validatePassword(
-        data.password,
-        login ? data.password : data.reEnteredPassword
-      ),
-      reEnteredPassword: validateReEnteredPassword(
-        data.password,
-        data.reEnteredPassword
-      ),
-    })
-  }, [data, login])
+    }
+    if (formState == 'login') {
+      newErrors = {
+        ...newErrors,
+        username: validateUsernameOrEmail(data.username),
+        password: validatePassword(data.password, data.password),
+      }
+    } else {
+      newErrors = {
+        ...newErrors,
+        username: validateUsername(data.username),
+        email: validateEmail(data.email),
+        password: validatePassword(data.password, data.reEnteredPassword),
+        reEnteredPassword: validateReEnteredPassword(
+          data.password,
+          data.reEnteredPassword
+        ),
+      }
+    }
+    setErrors(newErrors)
+    return newErrors
+  }, [data, formState])
 
   const handleToggleLoginClick = useCallback(() => {
-    setLogin(!login)
+    setFormState(formState == 'login' ? 'signUp' : 'login')
     setData({
       ...initialState,
     })
     setErrors({
       ...initialState,
     })
-  }, [login])
+  }, [formState])
 
   const handleSignUp = () => {
     validate()
   }
 
-  const handleSignIn = () => {
-    validate()
-  }
+  const handleSignIn = useCallback(async () => {
+    const errors = validate()
+    if (Object.values(errors).join('').length === 0) {
+      let email, username
+      if (data.username.indexOf('@') !== -1) {
+        email = data.username
+      } else {
+        username = data.username
+      }
+      try {
+        const password = data.password
+        setLoading(true)
+        setData({ ...data, password: '' })
+        await loginUser({
+          variables: {
+            loginUserInput: {
+              email,
+              username,
+              password,
+            },
+          },
+        })
+        refetch()
+      } catch (err) {
+        setUserError((err as ApolloError).message)
+      }
+      setLoading(false)
+    }
+  }, [validate, data, loginUser, refetch])
 
   const handleUsernameChange = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
@@ -140,7 +204,7 @@ export const useAuthenticate = () => {
   )
 
   return {
-    login,
+    formState,
     data,
     errors,
     handleUsernameChange,
@@ -150,5 +214,7 @@ export const useAuthenticate = () => {
     handleToggleLoginClick,
     handleSignUp,
     handleSignIn,
+    userError,
+    loading,
   }
 }

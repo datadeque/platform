@@ -1,4 +1,4 @@
-import React from 'react'
+import { createContext } from 'react'
 import { Theme } from 'src/types'
 
 interface IThemeContext {
@@ -6,7 +6,7 @@ interface IThemeContext {
   toggleTheme: VoidFunction
 }
 
-export const ThemeContext = React.createContext<IThemeContext>({
+export const ThemeContext = createContext<IThemeContext>({
   theme: 'light',
   toggleTheme: () => {
     throw new Error('poorly provided ThemeContext, missing toggle Theme')

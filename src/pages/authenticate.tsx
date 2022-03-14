@@ -1,14 +1,19 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+
 import type { NextPage } from 'next'
+import { useContext, useEffect, useRef } from 'react'
 
 import { Button, TextField } from 'src/components'
+import { AuthContext } from 'src/contexts'
 import { useAuthenticate } from 'src/hooks'
 
 import styles from 'src/styles/Authenticate.module.scss'
 
 const Home: NextPage = () => {
   const {
-    login,
+    formState,
     data,
     errors,
     handleUsernameChange,
@@ -18,11 +23,20 @@ const Home: NextPage = () => {
     handleToggleLoginClick,
     handleSignUp,
     handleSignIn,
+    userError,
+    loading,
   } = useAuthenticate()
+  const userErrorRef = useRef<HTMLDivElement | null>(null)
+  const { loading: contextLoading } = useContext(AuthContext)
+
+  useEffect(() => {
+    if (userErrorRef.current) userErrorRef.current.textContent = userError
+  }, [userError])
 
   const loginFields = (
     <div className={styles.authenticate}>
       <h2>Login</h2>
+      <div className={styles.error} ref={userErrorRef} />
       <div className={styles.fields}>
         <TextField
           label="Username or Email"
@@ -40,13 +54,14 @@ const Home: NextPage = () => {
           error={errors?.password}
         />
       </div>
-      <div className={styles.buttons}>
-        <Button label="Sign In" onClick={handleSignIn} />
-        <Button
-          label="Sign Up"
-          variant="secondary"
-          onClick={handleToggleLoginClick}
-        />
+      <Button
+        label="Sign In"
+        onClick={handleSignIn}
+        loading={loading || contextLoading}
+      />
+      <div className={styles.account}>
+        Don&apos;t have an account?
+        <span onClick={handleToggleLoginClick}>Sign up</span>
       </div>
     </div>
   )
@@ -54,6 +69,7 @@ const Home: NextPage = () => {
   const signUpFields = (
     <div className={styles.authenticate}>
       <h2>Sign Up</h2>
+      <div className={styles.error} ref={userErrorRef} />
       <div className={styles.fields}>
         <TextField
           label="Username"
@@ -86,13 +102,10 @@ const Home: NextPage = () => {
           error={errors?.reEnteredPassword}
         />
       </div>
-      <div className={styles.buttons}>
-        <Button label="Sign Up" onClick={handleSignUp} />
-        <Button
-          label="Sign In"
-          variant="secondary"
-          onClick={handleToggleLoginClick}
-        />
+      <Button label="Sign Up" onClick={handleSignUp} />
+      <div className={styles.account}>
+        Already have an account?
+        <span onClick={handleToggleLoginClick}>Login</span>
       </div>
     </div>
   )
@@ -100,7 +113,9 @@ const Home: NextPage = () => {
   return (
     <div className={styles.main}>
       <div className={styles.layout}>
-        <div className={styles.login}>{login ? loginFields : signUpFields}</div>
+        <div className={styles.login}>
+          {formState == 'login' ? loginFields : signUpFields}
+        </div>
         <div className={styles.content} />
       </div>
     </div>

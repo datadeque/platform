@@ -55,9 +55,42 @@
   }
 }
 
-.buttons {
+.account {
   @include row;
   width: 100%;
-  justify-content: flex-start;
-  gap: 30px;
+  gap: 0.3em;
+
+  span {
+    cursor: pointer;
+    @include themed-styles {
+      color: themed-colour('accent-primary');
+    }
+
+    &:hover {
+      @include themed-styles {
+        color: themed-colour('button-selected-primary');
+      }
+    }
+  }
+
+  @include mobile {
+    justify-content: flex-end;
+    padding: 0px 4px;
+    margin: -10px 0px;
+    font-size: 14px;
+  }
+}
+
+.error {
+  height: 24px;
+  display: flex;
+  align-items: center;
+  margin: -30px 0px;
+  color: red;
+  font-size: 12px;
+
+  @include mobile {
+    height: 16px;
+    margin: -20px 0px;
+  }
 }
