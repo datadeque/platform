@@ -7,17 +7,34 @@ interface Props {
   onClick?: VoidFunction
   variant?: 'primary' | 'secondary'
   label: string
+  loading?: true | false
 }
 
 export const Button: React.FC<Props> = (props: Props) => {
-  const { size = 'md', onClick, variant = 'primary', label } = props
+  const {
+    size = 'md',
+    onClick,
+    variant = 'primary',
+    label,
+    loading = false,
+  } = props
 
   return (
     <button
       className={className(styles.button, styles[size], styles[variant])}
       onClick={onClick}
+      disabled={loading}
     >
-      {label}
+      {loading ? (
+        <div className={styles.loadingicon}>
+          <div />
+          <div />
+          <div />
+          <div />
+        </div>
+      ) : (
+        label
+      )}
     </button>
   )
 }

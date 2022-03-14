@@ -35,3 +35,7 @@ export const ButtonSecondaryLarge = () => (
 export const ButtonSecondaryContained = () => (
   <Button label="Click Me" size="contained" variant="secondary" />
 )
+
+export const ButtonPrimaryLoading = () => (
+  <Button label="Click Me" loading={true} />
+)
