@@ -1,43 +1,149 @@
 @import 'src/styles/base';
 
+@mixin section {
+  display: flex;
+  flex: 1;
+
+  align-items: center;
+  justify-content: center;
+}
+
+.landing {
+  @include section;
+  text-align: center;
+}
+
+.content {
+  @include column;
+  gap: 40px;
+  width: 80%;
+}
+
 @mixin base {
   @include column;
   height: inherit;
   flex: 1;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
   font-size: 42px;
   gap: 40px;
 
   @include mobile {
-    font-size: 24px;
+    font-size: 40px;
     gap: 30px;
   }
 }
 
 .container {
   @include base;
-  padding: 5vh 5vw;
+  height: 100vh !important;
   @include themed-styles {
     background: themed-colour('landing-gradient');
   }
 }
 
-.content {
-  @include base;
-}
-
 .title {
   text-align: center;
-  font-size: 24px;
+  font-size: 50px;
   font-weight: 500;
-  letter-spacing: 10px;
+  letter-spacing: 8px;
   @include themed-styles {
-    color: themed-colour('text-muted');
+    color: themed-colour('text-primary');
+  }
+  @include mobile {
+    font-size: 45px;
+  }
+}
+
+.why {
+  @include column;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  text-align: left;
+  height: 100vh;
+  gap: 50px;
+  margin-top: 10px;
+
+  line-height: 1.15;
+  font-size: 90px;
+  font-weight: 500;
+
+  @include mobile {
+    font-size: 36px;
+  }
+}
+
+.layout {
+  @include row;
+  gap: 10px;
+
+  @include mobile {
+    @include column;
+    gap: 5px;
+  }
+}
+
+.item {
+  @include column;
+  font-size: 36px;
+  line-height: 1.15;
+  padding: 20px;
+  max-width: 20vw;
+  font-weight: 500;
+  justify-content: center;
+  align-items: left;
+  gap: 20px;
+
+  p {
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+    font-weight: normal;
+    text-align: left;
+    line-height: 1.15;
   }
 
   @include mobile {
-    font-size: 18px;
+    max-width: 75vw;
+    font-size: 24px;
+    padding: 10px;
+
+    p {
+      font-size: 16px;
+    }
+  }
+}
+
+.box {
+  border-radius: 50%;
+  height: 120px;
+  width: 120px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  @include themed-styles {
+    background-color: themed-colour('accent-primary');
+  }
+
+  @include mobile {
+    height: 65px;
+    width: 65px;
+  }
+}
+
+.icon {
+  svg {
+    height: 45px;
+    width: 45px;
+  }
+  @include themed-styles {
+    fill: white;
+    stroke: white;
+  }
+
+  @include mobile {
+    svg {
+      height: 35px;
+      width: 35px;
+    }
   }
 }

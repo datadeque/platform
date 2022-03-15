@@ -11,7 +11,7 @@ import { useAuthenticate } from 'src/hooks'
 
 import styles from 'src/styles/Authenticate.module.scss'
 
-const Home: NextPage = () => {
+const Authenticate: NextPage = () => {
   const {
     formState,
     data,
@@ -122,4 +122,4 @@ const Home: NextPage = () => {
   )
 }
 
-export default Home
+export default Authenticate
