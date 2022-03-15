@@ -51,48 +51,48 @@ const Home: NextPage = () => {
           <h1 className={styles.title}>DATADEQUE</h1>
           <p>
             Simplify publishing interactive data visualization and insights for
-            everybody
+            everybody.
           </p>
           <div>
             <Button label="Get Started" size="lg" onClick={handleClick} />
           </div>
         </div>
       </div>
-      {/* <div className={styles.why}>
-        <h1>Why use Datadeque?</h1>
-        <div className={styles.layout}>
-          <div className={styles.item}>
-            <div className={styles.box}>
-              <div className={styles.icon}>{opensource}</div>
+      <div className={styles.why}>
+        <div className={styles.content}>
+          <h1>Why Datadeque?</h1>
+          <div className={styles.whys}>
+            <div className={styles.item}>
+              <div className={styles.box}>
+                <div className={styles.icon}>{opensource}</div>
+              </div>
+              Open Source
+              <p>
+                Datadeque is open source, which allows you to customize our
+                service to meet your unique needs.
+              </p>
             </div>
-            Open Source
-            <p>
-              Datadeque is open source, which allows you to customize our
-              service to meet your unique needs.
-            </p>
-          </div>
-          <div className={styles.item}>
-            <div className={styles.box}>
+            <div className={styles.item}>
               <div className={styles.icon}>{seo}</div>
+              SEO
+              <p>
+                Datadeque uses SEO, which ensures peak performance and that your
+                published data is easy to find.
+              </p>
             </div>
-            SEO
-            <p>
-              Datadeque uses SEO, which ensures peak performance and that your
-              published data is easy to find.
-            </p>
-          </div>
-          <div className={styles.item}>
-            <div className={styles.box}>
-              <div className={styles.icon}>{free}</div>
+            <div className={styles.item}>
+              <div className={styles.box}>
+                <div className={styles.icon}>{free}</div>
+              </div>
+              Free Plan
+              <p>
+                Datadeque offers a flexible and free plan to meet your
+                requirements. Join us today!
+              </p>
             </div>
-            Flexible Free Plan
-            <p>
-              Datadeque offers a flexible and free plan to meet your
-              requirements. Join us today!
-            </p>
           </div>
         </div>
-      </div> */}
+      </div>
     </>
   )
 }

@@ -2,7 +2,7 @@
 
 @mixin section {
   display: flex;
-  flex: 1;
+  flex: 1 0 100vh;
 
   align-items: center;
   justify-content: center;
@@ -11,32 +11,16 @@
 .landing {
   @include section;
   text-align: center;
-}
 
-.content {
-  @include column;
-  gap: 40px;
-  width: 80%;
-}
+  .content {
+    @include column;
+    gap: 40px;
+    width: 80%;
 
-@mixin base {
-  @include column;
-  height: inherit;
-  flex: 1;
-  font-size: 42px;
-  gap: 40px;
-
-  @include mobile {
-    font-size: 40px;
-    gap: 30px;
-  }
-}
-
-.container {
-  @include base;
-  height: 100vh !important;
-  @include themed-styles {
-    background: themed-colour('landing-gradient');
+    @include mobile {
+      font-size: 12px;
+      gap: 10px;
+    }
   }
 }
 
@@ -54,96 +38,104 @@
 }
 
 .why {
-  @include column;
-  flex: 1;
-  justify-content: center;
-  align-items: center;
-  text-align: left;
-  height: 100vh;
-  gap: 50px;
-  margin-top: 10px;
+  @include section;
 
-  line-height: 1.15;
-  font-size: 90px;
-  font-weight: 500;
+  flex: 1 0 70vh;
+  flex-direction: column;
 
-  @include mobile {
-    font-size: 36px;
-  }
-}
+  h1 {
+    font-size: 50px;
+    margin: -12vh;
+    padding: 12vh;
+    border-radius: 20px;
 
-.layout {
-  @include row;
-  gap: 10px;
+    @include themed-styles {
+      border: 3px rgba(themed-colour('text-muted'), 0.2) solid;
+    }
 
-  @include mobile {
-    @include column;
-    gap: 5px;
-  }
-}
-
-.item {
-  @include column;
-  font-size: 36px;
-  line-height: 1.15;
-  padding: 20px;
-  max-width: 20vw;
-  font-weight: 500;
-  justify-content: center;
-  align-items: left;
-  gap: 20px;
-
-  p {
-    margin: 0;
-    padding: 0;
-    font-size: 20px;
-    font-weight: normal;
-    text-align: left;
-    line-height: 1.15;
-  }
-
-  @include mobile {
-    max-width: 75vw;
-    font-size: 24px;
-    padding: 10px;
-
-    p {
-      font-size: 16px;
+    @include mobile {
+      font-size: 25px;
+      margin: -5vw;
+      padding: 5vw;
+      margin-bottom: -24vh;
+      padding-bottom: 18vh;
     }
   }
-}
 
-.box {
-  border-radius: 50%;
-  height: 120px;
-  width: 120px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  @include themed-styles {
-    background-color: themed-colour('accent-primary');
+  gap: 80px;
+
+  .content {
+    gap: 100px;
+    display: flex;
+    flex-direction: column;
   }
 
-  @include mobile {
-    height: 65px;
-    width: 65px;
-  }
-}
+  .whys {
+    @include row;
+    gap: 50px;
 
-.icon {
-  svg {
-    height: 45px;
-    width: 45px;
-  }
-  @include themed-styles {
-    fill: white;
-    stroke: white;
+    align-items: flex-start;
+    @include mobile {
+      @include column;
+      gap: 5px;
+    }
   }
 
-  @include mobile {
+  .item {
+    @include column;
+    font-size: 36px;
+    max-width: 18vw;
+    font-weight: 500;
+    justify-content: center;
+    gap: 20px;
+
+    p {
+      margin: 0;
+      padding: 0;
+      font-size: 15px;
+      font-weight: normal;
+      line-height: 1.15;
+    }
+
+    @include mobile {
+      max-width: 75vw;
+      font-size: 24px;
+      padding: 10px;
+
+      p {
+        font-size: 16px;
+      }
+    }
+  }
+
+  .icon {
+    @include shadowed;
+    border-radius: 50%;
+    height: 120px;
+    width: 120px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    @include themed-styles {
+      fill: white;
+      stroke: white;
+
+      background-color: themed-colour('accent-primary');
+    }
+
     svg {
-      height: 35px;
-      width: 35px;
+      height: 45px;
+      width: 45px;
+    }
+
+    @include mobile {
+      height: 65px;
+      width: 65px;
+      svg {
+        height: 35px;
+        width: 35px;
+      }
     }
   }
 }

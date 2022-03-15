@@ -36,7 +36,6 @@ h6 {
   }
 
   max-width: 100vw;
-  overflow-x: hidden;
 }
 
 $num-sections: 1;
@@ -44,5 +43,4 @@ $num-sections: 1;
 .content {
   display: flex;
   flex-direction: column;
-  height: calc($num-sections * 100vh);
 }
