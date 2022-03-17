@@ -7,7 +7,7 @@ import {
   useState,
 } from 'react'
 import { AuthContext } from 'src/contexts'
-import { useLoginUserMutation } from 'src/graphql/hooks'
+import { useCreateUserMutation, useLoginUserMutation } from 'src/graphql/hooks'
 
 const initialState = {
   username: '',
@@ -59,6 +59,7 @@ const validateReEnteredPassword = (
 
 export const useAuthenticate = () => {
   const [loginUser] = useLoginUserMutation()
+  const [createUser] = useCreateUserMutation()
 
   const [formState, setFormState] = useState('login')
   const [data, setData] = useState({ ...initialState })
@@ -112,9 +113,27 @@ export const useAuthenticate = () => {
     })
   }, [formState])
 
-  const handleSignUp = () => {
-    validate()
-  }
+  const handleSignUp = useCallback(async () => {
+    const errors = validate()
+    if (Object.values(errors).join('').length === 0) {
+      try {
+        setLoading(true)
+        await createUser({
+          variables: {
+            createUserInput: {
+              email: data.email,
+              username: data.username,
+              password: data.password,
+            },
+          },
+        })
+        refetch()
+      } catch (err) {
+        setUserError((err as ApolloError).message)
+      }
+      setLoading(false)
+    }
+  }, [validate, data, createUser, refetch])
 
   const handleSignIn = useCallback(async () => {
     const errors = validate()
