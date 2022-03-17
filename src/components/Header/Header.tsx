@@ -33,6 +33,7 @@ export const Header: React.FC = () => {
       </Link>
       <div className={styles.links}>
         <ThemeButton />
+        {}
         <Link href="/link1">Link 1</Link>
         <Link href="/link2">Link 2</Link>
         {!pathname.match('/authenticate') && (
