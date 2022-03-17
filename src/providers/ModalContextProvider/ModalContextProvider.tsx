@@ -7,10 +7,10 @@ export const ModalContextProvider: React.FC<{ children: ReactNode }> = ({
 }: {
   children: ReactNode
 }) => {
-  const useProjectModalState = useState(false)
+  const useNewProjectModalState = useState(false)
   return (
-    <ModalContext.Provider value={{ useProjectModalState }}>
-      {useProjectModalState[0] && <NewProjectModal />}
+    <ModalContext.Provider value={{ useNewProjectModalState }}>
+      {useNewProjectModalState[0] && <NewProjectModal />}
       {children}
     </ModalContext.Provider>
   )

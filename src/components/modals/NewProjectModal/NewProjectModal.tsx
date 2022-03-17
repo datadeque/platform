@@ -19,7 +19,7 @@ const initialData = {
 export const NewProjectModal = () => {
   const [data, setData] = useState({ ...initialData })
   const {
-    useProjectModalState: [, setProjectModalState],
+    useNewProjectModalState: [, setNewProjectModalState],
   } = useContext(ModalContext)
 
   const handleNameChange = useCallback(
@@ -42,7 +42,7 @@ export const NewProjectModal = () => {
         <div className={styles.fields}>
           <div className={styles.header}>
             <h1>New Project</h1>
-            <svg onClick={() => setProjectModalState(false)}>{close}</svg>
+            <svg onClick={() => setNewProjectModalState(false)}>{close}</svg>
           </div>
           <TextField
             label="Project Name"
@@ -145,11 +145,11 @@ export const NewProjectModal = () => {
         <div className={styles.panel} />
         <div
           className={styles.close}
-          onClick={() => setProjectModalState(false)}
+          onClick={() => setNewProjectModalState(false)}
         />
         <div
           className={styles.close}
-          onClick={() => setProjectModalState(false)}
+          onClick={() => setNewProjectModalState(false)}
         >
           <svg>{close}</svg>
         </div>
