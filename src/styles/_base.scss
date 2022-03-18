@@ -20,3 +20,9 @@
     background-color: themed-colour('background0');
   }
 }
+
+@mixin shadowed {
+  @include themed-styles {
+    box-shadow: 2px 3px 4px themed-colour('shadow-primary');
+  }
+}

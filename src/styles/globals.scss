@@ -32,5 +32,15 @@ h6 {
   @include themed-styles {
     background-color: themed-colour('backdrop');
     color: themed-colour('text-primary');
+    background-blend-mode: darken;
   }
+
+  max-width: 100vw;
+}
+
+$num-sections: 1;
+
+.content {
+  display: flex;
+  flex-direction: column;
 }

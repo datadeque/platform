@@ -1,6 +1,24 @@
 $themes: (
   dark: (
     backdrop: #172436,
+    landing-gradient:
+      radial-gradient(
+        hsl(214deg 69% 19%) 0%,
+        hsl(214deg 66% 18%) 5%,
+        hsl(215deg 64% 17%) 11%,
+        hsl(215deg 61% 16%) 17%,
+        hsl(216deg 59% 15%) 22%,
+        hsl(216deg 56% 14%) 28%,
+        hsl(217deg 54% 13%) 34%,
+        hsl(217deg 52% 12%) 40%,
+        hsl(217deg 49% 11%) 46%,
+        hsl(218deg 47% 10%) 53%,
+        hsl(218deg 45% 8%) 60%,
+        hsl(219deg 43% 7%) 67%,
+        hsl(219deg 41% 6%) 77%,
+        hsl(220deg 39% 5%) 88%,
+        hsl(220deg 38% 3%) 100%
+      ),
     background0: #0d0b17,
     text-primary: #fefeff,
     text-muted: #a5a9ae,
@@ -13,8 +31,26 @@ $themes: (
   ),
   light: (
     backdrop: #f1f7fa,
+    landing-gradient:
+      radial-gradient(
+        hsl(195deg 71% 88%) 0%,
+        hsl(195deg 70% 88%) 5%,
+        hsl(196deg 70% 89%) 11%,
+        hsl(196deg 69% 90%) 17%,
+        hsl(196deg 68% 90%) 22%,
+        hsl(197deg 68% 91%) 28%,
+        hsl(197deg 67% 91%) 34%,
+        hsl(197deg 66% 92%) 40%,
+        hsl(198deg 64% 93%) 46%,
+        hsl(198deg 63% 93%) 53%,
+        hsl(199deg 61% 94%) 60%,
+        hsl(199deg 59% 94%) 67%,
+        hsl(199deg 56% 95%) 77%,
+        hsl(200deg 52% 96%) 88%,
+        hsl(200deg 47% 96%) 100%
+      ),
     background0: white,
-    text-primary: #373738,
+    text-primary: #505050,
     text-muted: #7f7f81,
     accent-primary: #57ccf2,
     accent-secondary: #8c8c90,

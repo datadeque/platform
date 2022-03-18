@@ -1,0 +1,141 @@
+@import 'src/styles/base';
+
+@mixin section {
+  display: flex;
+  flex: 1 0 100vh;
+
+  align-items: center;
+  justify-content: center;
+}
+
+.landing {
+  @include section;
+  text-align: center;
+
+  .content {
+    @include column;
+    gap: 40px;
+    width: 80%;
+
+    @include mobile {
+      font-size: 12px;
+      gap: 10px;
+    }
+  }
+}
+
+.title {
+  text-align: center;
+  font-size: 50px;
+  font-weight: 500;
+  letter-spacing: 8px;
+  @include themed-styles {
+    color: themed-colour('text-primary');
+  }
+  @include mobile {
+    font-size: 45px;
+  }
+}
+
+.why {
+  @include section;
+
+  flex: 1 0 70vh;
+  flex-direction: column;
+
+  h1 {
+    font-size: 50px;
+    margin: -12vh;
+    padding: 12vh;
+    border-radius: 20px;
+
+    @include themed-styles {
+      border: 3px rgba(themed-colour('text-muted'), 0.2) solid;
+    }
+
+    @include mobile {
+      font-size: 25px;
+      margin: -5vw;
+      padding: 5vw;
+      margin-bottom: -24vh;
+      padding-bottom: 18vh;
+    }
+  }
+
+  gap: 80px;
+
+  .content {
+    gap: 100px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .whys {
+    @include row;
+    gap: 50px;
+
+    align-items: flex-start;
+    @include mobile {
+      @include column;
+      gap: 5px;
+    }
+  }
+
+  .item {
+    @include column;
+    font-size: 36px;
+    max-width: 18vw;
+    font-weight: 500;
+    justify-content: center;
+    gap: 20px;
+
+    p {
+      margin: 0;
+      padding: 0;
+      font-size: 15px;
+      font-weight: normal;
+      line-height: 1.15;
+    }
+
+    @include mobile {
+      max-width: 75vw;
+      font-size: 24px;
+      padding: 10px;
+
+      p {
+        font-size: 16px;
+      }
+    }
+  }
+
+  .icon {
+    @include shadowed;
+    border-radius: 50%;
+    height: 120px;
+    width: 120px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    @include themed-styles {
+      fill: white;
+      stroke: white;
+
+      background-color: themed-colour('accent-primary');
+    }
+
+    svg {
+      height: 45px;
+      width: 45px;
+    }
+
+    @include mobile {
+      height: 65px;
+      width: 65px;
+      svg {
+        height: 35px;
+        width: 35px;
+      }
+    }
+  }
+}
