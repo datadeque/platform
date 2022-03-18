@@ -1,8 +1,8 @@
 @import 'src/styles/base';
 
 .logo {
-  max-width: 64px;
-  margin: 30px;
+  max-width: 24px;
+  margin: 20px;
   content: url(../../stories/assets/logo.svg);
   filter: invert(48%) sepia(74%) saturate(5427%) hue-rotate(202deg) brightness(96%) contrast(78%);
 }
@@ -10,6 +10,8 @@
 .main {
   height: 100vh;
   width: 100vw;
+  overflow: hidden;
+  
   @include themed-styles {
     background-color: themed-colour('backdrop');
   }
@@ -18,12 +20,45 @@
 }
 
 .layout {
+  @include row;
+}
+
+.sidebar {
+  width: 20%;
+  height: 100vh;
+  margin: 20px;
+  padding-top: 30px;
+
+  @include themed-styles {
+    background-color: themed-colour('backdrop');
+    border-right: 1px solid themed-colour('text-muted');
+  }
+
+  input {
+    @include themed-styles {
+      border: 1px solid themed-colour('text-muted');
+    }
+  }
+
+  p {
+    @include themed-styles {
+      color: themed-colour('text-primary');
+    }
+  }
+}
+
+.content {
   @include column;
-  margin: auto;
+  margin: 0 32px;
 
   height: 100%;
   width: 80%;
   align-items: center;
+
+  >div {
+    width: 100%;
+    margin-bottom: 15px;
+  }
 }
 
 @mixin base {
@@ -37,9 +72,15 @@
   justify-content: space-between;
   width: 100%;
   margin-bottom: 15px;
+  padding-bottom: 10px;
 
   @include themed-styles {
     color: themed-colour('text-primary');
+    border-bottom: 1px solid themed-colour('text-muted');
+  }
+
+  button {
+    width: 50px;
   }
 }
 
@@ -47,4 +88,34 @@
   @include row;
   width: 100%;
   justify-content: flex-end;
+}
+
+.labels {
+  @include row;
+  justify-content: space-between;
+  margin-left: 15px;
+  
+  h3 {
+    font-weight: normal;
+    font-size: 17px;
+  }
+
+  @include themed-styles {
+    color: themed-colour('text-muted');
+  }
+
+  .infoLabels {
+    @include row;
+    width: 45%;
+    justify-content: space-between;
+    margin-right: 20px;
+  }
+}
+
+.defaultEmpty {
+  font-weight: normal;
+  font-size: 18px;
+  @include themed-styles {
+    color: themed-colour('text-muted');
+  }
 }

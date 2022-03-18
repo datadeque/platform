@@ -5,32 +5,73 @@
   @include boxed;
   @include rounded;
 
-  padding: 25px;
+  padding: 10px;
+  margin-bottom: 10px;
+  width: 100%;
 
   @include themed-styles {
     background-color: themed-colour('background0');
+    box-shadow: 1px 2px themed-colour('shadow-primary');
+  }
+
+  .editButton {
+    display: flex;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  :hover {
+    cursor: pointer;
+
+    .editButton {
+      opacity: 100%;
+    }
   }
 }
 
 .header {
-  @include row;
-  h2 {
-    font-size: 35px;
-  }
+  @include column;
+  margin-left: 10px;
 
-  justify-content: space-between;
+  h2 {
+    font-size: 15px;
+  }
+}
+
+.titleBlock {
+  @include row;
+
+  .picture {
+    width: 32px;
+    height: 32px;
+    background-color: gray;
+  }
 }
 
 .content {
-  @include column;
+  @include row;
+  align-items: center;
+  justify-content: space-between;
 
   h3 {
     font-size: 12px;
-    margin-bottom: 10px;
     @include themed-styles {
       color: themed-colour('text-muted');
     }
   }
+}
 
-  margin-bottom: 10px;
+.projectInfo {
+  display: flex;
+  width: 55%;
+  justify-content: space-between;
+  align-items: center;
+
+  button {
+    max-height: 36px
+  }
+  p {
+    max-height: 16px;
+    margin-right: 35px;
+  }
 }
