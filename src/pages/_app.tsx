@@ -5,6 +5,7 @@ import { Compose, Header, Footer } from 'src/components'
 import {
   ApolloClientProvider,
   AuthContextProvider,
+  ModalContextProvider,
   ThemeContextProvider,
 } from 'src/providers'
 
@@ -25,6 +26,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         ThemeContextProvider,
         ApolloClientProvider,
         AuthContextProvider,
+        ModalContextProvider,
       ]}
     >
       <div className="main">

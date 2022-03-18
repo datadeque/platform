@@ -1,4 +1,5 @@
 export * from './wrappers'
+export * from './modals'
 export * from './Compose'
 export * from './Button'
 export * from './TextField'
