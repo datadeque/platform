@@ -1,0 +1,89 @@
+@import '/src/styles/base';
+
+.container {
+  @include column;
+  @include boxed;
+  @include rounded;
+
+  padding: 3px 10px;
+  margin-bottom: 10px;
+  flex: 1;
+
+  @include themed-styles {
+    background-color: themed-colour('background0');
+    box-shadow: 1px 2px 5px themed-colour('shadow-primary');
+  }
+
+  button {
+    display: flex;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  :hover {
+    cursor: pointer;
+    p {
+      cursor: text;
+    }
+    button {
+      opacity: 100%;
+    }
+  }
+}
+
+.header {
+  @include column;
+
+  h2 {
+    font-size: 15px;
+    font-weight: 400;
+    @include themed-styles {
+      color: themed-colour('text-primary');
+    }
+  }
+}
+
+.title {
+  @include row;
+  gap: 10px;
+
+  .picture {
+    width: 32px;
+    border-radius: 5px;
+    background-color: gray;
+  }
+}
+
+.content {
+  @include row;
+  align-items: center;
+  justify-content: space-between;
+
+  h3 {
+    font-size: 12px;
+    font-weight: normal;
+    @include themed-styles {
+      color: themed-colour('text-muted');
+    }
+  }
+}
+
+.info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  @include mobile {
+    gap: 10px;
+  }
+
+  button {
+    max-height: 36px;
+  }
+  p {
+    max-height: 16px;
+  }
+  svg {
+    justify-content: end;
+  }
+}
