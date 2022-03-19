@@ -49,6 +49,9 @@
     &:hover {
       background-color: themed-colour('button-selected-primary');
     }
+    &:hover:disabled {
+      background-color: themed-colour('accent-primary');
+    }
   }
 }
 
@@ -57,6 +60,9 @@
     background-color: themed-colour('accent-secondary');
     &:hover {
       background-color: themed-colour('button-selected-secondary');
+    }
+    &:hover:disabled {
+      background-color: themed-colour('accent-secondary');
     }
   }
 }
