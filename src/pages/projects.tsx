@@ -1,30 +1,53 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import type { NextPage } from 'next'
-import { Button, ProjectWrapper } from 'src/components'
+import { Button, ProjectWrapper, Header, DropdownOption } from 'src/components'
 import styles from 'src/styles/Projects.module.scss'
 import { useProjects } from 'src/hooks'
+import { searchIcon, downChevron } from 'src/components/icons'
+
 
 const Home: NextPage = () => {
   const {
     projectList,
     handleAddProject,
+    sortMenu,
+    toggleSortMenu,
   } = useProjects()
-
-  const logo = (
-    <a className={styles.logo}></a>
-  )
 
   const sidebar = (
     <div className={styles.sidebar}>
-      <input type="text" placeholder="Search"/>
-      <p>- of - free projects used</p>
+      <div className={styles.searchBar}>
+        <div className={styles.searchIcon}>{searchIcon}</div>
+        <input type="text" placeholder="Search your projects"/>
+      </div>
+      <div className={styles.stats}>
+        <h3>Stats</h3>
+        <p>- of - free projects used</p>
+        <p>- total project views</p>
+        <p>- projects published</p>
+      </div>
     </div>
   )
   
+  const sortDropdown = (
+    <div className={styles.sortDropdown}>
+      <DropdownOption label="Last edited" variant="lastEdited"/>
+      <DropdownOption label="Date created" variant="dateCreated"/>
+      <DropdownOption label="Alphabetical" />
+    </div>
+  )
+
   const head = (
     <div className={styles.header}>
-      <h2>My Projects</h2>
-      <Button label="+" onClick={handleAddProject}/>
+      <h2>My projects</h2>
+      <div className={styles.subheader}>
+        <Button label="+ New project" onClick={handleAddProject}/>
+        <div className={styles.sortMenu} onClick={toggleSortMenu}>
+          Sort by
+          {downChevron}
+        </div>
+        {sortMenu? sortDropdown : null}
+      </div>
     </div>
   )
 
@@ -34,7 +57,7 @@ const Home: NextPage = () => {
       <div className={styles.infoLabels}>
         <h3>Nodes</h3>
         <h3>Visibility</h3>
-        <h3>Status</h3>
+        <h3>Views</h3>
         <h3>Actions</h3>
       </div>
     </div>
@@ -48,16 +71,13 @@ const Home: NextPage = () => {
 
   return (
     <div className={styles.main}>
-      <div>{logo}</div>
+      <Header/>
       <div className={styles.layout}>
         {sidebar}
         <div className={styles.content}>
           {head}
           {labels}
-          <ProjectWrapper title="Default Sample" lastEdited="Last edited: Mar. 10, 2022" nodes={2} />
           {projectList.length == 0? emptyMessage : projectList}
-        </div>
-        <div>
         </div>
       </div>
     </div>

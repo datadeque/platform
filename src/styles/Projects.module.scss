@@ -1,16 +1,10 @@
 @import 'src/styles/base';
 
-.logo {
-  max-width: 24px;
-  margin: 20px;
-  content: url(../../stories/assets/logo.svg);
-  filter: invert(48%) sepia(74%) saturate(5427%) hue-rotate(202deg) brightness(96%) contrast(78%);
-}
-
 .main {
   height: 100vh;
   width: 100vw;
   overflow: hidden;
+  padding-top: 80px;
   
   @include themed-styles {
     background-color: themed-colour('backdrop');
@@ -21,28 +15,56 @@
 
 .layout {
   @include row;
+  @include themed-styles {
+    border-top: 1px solid themed-colour('divider');
+  }
 }
 
 .sidebar {
   width: 20%;
   height: 100vh;
-  margin: 20px;
-  padding-top: 30px;
+  padding: 25px;
 
   @include themed-styles {
     background-color: themed-colour('backdrop');
-    border-right: 1px solid themed-colour('text-muted');
-  }
-
-  input {
-    @include themed-styles {
-      border: 1px solid themed-colour('text-muted');
-    }
+    border-right: 1px solid themed-colour('divider');
   }
 
   p {
+    font-weight: normal;
     @include themed-styles {
       color: themed-colour('text-primary');
+    }
+  }
+
+  .stats {
+    margin-top: 70px;
+  }
+}
+
+.searchBar {
+  display: flex;
+  align-items: center;
+  border-radius: 3px;
+  @include themed-styles {
+    background-color: themed-colour('background0');
+  }
+
+  .searchIcon {
+    padding: 0 5px 0 8px;
+      @include themed-styles {
+        fill: themed-colour('text-primary');
+      }
+  }
+
+  input {
+    border: none;
+    font-size: 14px;
+    height: 32px;
+    background-color: inherit;
+
+    &:focus {
+      outline: none;
     }
   }
 }
@@ -68,7 +90,7 @@
 }
 
 .header {
-  @include row;
+  @include column;
   justify-content: space-between;
   width: 100%;
   margin-bottom: 15px;
@@ -76,11 +98,29 @@
 
   @include themed-styles {
     color: themed-colour('text-primary');
-    border-bottom: 1px solid themed-colour('text-muted');
+    border-bottom: 1px solid themed-colour('divider');
   }
 
-  button {
-    width: 50px;
+  h2 {
+    font-weight: normal;
+    font-size: 22px;
+    padding: 20px 0;
+  }
+
+  .subheader {
+    @include row;
+    justify-content: space-between;
+    button {
+      width: 120px;
+    }
+
+    .sortMenu {
+      display: inline-flex;
+      border-radius: 3px;
+      @include themed-styles {
+        background-color: themed-colour('background0');
+      }
+    }
   }
 }
 
@@ -97,7 +137,7 @@
   
   h3 {
     font-weight: normal;
-    font-size: 17px;
+    font-size: 14px;
   }
 
   @include themed-styles {
@@ -115,7 +155,26 @@
 .defaultEmpty {
   font-weight: normal;
   font-size: 18px;
+  display: flex;
+  justify-content: space-around;
+  padding-top: 10px;
   @include themed-styles {
     color: themed-colour('text-muted');
   }
+}
+
+.sortMenu {
+  align-items: center;
+  padding: 0 10px;
+  font-size: 14px;
+}
+
+.sortDropdown {
+  position: absolute;
+  transform: translate3d(120vh, 4vh, 0px);
+  border-radius: 5px;
+  @include themed-styles {
+    box-shadow: 3px 1px 2px themed-colour('shadow-primary');
+  }
+  z-index: 1;
 }

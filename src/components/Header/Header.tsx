@@ -9,7 +9,7 @@ import { useRouter } from 'next/router'
 import classNames from 'classnames'
 
 import { Button, ThemeButton } from 'src/components'
-import { cancelIcon, logo, menuIcon } from './icons'
+import { cancelIcon, logo, menuIcon } from '../icons'
 
 import styles from './Header.module.scss'
 

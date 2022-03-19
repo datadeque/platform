@@ -1,26 +1,28 @@
 import { ReactNode } from 'react'
 
 import styles from './ProjectWrapper.module.scss'
-import { Button } from 'src/components/';
+import { Button, DropdownOption } from 'src/components/';
 import { useProjects } from 'src/hooks'
+import { bubbleMenuIcon } from 'src/components/icons'
 
 interface Props {
   title: string
   lastEdited: string
   nodes: number
+  views: number
 }
 
 export const ProjectWrapper: React.FC<Props> = ({
   title,
   lastEdited,
   nodes,
+  views,
 }: Props) => {
   const {
-    published,
     visibility,
     handleDeleteProject,
-    toggleVisibility,
-    handlePublishProject,
+    actionMenu,
+    toggleActionMenu,
   } = useProjects()
 
   const header = (
@@ -30,13 +32,26 @@ export const ProjectWrapper: React.FC<Props> = ({
     </div>
   )
 
+  const actionMenuDropdown = (
+    <div className={styles.menuDropdown}>
+      <DropdownOption label="View/Publish"/>
+      <DropdownOption label="Rename"/>
+      <DropdownOption label="Duplicate"/>
+      <DropdownOption label="Share"/>
+      <DropdownOption label="Delete" variant="delete"/>
+    </div>
+  )
+
   const projectInfo = (
     <div className={styles.projectInfo}>
       <div className={styles.editButton}><Button label="Edit" /></div>
       <p>{nodes}</p>
-      {visibility === "public"? <Button label="Public" onClick={toggleVisibility}/> : <Button label="Private" onClick={toggleVisibility}/>}
-      {published? <Button label="Published" /> : <Button label="Publish" onClick={handlePublishProject}/>}
-      <Button label="Delete" variant="secondary" onClick={handleDeleteProject}/>
+      {visibility === "public"? <p>Public</p> : <p>Private</p>}
+      <p>{views}</p>
+      <div className={styles.actionMenu} onClick={toggleActionMenu}>
+        {bubbleMenuIcon}
+      </div>
+        {actionMenu? actionMenuDropdown : null}
     </div>
   )
 

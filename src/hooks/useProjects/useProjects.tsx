@@ -6,6 +6,7 @@ let count = 0;
 const initialState = {
   title: 'My Project ',
   nodes: 0,
+  views: 0,
 }
 
 const NewProject = () => {
@@ -13,14 +14,15 @@ const NewProject = () => {
   let month = date.toLocaleString('default', { month: 'long' }) + ' '
   let lastEdit = 'Last edited: ' + month + date.getUTCDate() + ', ' + date.getUTCFullYear()
   let title = initialState.title + count
-  return <ProjectWrapper  title={title} lastEdited={lastEdit} nodes={initialState.nodes}  />
+  return <ProjectWrapper  title={title} lastEdited={lastEdit} nodes={initialState.nodes}  views={initialState.views}/>
 }
 
 
 export const useProjects = () => {
   const [projectList, setProjectList] = useState([])
   const [visibility, setVisibility] = useState('private')
-  const [published, setPublish] = useState(false)
+  const [actionMenu, setOpenActionMenu] = useState(false)
+  const [sortMenu, setSortMenu] = useState(false)
 
   const handleAddProject = useCallback(() => {
     setProjectList(projectList.concat(<NewProject key={"project"+count}/>))
@@ -42,11 +44,22 @@ export const useProjects = () => {
     }
   }, [visibility])
 
-  const handlePublishProject = useCallback(() => {
-    if (!published){
-      setPublish(true)
+  const toggleActionMenu = useCallback(() => {
+    if (actionMenu ){
+      setOpenActionMenu(false)
+    } else {
+      setOpenActionMenu(true)
     }
-  }, [published])
+  }, [actionMenu])
+
+  const toggleSortMenu = useCallback(() => {
+    if (sortMenu ){
+      setSortMenu(false)
+    } else {
+      setSortMenu(true)
+    }
+  }, [sortMenu])
+
 
 
   return {
@@ -55,7 +68,9 @@ export const useProjects = () => {
     handleDeleteProject,
     toggleVisibility,
     visibility,
-    published,
-    handlePublishProject,
+    actionMenu,
+    toggleActionMenu,
+    sortMenu,
+    toggleSortMenu,
   }
 }

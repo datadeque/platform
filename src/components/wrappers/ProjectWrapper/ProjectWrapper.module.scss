@@ -5,13 +5,13 @@
   @include boxed;
   @include rounded;
 
-  padding: 10px;
+  padding: 3px 10px;
   margin-bottom: 10px;
   width: 100%;
 
   @include themed-styles {
     background-color: themed-colour('background0');
-    box-shadow: 1px 2px themed-colour('shadow-primary');
+    box-shadow: 1px 2px 5px themed-colour('shadow-primary');
   }
 
   .editButton {
@@ -22,7 +22,9 @@
 
   :hover {
     cursor: pointer;
-
+    p {
+      cursor: text;
+    }
     .editButton {
       opacity: 100%;
     }
@@ -35,6 +37,10 @@
 
   h2 {
     font-size: 15px;
+    font-weight: 400;
+    @include themed-styles {
+      color: themed-colour('text-primary');
+    }
   }
 }
 
@@ -44,6 +50,7 @@
   .picture {
     width: 32px;
     height: 32px;
+    border-radius: 5px;
     background-color: gray;
   }
 }
@@ -55,6 +62,7 @@
 
   h3 {
     font-size: 12px;
+    font-weight: normal;
     @include themed-styles {
       color: themed-colour('text-muted');
     }
@@ -63,15 +71,45 @@
 
 .projectInfo {
   display: flex;
-  width: 55%;
+  width: 57%;
   justify-content: space-between;
   align-items: center;
 
   button {
-    max-height: 36px
+    max-height: 36px;
   }
   p {
     max-height: 16px;
-    margin-right: 35px;
+    margin-right: 25px;
   }
+
+  .actionMenu {
+    margin-right: 15px;
+    position: relative;
+    display: inline-block;
+    @include themed-styles {
+      fill: themed-colour('text-primary');
+      stroke: themed-colour('backdrop');
+    }
+
+    :hover {
+      transition: 0.2s;
+      border-radius: 2px;
+      opacity: 60%;
+      @include themed-styles {
+        background-color: themed-colour('text-muted');
+        fill: themed-colour('backdrop');
+        stroke: themed-colour('text-muted');
+      }
+    }
+  }
+}
+
+.menuDropdown {
+  position: absolute;
+  transform: translate3d(430px, 110px, 0px);
+  @include themed-styles {
+    box-shadow: 3px 1px 2px themed-colour('shadow-primary');
+  }
+  z-index: 1;
 }
