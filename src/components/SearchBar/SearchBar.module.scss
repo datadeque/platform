@@ -1,0 +1,32 @@
+@import '/src/styles/base';
+
+.searchBar {
+  display: flex;
+  align-items: center;
+  border-radius: 3px;
+  @include themed-styles {
+    background-color: themed-colour('background0');
+  }
+
+  .searchIcon {
+    padding: 0 5px 0 8px;
+    @include themed-styles {
+      fill: themed-colour('text-primary');
+    }
+  }
+
+  input {
+    border: none;
+    font-size: 14px;
+    height: 32px;
+    background-color: inherit;
+    overflow: auto;
+    @include themed-styles {
+      color: themed-colour('text-primary');
+    }
+
+    &:focus {
+      outline: none;
+    }
+  }
+}
