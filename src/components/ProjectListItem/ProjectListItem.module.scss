@@ -1,0 +1,86 @@
+@import '/src/styles/base';
+
+.container {
+  @include column;
+  @include boxed;
+  @include rounded;
+
+  padding: 3px 10px;
+  margin-bottom: 10px;
+  width: 100%;
+
+  @include themed-styles {
+    background-color: themed-colour('background0');
+    box-shadow: 1px 2px 5px themed-colour('shadow-primary');
+  }
+
+  Button {
+    display: flex;
+    opacity: 0;
+    transition: opacity 0.3s;
+    margin-right: 15px;
+  }
+
+  :hover {
+    cursor: pointer;
+    p {
+      cursor: text;
+    }
+    Button {
+      opacity: 100%;
+    }
+  }
+}
+
+.header {
+  @include column;
+  margin-left: 10px;
+
+  h2 {
+    font-size: 15px;
+    font-weight: 400;
+    @include themed-styles {
+      color: themed-colour('text-primary');
+    }
+  }
+}
+
+.titleBlock {
+  @include row;
+
+  .picture {
+    width: 32px;
+    height: 32px;
+    border-radius: 5px;
+    background-color: gray;
+  }
+}
+
+.content {
+  @include row;
+  align-items: center;
+  justify-content: space-between;
+
+  h3 {
+    font-size: 12px;
+    font-weight: normal;
+    @include themed-styles {
+      color: themed-colour('text-muted');
+    }
+  }
+}
+
+.projectInfo {
+  display: flex;
+  width: 57%;
+  justify-content: space-between;
+  align-items: center;
+
+  button {
+    max-height: 36px;
+  }
+  p {
+    max-height: 16px;
+    margin-right: 25px;
+  }
+}
