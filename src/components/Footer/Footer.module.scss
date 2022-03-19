@@ -6,10 +6,12 @@
   padding: 10px;
   background-color: transparent;
 
-  flex: 1;
   display: flex;
   justify-content: center;
   @include mobile {
     padding: 10px 15px 5px;
+  }
+  @include themed-styles {
+    background-color: themed-colour('backdrop');
   }
 }

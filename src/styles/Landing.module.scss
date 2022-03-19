@@ -6,6 +6,10 @@
 
   align-items: center;
   justify-content: center;
+
+  @include themed-styles {
+    background-color: themed-colour('backdrop');
+  }
 }
 
 .landing {
