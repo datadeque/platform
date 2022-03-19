@@ -1,15 +1,17 @@
 @import '/src/styles/base';
 
-.searchBar {
+.container {
   display: flex;
   align-items: center;
   border-radius: 3px;
+  gap: 5px;
+
   @include themed-styles {
     background-color: themed-colour('backdrop');
   }
 
-  .searchIcon {
-    padding: 0 5px 0 8px;
+  svg {
+    margin-left: 8px;
     @include themed-styles {
       fill: themed-colour('text-primary');
     }

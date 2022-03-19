@@ -31,8 +31,8 @@ export const SearchBar: React.FC<Props> = (props: Props) => {
   } = props
 
   return (
-    <div className={styles.searchBar}>
-      <div className={styles.searchIcon}>{searchIcon}</div>
+    <div className={styles.container}>
+      {searchIcon}
       <input
         value={value}
         type={type}
