@@ -14,7 +14,7 @@
     box-shadow: 1px 2px 5px themed-colour('shadow-primary');
   }
 
-  Button {
+  button {
     display: flex;
     opacity: 0;
     transition: opacity 0.3s;
@@ -26,7 +26,7 @@
     p {
       cursor: text;
     }
-    Button {
+    button {
       opacity: 100%;
     }
   }
@@ -45,7 +45,7 @@
   }
 }
 
-.titleBlock {
+.title {
   @include row;
 
   .picture {
@@ -70,9 +70,9 @@
   }
 }
 
-.projectInfo {
+.info {
   display: flex;
-  width: 57%;
+  width: flex 0.6;
   justify-content: space-between;
   align-items: center;
 
