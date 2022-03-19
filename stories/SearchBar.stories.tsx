@@ -14,4 +14,8 @@ const defaultProps = {
   onChange: () => {},
 }
 
-export const SearchBarSample = () => <SearchBar {...defaultProps} />
+export const SearchBarSample = () => (
+  <div style={{ background: 'white', padding: '10px' }}>
+    <SearchBar {...defaultProps} />
+  </div>
+)

@@ -5,7 +5,7 @@
   align-items: center;
   border-radius: 3px;
   @include themed-styles {
-    background-color: themed-colour('background0');
+    background-color: themed-colour('backdrop');
   }
 
   .searchIcon {
