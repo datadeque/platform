@@ -7,7 +7,7 @@
 
   padding: 3px 10px;
   margin-bottom: 10px;
-  width: 100%;
+  flex: 1;
 
   @include themed-styles {
     background-color: themed-colour('background0');
