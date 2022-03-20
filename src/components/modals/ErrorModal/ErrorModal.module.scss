@@ -1,0 +1,61 @@
+@import 'src/styles/base';
+
+.container {
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  z-index: 1;
+
+  @include themed-styles {
+    background: themed-colour('backdrop');
+    color: themed-colour('text-primary');
+  }
+}
+
+.content {
+  @include column;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  gap: 20px;
+
+  svg {
+    width: 200px;
+    height: 200px;
+    stroke-width: 1px;
+    @include themed-styles {
+      fill: themed-colour('text-primary');
+      stroke: themed-colour('text-primary');
+    }
+  }
+  h2 {
+    font-size: 30px;
+  }
+  p {
+    font-size: 18px;
+  }
+}
+
+.close {
+  display: flex;
+  justify-content: end;
+
+  svg {
+    height: 40px;
+    width: 40px;
+    margin: 10px;
+
+    cursor: pointer;
+    @include themed-styles {
+      fill: themed-colour('text-primary');
+      stroke: themed-colour('text-primary');
+    }
+    &:hover {
+      @include themed-styles {
+        fill: rgba(themed-colour('text-primary'), 0.3);
+        stroke: rgba(themed-colour('text-primary'), 0.3);
+      }
+    }
+  }
+}
