@@ -13,7 +13,7 @@ const defaultProps = {
   title: 'My project',
   lastEdited: 'Mar. 10, 2022',
   nodes: 5,
-  visibility: 'public',
+  visibility: 'Public',
   actionMenuRoot: {
     onClick: () => {},
     label: 'View/Publish',
@@ -34,10 +34,6 @@ const defaultProps = {
     {
       onClick: () => {},
       label: 'Share',
-    },
-    {
-      onClick: () => {},
-      label: 'Rename',
     },
   ],
 }

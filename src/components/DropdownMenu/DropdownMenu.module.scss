@@ -3,7 +3,6 @@
 @mixin base {
   padding: 0px 12px 0px 12px;
   height: 30px;
-  min-width: 100px;
 
   @include themed-styles() {
     fill: rgba(themed-colour('text-primary'), 0.9);

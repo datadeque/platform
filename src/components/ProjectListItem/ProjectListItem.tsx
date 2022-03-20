@@ -63,7 +63,7 @@ export const ProjectListItem: React.FC<Props> = ({
     <div className={styles.info}>
       <Button label="Edit" />
       <p>{nodes}</p>
-      {visibility === 'public' ? <p>Public</p> : <p>Private</p>}
+      <p>{visibility}</p>
       <DropdownMenu
         main={bubbleMenuIcon}
         options={actionMenuOptions}
