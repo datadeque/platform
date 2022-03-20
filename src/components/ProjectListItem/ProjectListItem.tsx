@@ -19,6 +19,7 @@ interface Props {
     onClick: VoidFunction
     label: string | ReactNode
   }[]
+  onClick?: VoidFunction
 }
 
 const bubbleMenuIcon = (
@@ -51,6 +52,7 @@ export const ProjectListItem: React.FC<Props> = ({
   actionMenuRoot,
   actionMenuLast,
   actionMenuOptions,
+  onClick,
 }: Props) => {
   const header = (
     <div className={styles.header}>
@@ -61,7 +63,7 @@ export const ProjectListItem: React.FC<Props> = ({
 
   const projectInfo = (
     <div className={styles.info}>
-      <Button label="Edit" />
+      <Button label="Edit" onClick={onClick} />
       <p>{nodes}</p>
       <p>{visibility}</p>
       <DropdownMenu

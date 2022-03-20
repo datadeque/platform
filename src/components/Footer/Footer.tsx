@@ -1,12 +1,6 @@
-import { useContext } from 'react'
-import { ModalContext } from 'src/contexts'
 import styles from './Footer.module.scss'
 
 export const Footer: React.FC = () => {
-  const {
-    useNewProjectModalState: [, setNewProjectModalState],
-  } = useContext(ModalContext)
-
   return (
     <footer className={styles.footer}>
       Built by Datadeque, icons by&nbsp;
@@ -17,7 +11,6 @@ export const Footer: React.FC = () => {
       >
         Amir Baqian
       </a>
-      <button onClick={() => setNewProjectModalState(true)}>Click</button>
     </footer>
   )
 }
