@@ -3,6 +3,7 @@
 
 import type { NextPage } from 'next'
 import { useContext, useEffect, useRef } from 'react'
+import { useRouter } from 'next/router'
 
 import { Button, TextField } from 'src/components'
 import { AuthContext } from 'src/contexts'
@@ -25,6 +26,7 @@ const Authenticate: NextPage = () => {
     userError,
     loading,
   } = useAuthenticate()
+  const { push } = useRouter()
   const userErrorRef = useRef<HTMLDivElement | null>(null)
   const { loading: contextLoading } = useContext(AuthContext)
 
@@ -55,7 +57,10 @@ const Authenticate: NextPage = () => {
       </div>
       <Button
         label="Sign In"
-        onClick={handleSignIn}
+        onClick={() => {
+          handleSignIn
+          push('/projects')
+        }}
         loading={loading || contextLoading}
       />
       <div className={styles.account}>

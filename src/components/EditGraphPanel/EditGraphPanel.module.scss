@@ -1,0 +1,23 @@
+@import 'src/styles/base';
+
+.container {
+  @include column;
+  height: 100%;
+  width: 100%;
+
+  h2 {
+    font-weight: 500;
+    flex: 0.15;
+  }
+
+  input {
+    width: 100%;
+    padding: 3px;
+    background-color: transparent;
+    border-radius: 3px;
+    @include themed-styles {
+      color: themed-colour('text-primary');
+      border: 1px solid rgba(themed-colour('text-muted'), 0.5);
+    }
+  }
+}

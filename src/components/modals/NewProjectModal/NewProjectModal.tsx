@@ -3,16 +3,21 @@
 import { ChangeEvent, useCallback, useContext, useState } from 'react'
 
 import { ModalWrapper } from 'src/components/wrappers/ModalWrapper'
-import { TextField, Button } from 'src/components'
+import { TextField, Button, RootNode } from 'src/components'
 import { close, lock, unlock, bar, pie, scatter, line } from './icons'
 
 import styles from './NewProjectModal.module.scss'
+import { BarGraphNode } from 'src/components/BarGraphNode'
+import { defaultNodeData } from 'src/constants'
+import { useCreateProjectMutation } from 'src/graphql/hooks'
+import { ApolloError } from '@apollo/client'
 import { ModalContext } from 'src/contexts'
+import { useRouter } from 'next/router'
 
 const initialData = {
   projectName: '',
   description: '',
-  graphType: 'bar',
+  graphType: 'BAR',
   visibility: 'private',
 }
 
@@ -21,6 +26,8 @@ export const NewProjectModal = () => {
   const {
     useNewProjectModalState: [, setNewProjectModalState],
   } = useContext(ModalContext)
+  const [createProject] = useCreateProjectMutation()
+  const { push } = useRouter()
 
   const handleNameChange = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
@@ -35,6 +42,39 @@ export const NewProjectModal = () => {
     },
     [data]
   )
+
+  const handleCreate = useCallback(async () => {
+    const name = data.projectName
+    const description = data.description
+    const visibility = data.visibility == 'public' ? true : false
+    const initialNodeType = data.graphType
+    try {
+      const res = await createProject({
+        variables: {
+          createProjectInput: {
+            name,
+            description,
+            public: visibility,
+            initialNodeType,
+          },
+        },
+      })
+      push(
+        `/${res.data.createProject.ownerName}/${res.data.createProject.name}/edit/`
+      )
+      setNewProjectModalState(false)
+    } catch (err) {
+      console.log((err as ApolloError).message)
+    }
+  }, [
+    createProject,
+    data.description,
+    data.graphType,
+    data.projectName,
+    data.visibility,
+    push,
+    setNewProjectModalState,
+  ])
 
   return (
     <ModalWrapper>
@@ -101,7 +141,7 @@ export const NewProjectModal = () => {
               <div className={styles.buttony}>
                 <button
                   className={styles.button}
-                  onClick={() => setData({ ...data, graphType: 'bar' })}
+                  onClick={() => setData({ ...data, graphType: 'BAR' })}
                 >
                   <svg>{bar}</svg>Bar
                 </button>
@@ -109,7 +149,7 @@ export const NewProjectModal = () => {
                   className={styles.button}
                   disabled={true}
                   title="Coming Soon!"
-                  onClick={() => setData({ ...data, graphType: 'line' })}
+                  onClick={() => setData({ ...data, graphType: 'LINE' })}
                 >
                   <svg>{line}</svg>Line
                 </button>
@@ -119,7 +159,7 @@ export const NewProjectModal = () => {
                   className={styles.button}
                   disabled={true}
                   title="Coming Soon!"
-                  onClick={() => setData({ ...data, graphType: 'pie' })}
+                  onClick={() => setData({ ...data, graphType: 'PIE' })}
                 >
                   <svg>{pie}</svg>Pie
                 </button>
@@ -127,7 +167,7 @@ export const NewProjectModal = () => {
                   className={styles.button}
                   disabled={true}
                   title="Coming Soon!"
-                  onClick={() => setData({ ...data, graphType: 'scatter' })}
+                  onClick={() => setData({ ...data, graphType: 'SCATTER' })}
                 >
                   <svg>{scatter}</svg>Scatter
                 </button>
@@ -136,13 +176,21 @@ export const NewProjectModal = () => {
           </div>
           <Button
             label="Create Project"
-            onClick={() => {
-              console.log(data)
-            }}
+            onClick={handleCreate}
             disabled={data.projectName == '' || data.description == ''}
           />
         </div>
-        <div className={styles.panel} />
+        <div className={styles.panel}>
+          <div className={styles.root}>
+            <RootNode
+              title={data.projectName ? data.projectName : 'Project Name'}
+              description={data.description ? data.description : 'Description'}
+            />
+          </div>
+          <div className={styles.graph}>
+            <BarGraphNode nodeData={defaultNodeData} id="sample" />
+          </div>
+        </div>
         <div
           className={styles.close}
           onClick={() => setNewProjectModalState(false)}

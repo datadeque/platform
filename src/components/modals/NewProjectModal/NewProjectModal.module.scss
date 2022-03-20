@@ -155,10 +155,37 @@
   @include themed-styles {
     background-color: themed-colour('backdrop');
     box-shadow: 1px 1px 3px themed-colour('shadow-primary');
+    color: themed-colour('text-primary');
   }
 
   @include mobile {
     display: none;
+  }
+
+  .root {
+    height: 50%;
+    width: 100%;
+
+    h1 {
+      font-size: 20px;
+    }
+
+    p {
+      font-size: 14px;
+    }
+  }
+
+  .graph {
+    height: 50%;
+    width: 100%;
+
+    h1 {
+      font-size: 14px;
+    }
+
+    p {
+      font-size: 11px;
+    }
   }
 }
 

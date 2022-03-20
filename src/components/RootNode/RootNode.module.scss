@@ -1,0 +1,68 @@
+@import 'src/styles/base';
+
+.container {
+  @include row;
+  flex: 1;
+  height: 100%;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+
+  @include mobile {
+    justify-content: center;
+  }
+}
+
+.editable {
+  h1,
+  input {
+    font-size: 36px !important;
+    font-family: inherit;
+    font-weight: 700;
+
+    @include mobile {
+      font-size: 20px !important;
+    }
+  }
+
+  p,
+  textarea {
+    font-size: 14px !important;
+    font-family: inherit;
+
+    @include mobile {
+      font-size: 12px !important;
+      font-weight: normal;
+    }
+  }
+}
+
+.heading {
+  font-size: inherit;
+}
+
+.box {
+  @include rounded;
+  @include column;
+  justify-content: center;
+  padding: 3%;
+  width: 50%;
+  margin-left: 10%;
+  z-index: 1;
+  @include themed-styles {
+    background-color: rgba(themed-colour('background0'), 0.8);
+    box-shadow: 1px 1px 3px themed-colour('shadow-primary');
+  }
+
+  h2 {
+    font-size: inherit;
+    font-weight: normal;
+  }
+
+  @include mobile {
+    width: 80%;
+    justify-content: flex-start;
+    margin-left: 0%;
+  }
+}

@@ -1,0 +1,42 @@
+@import 'src/styles/base';
+
+.container {
+  @include row;
+  width: 100vw;
+  height: 100vh;
+  align-items: center;
+  justify-content: center;
+}
+
+.projects {
+  @include column;
+  width: 80vw;
+  max-width: 1000px;
+  padding: 10px;
+  padding-top: 80px;
+  height: 100%;
+  @include themed-styles {
+    background-color: rgba(themed-colour('background0'), 0.3);
+  }
+  gap: 20px;
+
+  @include mobile {
+    width: 98vw;
+  }
+}
+
+.list {
+  @include column;
+  width: 100%;
+  overflow-y: scroll;
+  overflow-x: scroll;
+}
+
+.header {
+  @include row;
+  width: 100%;
+
+  & > div {
+    flex: 1;
+  }
+}

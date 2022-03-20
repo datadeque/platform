@@ -33,7 +33,7 @@
 
 .menu {
   @include column;
-  position: absolute;
+  position: fixed;
   transition: 150ms;
   opacity: 0;
   z-index: -1;

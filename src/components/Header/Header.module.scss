@@ -15,6 +15,10 @@
   padding: 10px 5vw;
   align-items: center;
   justify-content: space-between;
+  @include themed-styles {
+    background-color: themed-colour('backdrop');
+  }
+
   @include mobile {
     padding: 10px 15px 0px;
   }
@@ -147,7 +151,7 @@
 
   @include mobile {
     height: 100vh;
-    width: 100vw;
+    width: 100%;
   }
 
   @include themed-styles {

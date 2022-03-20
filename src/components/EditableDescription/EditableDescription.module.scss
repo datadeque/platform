@@ -1,0 +1,42 @@
+@import 'src/styles/base';
+
+.container {
+  @include row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+
+  textarea {
+    background-color: transparent;
+    display: flex;
+    border: none;
+    resize: none;
+    width: 100%;
+    height: 250px;
+    padding: 0;
+    box-sizing: border-box;
+    @include themed-styles {
+      color: themed-colour('text-primary');
+    }
+    &:focus {
+      outline: none;
+      border: none;
+    }
+  }
+  border-radius: 3px;
+  @include themed-styles {
+    outline: 0.5px dashed rgba(themed-colour('text-muted'), 0.2);
+  }
+}
+
+.active {
+  @include themed-styles {
+    outline: 0.5px solid rgba(themed-colour('text-muted'), 0.5);
+    background-color: rgba(themed-colour('base'), 0.5);
+  }
+
+  @include mobile {
+    margin: 0;
+    padding: 0;
+  }
+}
