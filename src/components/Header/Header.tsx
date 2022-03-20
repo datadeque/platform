@@ -1,13 +1,14 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 
-import { useCallback, useState } from 'react'
+import { useCallback, useContext, useState } from 'react'
 
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 
 import classNames from 'classnames'
 
+import { AuthContext } from 'src/contexts'
 import { Button, ThemeButton } from 'src/components'
 import { cancelIcon, logo, menuIcon } from './icons'
 
@@ -16,6 +17,7 @@ import styles from './Header.module.scss'
 export const Header: React.FC = () => {
   const { pathname, push } = useRouter()
   const [menuActive, setMenuActive] = useState(false)
+  const { user } = useContext(AuthContext)
 
   const onMenuClick = useCallback(() => {
     setMenuActive(!menuActive)
@@ -36,7 +38,7 @@ export const Header: React.FC = () => {
         {}
         <Link href="/link1">Link 1</Link>
         <Link href="/link2">Link 2</Link>
-        {!pathname.match('/authenticate') && (
+        {!pathname.match('/authenticate') && !user && (
           <Button label="Sign In" onClick={handleSignInClick} />
         )}
 

@@ -1,5 +1,9 @@
-import { ChangeEvent } from 'react'
+import { ChangeEvent, useState } from 'react'
+import { v4 as uuid } from 'uuid'
+
 import { EditableGraphData } from 'src/types'
+import { IconButton } from 'src/components'
+import { add } from 'src/components/IconButton/icons'
 
 import styles from './EditGraphPanel.module.scss'
 
@@ -12,6 +16,8 @@ interface Props {
 
 export const EditGraphPanel: React.FC<Props> = (props: Props) => {
   const { data, legend, handleLegendChange, handleDataChange } = props
+  const [newLabel, setNewLabel] = useState('')
+  const [newValue, setNewValue] = useState<number | null>(null)
 
   return (
     <div className={styles.container}>
@@ -48,6 +54,33 @@ export const EditGraphPanel: React.FC<Props> = (props: Props) => {
               </td>
             </tr>
           ))}
+          <tr>
+            <td>
+              <input
+                value={newLabel}
+                onChange={(e) => setNewLabel(e.target.value)}
+              />
+            </td>
+            <td>
+              <input
+                type="number"
+                value={newValue ?? ''}
+                onChange={(e) => setNewValue(parseInt(e.target.value))}
+              />
+            </td>
+            <IconButton
+              onClick={() => {
+                handleDataChange({
+                  ...data,
+                  [uuid()]: [newLabel, newValue ?? 0],
+                })
+                setNewLabel('')
+                setNewValue(null)
+              }}
+            >
+              {add}
+            </IconButton>
+          </tr>
         </tbody>
       </table>
       <p>Legend</p>
