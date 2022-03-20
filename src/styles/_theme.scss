@@ -1,5 +1,6 @@
 $themes: (
   dark: (
+    base: #0e0f0f,
     backdrop: #172436,
     landing-gradient:
       radial-gradient(
@@ -32,6 +33,7 @@ $themes: (
     shadow-primary: #0000002c,
   ),
   light: (
+    base: #ffffff,
     backdrop: #f1f7fa,
     landing-gradient:
       radial-gradient(

@@ -1,0 +1,28 @@
+@import 'src/styles/base';
+
+.container {
+  display: flex;
+  flex: 1 0 100vh;
+  height: 100vh;
+  width: 100vw;
+
+  max-width: 100%;
+
+  h1 {
+    font-size: 36px;
+  }
+
+  h2 {
+    font-size: 20px;
+  }
+
+  @include mobile {
+    h1 {
+      font-size: 30px;
+    }
+
+    h2 {
+      font-size: 14px;
+    }
+  }
+}
