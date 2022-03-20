@@ -3,13 +3,13 @@ import styles from './Footer.module.scss'
 export const Footer: React.FC = () => {
   return (
     <footer className={styles.footer}>
-      Built by Datadeque, icons by&nbsp;
+      Built by Datadeque,
       <a
-        href="https://dribbble.com/amirbaqian"
+        href="https://github.com/UTSCC09/project-datadeque/blob/main/README.md"
         target="_blank"
         rel="noopener noreferrer"
       >
-        Amir Baqian
+        Credits & Acknowledgements
       </a>
     </footer>
   )
