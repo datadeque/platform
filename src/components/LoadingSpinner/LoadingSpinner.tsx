@@ -4,7 +4,7 @@ import styles from './LoadingSpinner.module.scss'
 
 export const LoadingSpinner = () => {
   return (
-    <div class="lds-roller">
+    <div className={styles.container}>
       <div></div>
       <div></div>
       <div></div>
