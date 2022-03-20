@@ -25,7 +25,6 @@ const ProjectWrapper: NextPage = () => {
 
 const Project: React.FC = () => {
   const { project, loading, error } = useContext(PublicProjectContext)
-  console.log(project)
 
   const nodesList = useMemo(
     () => Object.values(project?.nodes ?? []),
