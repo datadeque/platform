@@ -1,4 +1,6 @@
 import { useEffect, useState, ReactNode, useCallback } from 'react'
+
+import { defaultNodeData } from 'src/constants'
 import { ProjectContext } from 'src/contexts'
 import {
   useProjectQuery,
@@ -44,13 +46,7 @@ export const ProjectContextProvider: React.FC<Props> = ({
           id: node.id,
           position: node.position,
           type: node.type,
-          data: {
-            title: 'Default Title',
-            description: 'Default Description',
-            legend: 'Default Legend',
-            data: { default: 100 },
-            ...JSON.parse(node.data),
-          },
+          data: { ...defaultNodeData, ...JSON.parse(node.data) },
         }
       })
 

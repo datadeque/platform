@@ -67,7 +67,7 @@ export const BarGraphNode: React.FC<Props> = (props: Props) => {
                   }))
             }
             indexBy="label"
-            margin={{ top: 50, right: 50, bottom: 50, left: 50 }}
+            margin={{ top: 50, right: 50, bottom: 50, left: 60 }}
             padding={0.3}
             layout="horizontal"
             valueScale={{ type: 'linear' }}

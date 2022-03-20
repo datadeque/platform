@@ -8,7 +8,7 @@ import { close, lock, unlock, bar, pie, scatter, line } from './icons'
 
 import styles from './NewProjectModal.module.scss'
 import { BarGraphNode } from 'src/components/BarGraphNode'
-import { nodeData } from './data'
+import { defaultNodeData } from 'src/constants'
 import { useCreateProjectMutation } from 'src/graphql/hooks'
 import { ApolloError } from '@apollo/client'
 import { ModalContext } from 'src/contexts'
@@ -188,7 +188,7 @@ export const NewProjectModal = () => {
             />
           </div>
           <div className={styles.graph}>
-            <BarGraphNode nodeData={nodeData} id="sample" />
+            <BarGraphNode nodeData={defaultNodeData} id="sample" />
           </div>
         </div>
         <div
