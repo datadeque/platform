@@ -4,22 +4,32 @@ import { close, error } from './icons'
 
 import styles from './ErrorModal.module.scss'
 import { ModalWrapper } from 'src/components/wrappers/ModalWrapper'
+import { useCallback, useContext } from 'react'
+import { ModalContext } from 'src/contexts'
 
-interface Props {
+export interface ErrorModalProps {
   onDismiss?: VoidFunction
   title?: string
   message?: string
 }
 
-export const ErrorModal: React.FC<Props> = ({
+export const ErrorModal: React.FC<ErrorModalProps> = ({
   onDismiss,
   title = 'Error',
   message = 'Please try again later',
-}: Props) => {
+}: ErrorModalProps) => {
+  const { useErrorModalState } = useContext(ModalContext)
+  const [, setErrorModalState] = useErrorModalState
+
+  const handleClose = useCallback(() => {
+    onDismiss && onDismiss()
+    setErrorModalState(null)
+  }, [onDismiss, setErrorModalState])
+
   return (
     <ModalWrapper>
       <div className={styles.container}>
-        <div className={styles.close} onClick={onDismiss}>
+        <div className={styles.close} onClick={handleClose}>
           <svg>{close}</svg>
         </div>
         <div className={styles.content}>

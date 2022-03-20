@@ -6,6 +6,7 @@ interface IAuthContext {
   loading: boolean
   error: string
   refetch: () => void
+  setSignedIn: (arg0: boolean) => void
 }
 
 export const AuthContext = createContext<IAuthContext>({
@@ -14,5 +15,8 @@ export const AuthContext = createContext<IAuthContext>({
   error: '',
   refetch: () => {
     throw new Error('poorly provided AuthContext, missing refetch')
+  },
+  setSignedIn: () => {
+    throw new Error('poorly provided AuthContext, missing signout')
   },
 })

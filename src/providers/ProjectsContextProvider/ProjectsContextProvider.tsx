@@ -1,5 +1,6 @@
-import { ReactNode, useCallback, useEffect, useState } from 'react'
-import { ProjectsContext } from 'src/contexts'
+import { useRouter } from 'next/router'
+import { ReactNode, useCallback, useContext, useEffect, useState } from 'react'
+import { ModalContext, ProjectsContext } from 'src/contexts'
 import { useProjectsQuery, useRemoveProjectMutation } from 'src/graphql/hooks'
 
 interface Props {
@@ -9,10 +10,18 @@ interface Props {
 export const ProjectsContextProvider: React.FC<Props> = ({
   children,
 }: Props) => {
+  const { push } = useRouter()
   const { data, loading, error, refetch } = useProjectsQuery()
   const [projects, setProjects] = useState(null)
   const [removeProject] = useRemoveProjectMutation()
   const useQueryState = useState('')
+  const { useErrorModalState } = useContext(ModalContext)
+  const [, setErrorModalState] = useErrorModalState
+
+  useEffect(() => {
+    if (error)
+      setErrorModalState({ title: error.message, onDismiss: () => push('/') })
+  }, [error, push, setErrorModalState])
 
   useEffect(() => {
     if (data && data.projects) {

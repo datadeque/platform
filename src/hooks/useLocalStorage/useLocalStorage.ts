@@ -1,19 +1,24 @@
-import { useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 
 export const useLocalStorage = <T>(
   key: string,
   initialValue: T
 ): [T, (arg0: T) => void] => {
   const isClient = typeof window !== 'undefined'
-  const [storedValue, setStoredValue] = useState<T>(() => {
+  const [storedValue, setStoredValue] = useState<T>(initialValue)
+
+  const initialize = useCallback(() => {
     try {
       const item = isClient ? window?.localStorage?.getItem(key) : null
       return item ? (JSON.parse(item) as T) : initialValue
     } catch (error) {
-      console.log(error)
       return initialValue
     }
-  })
+  }, [initialValue, isClient, key])
+
+  useEffect(() => {
+    setStoredValue(initialize())
+  }, [initialize])
 
   const setValue = (value: T) => {
     try {
