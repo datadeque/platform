@@ -17,7 +17,12 @@ import styles from './Header.module.scss'
 export const Header: React.FC = () => {
   const { pathname, push } = useRouter()
   const [menuActive, setMenuActive] = useState(false)
-  const { user } = useContext(AuthContext)
+  const { user, loading, setSignedIn } = useContext(AuthContext)
+
+  const handleSignOut = useCallback(() => {
+    setSignedIn(false)
+    push('/')
+  }, [push, setSignedIn])
 
   const onMenuClick = useCallback(() => {
     setMenuActive(!menuActive)
@@ -35,13 +40,12 @@ export const Header: React.FC = () => {
       </Link>
       <div className={styles.links}>
         <ThemeButton />
-        {}
-        <Link href="/link1">Link 1</Link>
-        <Link href="/link2">Link 2</Link>
         {!pathname.match('/authenticate') && !user && (
           <Button label="Sign In" onClick={handleSignInClick} />
         )}
-
+        {user && !loading && (
+          <Button label="Sign Out" onClick={handleSignOut} />
+        )}
         <div className={styles.menuicon} onClick={onMenuClick}>
           {menuIcon}
         </div>
@@ -66,15 +70,14 @@ export const Header: React.FC = () => {
               </div>
             </div>
             <div className={styles.bottommenu}>
-              <div className={styles.item} onClick={onMenuClick}>
-                Test 1
-              </div>
-              <div className={styles.item} onClick={onMenuClick}>
-                Test 2
-              </div>
-              {!pathname.match('/authenticate') && (
+              {!pathname.match('/authenticate') && !user && !loading && (
                 <div className={styles.item} onClick={handleSignInClick}>
                   Sign In
+                </div>
+              )}
+              {user && !loading && (
+                <div className={styles.item} onClick={handleSignOut}>
+                  Sign Out
                 </div>
               )}
               <ThemeButton />

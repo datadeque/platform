@@ -28,7 +28,13 @@ const Authenticate: NextPage = () => {
   } = useAuthenticate()
   const { push } = useRouter()
   const userErrorRef = useRef<HTMLDivElement | null>(null)
-  const { loading: contextLoading } = useContext(AuthContext)
+  const { loading: contextLoading, user, setSignedIn } = useContext(AuthContext)
+
+  useEffect(() => {
+    setSignedIn(true)
+  })
+
+  if (user) push('/projects')
 
   useEffect(() => {
     if (userErrorRef.current) userErrorRef.current.textContent = userError
