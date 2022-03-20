@@ -3,6 +3,7 @@
 import { close, error } from './icons'
 
 import styles from './ErrorModal.module.scss'
+import { ModalWrapper } from 'src/components/wrappers/ModalWrapper'
 
 interface Props {
   onDismiss?: VoidFunction
@@ -16,15 +17,17 @@ export const ErrorModal: React.FC<Props> = ({
   message = 'Please try again later',
 }: Props) => {
   return (
-    <div className={styles.container}>
-      <div className={styles.close} onClick={onDismiss}>
-        <svg>{close}</svg>
+    <ModalWrapper>
+      <div className={styles.container}>
+        <div className={styles.close} onClick={onDismiss}>
+          <svg>{close}</svg>
+        </div>
+        <div className={styles.content}>
+          {error}
+          <h2>{title}</h2>
+          <p>{message}</p>
+        </div>
       </div>
-      <div className={styles.content}>
-        {error}
-        <h2>{title}</h2>
-        <p>{message}</p>
-      </div>
-    </div>
+    </ModalWrapper>
   )
 }
