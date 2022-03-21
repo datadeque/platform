@@ -27,6 +27,10 @@ export const ProjectsContextProvider: React.FC<Props> = ({
   const [, setErrorModalState] = useErrorModalState
 
   useEffect(() => {
+    refetch()
+  })
+
+  useEffect(() => {
     if (error)
       setErrorModalState({ title: error.message, onDismiss: () => push('/') })
   }, [error, push, setErrorModalState])
@@ -64,6 +68,7 @@ export const ProjectsContextProvider: React.FC<Props> = ({
         loading,
         error: error?.message ?? null,
         deleteProject,
+        refetch,
       }}
     >
       {children}
