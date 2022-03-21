@@ -63,8 +63,8 @@ const Authenticate: NextPage = () => {
       </div>
       <Button
         label="Sign In"
-        onClick={() => {
-          handleSignIn
+        onClick={async () => {
+          await handleSignIn()
           push('/projects')
         }}
         loading={loading || contextLoading}

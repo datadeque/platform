@@ -34,6 +34,20 @@ export const BarGraphNode: React.FC<Props> = (props: Props) => {
 
   const [graphData, setGraphData] = useState<EditableGraphData>({})
 
+  const onTitleSave = useCallback(
+    (title: string) => {
+      if (updateNode) updateNode({ ...nodeData, title })
+    },
+    [nodeData, updateNode]
+  )
+
+  const onDescriptionSave = useCallback(
+    (description: string) => {
+      if (updateNode) updateNode({ ...nodeData, description })
+    },
+    [nodeData, updateNode]
+  )
+
   useEffect(() => {
     setGraphData(
       Object.fromEntries(
@@ -49,6 +63,8 @@ export const BarGraphNode: React.FC<Props> = (props: Props) => {
   return (
     <GraphNodeWrapper
       title={title}
+      onTitleSave={onTitleSave}
+      onDescriptionSave={onDescriptionSave}
       description={description}
       editable={editable}
     >
@@ -119,6 +135,7 @@ export const BarGraphNode: React.FC<Props> = (props: Props) => {
                 updateNode({
                   ...nodeData,
                   data: Object.fromEntries(Object.values(graphData)),
+                  legend: editableLegend,
                 })
               }}
             >

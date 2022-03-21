@@ -1,7 +1,15 @@
 import { useRouter } from 'next/router'
-import { ReactNode, useCallback, useContext, useEffect, useState } from 'react'
+import {
+  ReactNode,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react'
 import { ModalContext, ProjectsContext } from 'src/contexts'
 import { useProjectsQuery, useRemoveProjectMutation } from 'src/graphql/hooks'
+import { BaseProject } from 'src/types'
 
 interface Props {
   children: ReactNode
@@ -12,7 +20,7 @@ export const ProjectsContextProvider: React.FC<Props> = ({
 }: Props) => {
   const { push } = useRouter()
   const { data, loading, error, refetch } = useProjectsQuery()
-  const [projects, setProjects] = useState(null)
+  const [projects, setProjects] = useState<BaseProject[] | null>(null)
   const [removeProject] = useRemoveProjectMutation()
   const useQueryState = useState('')
   const { useErrorModalState } = useContext(ModalContext)
@@ -37,10 +45,21 @@ export const ProjectsContextProvider: React.FC<Props> = ({
     [refetch, removeProject]
   )
 
+  const filteredProjects = useMemo(
+    () =>
+      projects
+        ? projects.filter(
+            (project: BaseProject) =>
+              project.name.indexOf(useQueryState[0]) !== -1
+          )
+        : null,
+    [projects, useQueryState]
+  )
+
   return (
     <ProjectsContext.Provider
       value={{
-        projects,
+        projects: filteredProjects,
         useQueryState,
         loading,
         error: error?.message ?? null,

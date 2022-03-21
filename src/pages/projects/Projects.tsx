@@ -24,7 +24,7 @@ const Projects: React.FC = () => {
   const { push } = useRouter()
 
   const { projects, useQueryState, deleteProject } = useContext(ProjectsContext)
-  console.log(projects)
+
   const [query, setQuery] = useQueryState
 
   return (
