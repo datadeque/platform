@@ -4,6 +4,7 @@ import { BaseProject } from 'src/types'
 
 interface IPublicProjectsContext {
   projects: BaseProject[] | null
+  refetch: VoidFunction
   deleteProject: (id: number) => void
   useQueryState: [string, (arg0: string) => void]
   loading: boolean
@@ -20,4 +21,5 @@ export const ProjectsContext = createContext<IPublicProjectsContext>({
   deleteProject: fn,
   loading: false,
   error: null,
+  refetch: fn,
 })
