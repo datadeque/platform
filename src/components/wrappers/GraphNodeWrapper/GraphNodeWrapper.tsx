@@ -7,6 +7,8 @@ interface Props {
   description: string
   children: React.ReactNode
   editable?: boolean
+  onTitleSave?: (title: string) => void
+  onDescriptionSave?: (title: string) => void
 }
 
 export const GraphNodeWrapper: React.FC<Props> = ({
@@ -14,6 +16,8 @@ export const GraphNodeWrapper: React.FC<Props> = ({
   description,
   children,
   editable = false,
+  onTitleSave,
+  onDescriptionSave,
 }: Props) => {
   const [titleText, setTitleText] = useState(title)
   const [descriptionText, setDescriptionText] = useState(description)
@@ -24,6 +28,7 @@ export const GraphNodeWrapper: React.FC<Props> = ({
           value={titleText}
           className={styles.editable}
           onChange={(e) => setTitleText(e.target.value)}
+          onSave={() => onTitleSave && onTitleSave(titleText)}
         />
       ) : (
         <h1>{titleText}</h1>
@@ -33,6 +38,7 @@ export const GraphNodeWrapper: React.FC<Props> = ({
           value={descriptionText}
           className={styles.editable}
           onChange={(e) => setDescriptionText(e.target.value)}
+          onSave={() => onDescriptionSave && onDescriptionSave(descriptionText)}
         />
       ) : (
         <p>{description}</p>

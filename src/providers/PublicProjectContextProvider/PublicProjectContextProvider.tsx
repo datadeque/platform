@@ -1,7 +1,8 @@
-import { ReactNode, useEffect, useState } from 'react'
+import { useRouter } from 'next/router'
+import { ReactNode, useContext, useEffect, useState } from 'react'
 
 import { defaultNodeData } from 'src/constants'
-import { PublicProjectContext } from 'src/contexts'
+import { ModalContext, PublicProjectContext } from 'src/contexts'
 import { usePublicProjectQuery } from 'src/graphql/hooks'
 import { PomelloNode, ProcessedNode, Project } from 'src/types'
 
@@ -16,12 +17,24 @@ export const PublicProjectContextProvider: React.FC<Props> = ({
   authorName,
   projectName,
 }: Props) => {
+  const { push } = useRouter()
   const {
     loading: publicProjectQueryLoading,
     error: publicProjectQueryError,
     data,
   } = usePublicProjectQuery(authorName, projectName)
   const [project, setProject] = useState<Project | null>(null)
+
+  const { useErrorModalState } = useContext(ModalContext)
+  const [, setErrorModalState] = useErrorModalState
+
+  useEffect(() => {
+    if (publicProjectQueryError)
+      setErrorModalState({
+        title: publicProjectQueryError.message,
+        onDismiss: () => push('/'),
+      })
+  }, [publicProjectQueryError, push, setErrorModalState])
 
   useEffect(() => {
     if (data && data.publicProject) {

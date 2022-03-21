@@ -7,6 +7,12 @@
   @include themed-styles {
     border-bottom: 2px solid rgba(themed-colour('text-muted'), 0.5);
   }
+
+  position: relative;
+  & > button {
+    position: absolute;
+    right: 0;
+  }
 }
 
 .graph {
