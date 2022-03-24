@@ -3,11 +3,16 @@
 import { ChangeEvent, useCallback, useContext, useState } from 'react'
 
 import { ModalWrapper } from 'src/components/wrappers/ModalWrapper'
-import { TextField, Button, RootNode } from 'src/components'
+import {
+  TextField,
+  Button,
+  RootNode,
+  BarGraphNode,
+  PieGraphNode,
+} from 'src/components'
 import { close, lock, unlock, bar, pie, scatter, line } from './icons'
 
 import styles from './NewProjectModal.module.scss'
-import { BarGraphNode } from 'src/components/BarGraphNode'
 import { defaultNodeData } from 'src/constants'
 import { useCreateProjectMutation } from 'src/graphql/hooks'
 import { ApolloError } from '@apollo/client'
@@ -157,8 +162,6 @@ export const NewProjectModal = () => {
               <div className={styles.buttony}>
                 <button
                   className={styles.button}
-                  disabled={true}
-                  title="Coming Soon!"
                   onClick={() => setData({ ...data, graphType: 'PIE' })}
                 >
                   <svg>{pie}</svg>Pie
@@ -188,13 +191,14 @@ export const NewProjectModal = () => {
             />
           </div>
           <div className={styles.graph}>
-            <BarGraphNode nodeData={defaultNodeData} id="sample" />
+            {(data.graphType === 'BAR' && (
+              <BarGraphNode nodeData={defaultNodeData} id="sample" />
+            )) ||
+              (data.graphType === 'PIE' && (
+                <PieGraphNode nodeData={defaultNodeData} id="sample" />
+              ))}
           </div>
         </div>
-        <div
-          className={styles.close}
-          onClick={() => setNewProjectModalState(false)}
-        />
         <div
           className={styles.close}
           onClick={() => setNewProjectModalState(false)}

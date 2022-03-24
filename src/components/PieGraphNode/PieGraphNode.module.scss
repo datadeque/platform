@@ -1,0 +1,32 @@
+@import 'src/styles/base';
+
+.container {
+  @include row;
+  height: 60%;
+  width: 100%;
+  @include themed-styles {
+    border-bottom: 2px solid rgba(themed-colour('text-muted'), 0.5);
+  }
+
+  position: relative;
+  & > button {
+    position: absolute;
+    right: 0;
+  }
+}
+
+.graph {
+  height: 100%;
+  width: 100%;
+}
+
+.editable {
+  height: 100%;
+  width: 60%;
+}
+
+.panel {
+  @include row;
+  height: 100%;
+  width: 40%;
+}

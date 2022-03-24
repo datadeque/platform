@@ -9,9 +9,9 @@ import styles from './EditGraphPanel.module.scss'
 
 interface Props {
   data: EditableGraphData
-  legend: string
+  legend?: string
   handleDataChange: (newData: EditableGraphData) => void
-  handleLegendChange: (e: ChangeEvent<HTMLInputElement>) => void
+  handleLegendChange?: (e: ChangeEvent<HTMLInputElement>) => void
 }
 
 export const EditGraphPanel: React.FC<Props> = (props: Props) => {
