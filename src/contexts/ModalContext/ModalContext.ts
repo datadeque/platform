@@ -1,5 +1,5 @@
 import { createContext, Dispatch, SetStateAction } from 'react'
-import { ErrorModalProps, LoadingModalProps } from 'src/components'
+import { ErrorModalProps } from 'src/components'
 
 interface IModalContext {
   useNewProjectModalState: [boolean, Dispatch<SetStateAction<boolean>>]

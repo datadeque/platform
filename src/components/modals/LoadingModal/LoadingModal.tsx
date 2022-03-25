@@ -4,18 +4,8 @@
 import styles from './LoadingModal.module.scss'
 import { ModalWrapper } from 'src/components/wrappers/ModalWrapper'
 import { LoadingSpinner } from 'src/components'
-import { useCallback, useContext } from 'react'
-import { ModalContext } from 'src/contexts'
 
 export const LoadingModal = () => {
-  const {
-    useLoadingModalState: [, setLoadingModalState],
-  } = useContext(ModalContext)
-
-  const handleLoaded = useCallback(() => {
-    setLoadingModalState(false)
-  }, [, setLoadingModalState])
-
   return (
     <ModalWrapper>
       <div className={styles.container}>
