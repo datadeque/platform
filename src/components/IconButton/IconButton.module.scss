@@ -15,6 +15,7 @@
     cursor: pointer;
     @include themed-styles {
       stroke: rgba(themed-colour('text-primary'), 0.8);
+      fill: rgba(themed-colour('text-primary'), 0.8);
     }
 
     &:hover {

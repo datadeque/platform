@@ -2,6 +2,7 @@
 
 .container {
   @include row;
+  flex: 1;
   padding: 50px;
   gap: 60px;
   width: 100%;
@@ -150,8 +151,11 @@
 }
 
 .panel {
+  @include column;
   height: 80vh;
   width: 45vw;
+  flex: 1;
+  position: relative;
   @include themed-styles {
     background-color: themed-colour('backdrop');
     box-shadow: 1px 1px 3px themed-colour('shadow-primary');

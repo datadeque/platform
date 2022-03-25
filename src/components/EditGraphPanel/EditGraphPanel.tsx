@@ -3,7 +3,7 @@ import { v4 as uuid } from 'uuid'
 
 import { EditableGraphData } from 'src/types'
 import { IconButton } from 'src/components'
-import { add } from 'src/components/IconButton/icons'
+import { add, remove } from 'src/components/IconButton/icons'
 
 import styles from './EditGraphPanel.module.scss'
 
@@ -52,6 +52,19 @@ export const EditGraphPanel: React.FC<Props> = (props: Props) => {
                   }}
                 />
               </td>
+              <td>
+                <IconButton
+                  onClick={() => {
+                    console.log(data[id])
+                    delete data[id]
+                    handleDataChange({
+                      ...data,
+                    })
+                  }}
+                >
+                  {remove}
+                </IconButton>
+              </td>
             </tr>
           ))}
           <tr>
@@ -68,23 +81,29 @@ export const EditGraphPanel: React.FC<Props> = (props: Props) => {
                 onChange={(e) => setNewValue(parseInt(e.target.value))}
               />
             </td>
-            <IconButton
-              onClick={() => {
-                handleDataChange({
-                  ...data,
-                  [uuid()]: [newLabel, newValue ?? 0],
-                })
-                setNewLabel('')
-                setNewValue(null)
-              }}
-            >
-              {add}
-            </IconButton>
+            <td>
+              <IconButton
+                onClick={() => {
+                  handleDataChange({
+                    ...data,
+                    [uuid()]: [newLabel, newValue ?? 0],
+                  })
+                  setNewLabel('')
+                  setNewValue(null)
+                }}
+              >
+                {add}
+              </IconButton>
+            </td>
           </tr>
         </tbody>
       </table>
-      <p>Legend</p>
-      <input value={legend} onChange={handleLegendChange} />
+      {legend && (
+        <>
+          <p>Legend</p>
+          <input value={legend} onChange={handleLegendChange} />
+        </>
+      )}
     </div>
   )
 }

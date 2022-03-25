@@ -44,11 +44,11 @@ const Edit: React.FC = () => {
           editable
         />
       </div>
-      <div className={styles.container}>
-        {nodesList.map((node: ProcessedNode) => {
-          switch (node.type) {
-            case 'BAR':
-              return (
+      {nodesList.map((node: ProcessedNode) => {
+        switch (node.type) {
+          case 'BAR':
+            return (
+              <div className={styles.container}>
                 <BarGraphNode
                   updateNode={(data: NodeData) =>
                     updateNode({ id: node.id, data })
@@ -58,9 +58,11 @@ const Edit: React.FC = () => {
                   id={node.id}
                   editable
                 />
-              )
-            default:
-              return (
+              </div>
+            )
+          default:
+            return (
+              <div className={styles.container}>
                 <PieGraphNode
                   updateNode={(data: NodeData) =>
                     updateNode({ id: node.id, data })
@@ -70,10 +72,10 @@ const Edit: React.FC = () => {
                   id={node.id}
                   editable
                 />
-              )
-          }
-        })}
-      </div>
+              </div>
+            )
+        }
+      })}
     </>
   )
 }
