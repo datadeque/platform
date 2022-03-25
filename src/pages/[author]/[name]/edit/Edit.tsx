@@ -31,7 +31,7 @@ const Edit: React.FC = () => {
     () => Object.values(project?.nodes ?? []),
     [project?.nodes]
   )
-  if (loading || !project) return <div>LOADING</div>
+  if (loading || !project) return <div>{loading}</div>
   if (error) return <div>{error}</div>
 
   return (

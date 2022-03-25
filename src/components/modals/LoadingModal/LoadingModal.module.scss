@@ -1,0 +1,17 @@
+@import 'src/styles/base';
+
+.container {
+  @include column;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 80px;
+
+  @include themed-styles {
+    background: themed-colour('backdrop');
+  }
+}
