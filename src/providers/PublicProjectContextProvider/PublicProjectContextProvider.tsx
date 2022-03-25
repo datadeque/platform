@@ -27,6 +27,8 @@ export const PublicProjectContextProvider: React.FC<Props> = ({
 
   const { useErrorModalState } = useContext(ModalContext)
   const [, setErrorModalState] = useErrorModalState
+  const { useLoadingModalState } = useContext(ModalContext)
+  const [, setLoadingModalState] = useLoadingModalState
 
   useEffect(() => {
     if (publicProjectQueryError)
@@ -59,6 +61,10 @@ export const PublicProjectContextProvider: React.FC<Props> = ({
       setProject({ id, name, description, ownerName, nodes, public: isPublic })
     }
   }, [data])
+
+  useEffect(() => {
+    setLoadingModalState(publicProjectQueryLoading)
+  }, [publicProjectQueryLoading, setLoadingModalState])
 
   return (
     <PublicProjectContext.Provider

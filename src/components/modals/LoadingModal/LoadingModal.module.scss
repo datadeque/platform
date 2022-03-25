@@ -13,5 +13,6 @@
 
   @include themed-styles {
     background: themed-colour('backdrop');
+    color: themed-colour('text-primary');
   }
 }

@@ -44,7 +44,7 @@ export const ProjectsContextProvider: React.FC<Props> = ({
   }, [data])
 
   useEffect(() => {
-    if (loading) setLoadingModalState(true)
+    setLoadingModalState(loading)
   }, [loading, setLoadingModalState])
 
   const deleteProject = useCallback(
