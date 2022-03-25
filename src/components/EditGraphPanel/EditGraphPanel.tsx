@@ -47,7 +47,12 @@ export const EditGraphPanel: React.FC<Props> = (props: Props) => {
                   onChange={(e) => {
                     handleDataChange({
                       ...data,
-                      [id]: [label, parseInt(e.target.value)],
+                      [id]: [
+                        label,
+                        parseInt(e.target.value) >= 0
+                          ? parseInt(e.target.value)
+                          : '',
+                      ],
                     })
                   }}
                 />
@@ -55,7 +60,6 @@ export const EditGraphPanel: React.FC<Props> = (props: Props) => {
               <td>
                 <IconButton
                   onClick={() => {
-                    console.log(data[id])
                     delete data[id]
                     handleDataChange({
                       ...data,
@@ -83,11 +87,13 @@ export const EditGraphPanel: React.FC<Props> = (props: Props) => {
             </td>
             <td>
               <IconButton
+                disabled={newValue == null || newLabel == ''}
                 onClick={() => {
-                  handleDataChange({
-                    ...data,
-                    [uuid()]: [newLabel, newValue ?? 0],
-                  })
+                  if (newValue != null && newLabel != '')
+                    handleDataChange({
+                      ...data,
+                      [uuid()]: [newLabel, newValue],
+                    })
                   setNewLabel('')
                   setNewValue(null)
                 }}
