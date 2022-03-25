@@ -25,6 +25,8 @@ export const ProjectsContextProvider: React.FC<Props> = ({
   const useQueryState = useState('')
   const { useErrorModalState } = useContext(ModalContext)
   const [, setErrorModalState] = useErrorModalState
+  const { useLoadingModalState } = useContext(ModalContext)
+  const [, setLoadingModalState] = useLoadingModalState
 
   useEffect(() => {
     refetch()
@@ -40,6 +42,10 @@ export const ProjectsContextProvider: React.FC<Props> = ({
       setProjects(data.projects)
     }
   }, [data])
+
+  useEffect(() => {
+    setLoadingModalState(loading)
+  }, [loading, setLoadingModalState])
 
   const deleteProject = useCallback(
     async (id: number) => {
