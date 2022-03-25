@@ -79,10 +79,12 @@ export const BarGraphNode: React.FC<Props> = (props: Props) => {
           <Bar
             data={
               editable
-                ? Object.values(graphData).map(([key, value]) => ({
-                    label: key,
-                    value,
-                  }))
+                ? Object.values(graphData)
+                    .filter(([, value]) => value !== '')
+                    .map(([key, value]) => ({
+                      label: key,
+                      value,
+                    }))
                 : Object.entries(data).map(([key, value]) => ({
                     label: key,
                     value,
@@ -107,26 +109,30 @@ export const BarGraphNode: React.FC<Props> = (props: Props) => {
           </IconButton>
         )}
         {editable && updateNode && editActive && (
-          <div className={styles.panel}>
-            <EditGraphPanel
-              data={graphData}
-              legend={editableLegend}
-              handleLegendChange={handleLegendChange}
-              handleDataChange={setGraphData}
-            />
+          <>
+            <div className={styles.panel}>
+              <EditGraphPanel
+                data={graphData}
+                legend={editableLegend}
+                handleLegendChange={handleLegendChange}
+                handleDataChange={setGraphData}
+              />
+            </div>
             <IconButton
               onClick={async () => {
                 setEditActive(false)
                 updateNode({
                   ...nodeData,
-                  data: Object.fromEntries(Object.values(graphData)),
+                  data: Object.fromEntries(
+                    Object.values(graphData).filter(([, value]) => value !== '')
+                  ),
                   legend: editableLegend,
                 })
               }}
             >
               {save}
             </IconButton>
-          </div>
+          </>
         )}
       </div>
     </GraphNodeWrapper>

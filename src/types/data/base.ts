@@ -11,7 +11,7 @@ export interface NodeData {
   title: string
   description: string
   legend: string
-  data: { [key: string]: number }
+  data: { [key: string]: number | string }
 }
 
 export interface ProcessedNode {
@@ -22,5 +22,5 @@ export interface ProcessedNode {
 }
 
 export interface EditableGraphData {
-  [uuid: string]: [key: string, value: number]
+  [uuid: string]: [key: string, value: number | string]
 }

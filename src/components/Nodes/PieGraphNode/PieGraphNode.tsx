@@ -67,11 +67,13 @@ export const PieGraphNode: React.FC<Props> = (props: Props) => {
           <Pie
             data={
               editable
-                ? Object.values(graphData).map(([key, value]) => ({
-                    id: key,
-                    label: key,
-                    value,
-                  }))
+                ? Object.values(graphData)
+                    .filter(([, value]) => value !== '')
+                    .map(([key, value]) => ({
+                      id: key,
+                      label: key,
+                      value,
+                    }))
                 : Object.entries(data).map(([key, value]) => ({
                     id: key,
                     label: key,
@@ -104,7 +106,9 @@ export const PieGraphNode: React.FC<Props> = (props: Props) => {
                 setEditActive(false)
                 updateNode({
                   ...nodeData,
-                  data: Object.fromEntries(Object.values(graphData)),
+                  data: Object.fromEntries(
+                    Object.values(graphData).filter(([, value]) => value !== '')
+                  ),
                 })
               }}
             >
