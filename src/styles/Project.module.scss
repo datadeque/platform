@@ -1,7 +1,7 @@
 @import 'src/styles/base';
 
 .container {
-  display: flex;
+  @include column;
   flex: 1 0 100vh;
   height: 100vh;
   width: 100vw;

@@ -10,6 +10,7 @@
   @include themed-styles {
     background-color: themed-colour('backdrop');
     color: themed-colour('text-primary');
+    border-bottom: 2px solid themed-colour('border');
   }
 
   h1 {
