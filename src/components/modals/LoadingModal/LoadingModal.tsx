@@ -1,6 +1,3 @@
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-
 import styles from './LoadingModal.module.scss'
 import { ModalWrapper } from 'src/components/wrappers/ModalWrapper'
 import { LoadingSpinner } from 'src/components'
