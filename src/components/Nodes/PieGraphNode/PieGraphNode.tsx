@@ -51,70 +51,68 @@ export const PieGraphNode: React.FC<Props> = (props: Props) => {
   }, [nodeData])
 
   return (
-    <div className={styles.container}>
-      <GraphNodeWrapper
-        title={title}
-        onTitleSave={onTitleSave}
-        onDescriptionSave={onDescriptionSave}
-        description={description}
-        editable={editable}
-      >
-        <div className={styles.container}>
-          <div
-            className={classNames(styles.graph, {
-              [styles.active]: editActive,
-            })}
+    <GraphNodeWrapper
+      title={title}
+      onTitleSave={onTitleSave}
+      onDescriptionSave={onDescriptionSave}
+      description={description}
+      editable={editable}
+    >
+      <div className={styles.container}>
+        <div
+          className={classNames(styles.graph, {
+            [styles.active]: editActive,
+          })}
+        >
+          <Pie
+            data={
+              editable
+                ? Object.values(graphData).map(([key, value]) => ({
+                    id: key,
+                    label: key,
+                    value,
+                  }))
+                : Object.entries(data).map(([key, value]) => ({
+                    id: key,
+                    label: key,
+                    value,
+                  }))
+            }
+            {...config}
+            theme={theme == 'dark' ? darkTheme : lightTheme}
+          />
+        </div>
+        {editable && !editActive && (
+          <IconButton
+            onClick={() => {
+              setEditActive(true)
+            }}
           >
-            <Pie
-              data={
-                editable
-                  ? Object.values(graphData).map(([key, value]) => ({
-                      id: key,
-                      label: key,
-                      value,
-                    }))
-                  : Object.entries(data).map(([key, value]) => ({
-                      id: key,
-                      label: key,
-                      value,
-                    }))
-              }
-              {...config}
-              theme={theme == 'dark' ? darkTheme : lightTheme}
-            />
-          </div>
-          {editable && !editActive && (
+            {edit}
+          </IconButton>
+        )}
+        {editable && updateNode && editActive && (
+          <>
+            <div className={styles.panel}>
+              <EditGraphPanel
+                data={graphData}
+                handleDataChange={setGraphData}
+              />
+            </div>
             <IconButton
-              onClick={() => {
-                setEditActive(true)
+              onClick={async () => {
+                setEditActive(false)
+                updateNode({
+                  ...nodeData,
+                  data: Object.fromEntries(Object.values(graphData)),
+                })
               }}
             >
-              {edit}
+              {save}
             </IconButton>
-          )}
-          {editable && updateNode && editActive && (
-            <>
-              <div className={styles.panel}>
-                <EditGraphPanel
-                  data={graphData}
-                  handleDataChange={setGraphData}
-                />
-              </div>
-              <IconButton
-                onClick={async () => {
-                  setEditActive(false)
-                  updateNode({
-                    ...nodeData,
-                    data: Object.fromEntries(Object.values(graphData)),
-                  })
-                }}
-              >
-                {save}
-              </IconButton>
-            </>
-          )}
-        </div>
-      </GraphNodeWrapper>
-    </div>
+          </>
+        )}
+      </div>
+    </GraphNodeWrapper>
   )
 }

@@ -1,4 +1,3 @@
-import { ResponsiveBar as Bar } from '@nivo/bar'
 import {
   ChangeEvent,
   useCallback,
@@ -6,6 +5,8 @@ import {
   useEffect,
   useState,
 } from 'react'
+
+import { ResponsiveBar as Bar } from '@nivo/bar'
 
 import { v4 as uuid } from 'uuid'
 
