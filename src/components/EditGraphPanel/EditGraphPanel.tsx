@@ -3,15 +3,15 @@ import { v4 as uuid } from 'uuid'
 
 import { EditableGraphData } from 'src/types'
 import { IconButton } from 'src/components'
-import { add } from 'src/components/IconButton/icons'
+import { add, remove } from 'src/components/IconButton/icons'
 
 import styles from './EditGraphPanel.module.scss'
 
 interface Props {
   data: EditableGraphData
-  legend: string
+  legend?: string
   handleDataChange: (newData: EditableGraphData) => void
-  handleLegendChange: (e: ChangeEvent<HTMLInputElement>) => void
+  handleLegendChange?: (e: ChangeEvent<HTMLInputElement>) => void
 }
 
 export const EditGraphPanel: React.FC<Props> = (props: Props) => {
@@ -47,10 +47,27 @@ export const EditGraphPanel: React.FC<Props> = (props: Props) => {
                   onChange={(e) => {
                     handleDataChange({
                       ...data,
-                      [id]: [label, parseInt(e.target.value)],
+                      [id]: [
+                        label,
+                        parseInt(e.target.value) >= 0
+                          ? parseInt(e.target.value)
+                          : '',
+                      ],
                     })
                   }}
                 />
+              </td>
+              <td>
+                <IconButton
+                  onClick={() => {
+                    delete data[id]
+                    handleDataChange({
+                      ...data,
+                    })
+                  }}
+                >
+                  {remove}
+                </IconButton>
               </td>
             </tr>
           ))}
@@ -68,23 +85,31 @@ export const EditGraphPanel: React.FC<Props> = (props: Props) => {
                 onChange={(e) => setNewValue(parseInt(e.target.value))}
               />
             </td>
-            <IconButton
-              onClick={() => {
-                handleDataChange({
-                  ...data,
-                  [uuid()]: [newLabel, newValue ?? 0],
-                })
-                setNewLabel('')
-                setNewValue(null)
-              }}
-            >
-              {add}
-            </IconButton>
+            <td>
+              <IconButton
+                disabled={newValue == null || newLabel == ''}
+                onClick={() => {
+                  if (newValue != null && newLabel != '')
+                    handleDataChange({
+                      ...data,
+                      [uuid()]: [newLabel, newValue],
+                    })
+                  setNewLabel('')
+                  setNewValue(null)
+                }}
+              >
+                {add}
+              </IconButton>
+            </td>
           </tr>
         </tbody>
       </table>
-      <p>Legend</p>
-      <input value={legend} onChange={handleLegendChange} />
+      {legend && (
+        <>
+          <p>Legend</p>
+          <input value={legend} onChange={handleLegendChange} />
+        </>
+      )}
     </div>
   )
 }

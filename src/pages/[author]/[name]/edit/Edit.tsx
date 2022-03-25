@@ -2,7 +2,7 @@ import { NextPage } from 'next'
 import { useRouter } from 'next/router'
 import { useContext, useMemo } from 'react'
 
-import { BarGraphNode, RootNode } from 'src/components'
+import { BarGraphNode, PieGraphNode, RootNode } from 'src/components'
 import { NodeData, ProcessedNode } from 'src/types'
 
 import styles from 'src/styles/Project.module.scss'
@@ -44,17 +44,38 @@ const Edit: React.FC = () => {
           editable
         />
       </div>
-      <div className={styles.container}>
-        {nodesList.map((node: ProcessedNode) => (
-          <BarGraphNode
-            updateNode={(data: NodeData) => updateNode({ id: node.id, data })}
-            key={node.id}
-            nodeData={node.data}
-            id={node.id}
-            editable
-          />
-        ))}
-      </div>
+      {nodesList.map((node: ProcessedNode) => {
+        switch (node.type) {
+          case 'BAR':
+            return (
+              <div className={styles.container}>
+                <BarGraphNode
+                  updateNode={(data: NodeData) =>
+                    updateNode({ id: node.id, data })
+                  }
+                  key={node.id}
+                  nodeData={node.data}
+                  id={node.id}
+                  editable
+                />
+              </div>
+            )
+          default:
+            return (
+              <div className={styles.container}>
+                <PieGraphNode
+                  updateNode={(data: NodeData) =>
+                    updateNode({ id: node.id, data })
+                  }
+                  key={node.id}
+                  nodeData={node.data}
+                  id={node.id}
+                  editable
+                />
+              </div>
+            )
+        }
+      })}
     </>
   )
 }
