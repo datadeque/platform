@@ -119,6 +119,13 @@ export const BarGraphNode: React.FC<Props> = (props: Props) => {
               />
             </div>
             <IconButton
+              disabled={
+                editableLegend == '' ||
+                Object.entries(graphData).filter(([k]) => k == '').length > 0 ||
+                Object.values(graphData).filter(([, value]) => value == '')
+                  .length > 0
+              }
+              toolTip="Check empty fields"
               onClick={async () => {
                 setEditActive(false)
                 updateNode({

@@ -82,12 +82,17 @@ export const EditGraphPanel: React.FC<Props> = (props: Props) => {
               <input
                 type="number"
                 value={newValue ?? ''}
-                onChange={(e) => setNewValue(parseInt(e.target.value))}
+                onChange={(e) => {
+                  const value =
+                    e.target.value == '' ? null : parseInt(e.target.value)
+                  setNewValue(value)
+                }}
               />
             </td>
             <td>
               <IconButton
                 disabled={newValue == null || newLabel == ''}
+                toolTip="Check empty fields"
                 onClick={() => {
                   if (newValue != null && newLabel != '')
                     handleDataChange({
@@ -104,7 +109,7 @@ export const EditGraphPanel: React.FC<Props> = (props: Props) => {
           </tr>
         </tbody>
       </table>
-      {legend && (
+      {legend != null && (
         <>
           <p>Legend</p>
           <input value={legend} onChange={handleLegendChange} />

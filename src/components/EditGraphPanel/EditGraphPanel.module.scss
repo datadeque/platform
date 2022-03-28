@@ -20,4 +20,16 @@
       border: 1px solid rgba(themed-colour('text-muted'), 0.5);
     }
   }
+
+  .border {
+    width: 100%;
+    @include themed-styles {
+      border-top: 1px solid themed-colour('border');
+    }
+    padding-bottom: 3px;
+  }
+
+  .legend {
+    @include row;
+  }
 }

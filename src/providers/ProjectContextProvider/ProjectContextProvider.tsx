@@ -1,13 +1,19 @@
 import { useEffect, useState, ReactNode, useCallback } from 'react'
 
-import { defaultNodeData } from 'src/constants'
+import { defaultNodeData, defaultPointNodeData } from 'src/constants'
 import { ProjectContext } from 'src/contexts'
 import {
   useProjectQuery,
   useUpdateNodeMutation,
   useUpdateProjectMutation,
 } from 'src/graphql/hooks'
-import { NodeData, PomelloNode, ProcessedNode, Project } from 'src/types'
+import {
+  NodeData,
+  PointNodeData,
+  PomelloNode,
+  ProcessedNode,
+  Project,
+} from 'src/types'
 
 interface Props {
   children: ReactNode
@@ -42,11 +48,15 @@ export const ProjectContextProvider: React.FC<Props> = ({
       const nodes: { [id: string]: ProcessedNode } = {}
 
       data.project.nodes.forEach((node: PomelloNode) => {
+        const defaultData =
+          node.type == 'BAR' || node.type == 'PIE'
+            ? defaultNodeData
+            : defaultPointNodeData
         nodes[node.id] = {
           id: node.id,
           position: node.position,
           type: node.type,
-          data: { ...defaultNodeData, ...JSON.parse(node.data) },
+          data: { ...defaultData, ...JSON.parse(node.data) },
         }
       })
 
@@ -55,7 +65,7 @@ export const ProjectContextProvider: React.FC<Props> = ({
   }, [data])
 
   const updateNode = useCallback(
-    async ({ id, data }: { id: string; data: NodeData }) => {
+    async ({ id, data }: { id: string; data: NodeData | PointNodeData }) => {
       if (!project) return
       setEditLoading(true)
       await updateNodeMutation({

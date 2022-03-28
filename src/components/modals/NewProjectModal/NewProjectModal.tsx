@@ -9,11 +9,12 @@ import {
   RootNode,
   BarGraphNode,
   PieGraphNode,
+  ScatterGraphNode,
 } from 'src/components'
 import { close, lock, unlock, bar, pie, scatter, line } from './icons'
 
 import styles from './NewProjectModal.module.scss'
-import { defaultNodeData } from 'src/constants'
+import { defaultNodeData, defaultPointNodeData } from 'src/constants'
 import { useCreateProjectMutation } from 'src/graphql/hooks'
 import { ApolloError } from '@apollo/client'
 import { ModalContext } from 'src/contexts'
@@ -168,8 +169,6 @@ export const NewProjectModal = () => {
                 </button>
                 <button
                   className={styles.button}
-                  disabled={true}
-                  title="Coming Soon!"
                   onClick={() => setData({ ...data, graphType: 'SCATTER' })}
                 >
                   <svg>{scatter}</svg>Scatter
@@ -196,6 +195,9 @@ export const NewProjectModal = () => {
             )) ||
               (data.graphType === 'PIE' && (
                 <PieGraphNode nodeData={defaultNodeData} id="sample" />
+              )) ||
+              (data.graphType === 'SCATTER' && (
+                <ScatterGraphNode nodeData={defaultPointNodeData} id="sample" />
               ))}
           </div>
         </div>

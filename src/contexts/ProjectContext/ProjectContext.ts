@@ -1,5 +1,5 @@
 import { createContext } from 'react'
-import { NodeData, Project } from 'src/types'
+import { NodeData, PointNodeData, Project } from 'src/types'
 
 interface IProjectContext {
   project: Project | null
@@ -13,7 +13,13 @@ interface IProjectContext {
     name?: string
     description?: string
   }) => void
-  updateNode: ({ id, data }: { id: string; data: NodeData }) => void
+  updateNode: ({
+    id,
+    data,
+  }: {
+    id: string
+    data: NodeData | PointNodeData
+  }) => void
 }
 
 const fn = () => {
