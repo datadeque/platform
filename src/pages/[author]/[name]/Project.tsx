@@ -47,7 +47,7 @@ const Project: React.FC = () => {
         switch (node.type) {
           case 'BAR':
             return (
-              <div className={styles.container}>
+              <div key={node.id} className={styles.container}>
                 <BarGraphNode
                   key={node.id}
                   nodeData={node.data as NodeData}
@@ -57,7 +57,7 @@ const Project: React.FC = () => {
             )
           case 'PIE':
             return (
-              <div className={styles.container}>
+              <div key={node.id} className={styles.container}>
                 <PieGraphNode
                   key={node.id}
                   nodeData={node.data as NodeData}
@@ -67,7 +67,7 @@ const Project: React.FC = () => {
             )
           default:
             return (
-              <div className={styles.container}>
+              <div key={node.id} className={styles.container}>
                 <ScatterGraphNode
                   key={node.id}
                   nodeData={node.data as PointNodeData}
