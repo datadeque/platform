@@ -38,6 +38,7 @@ export const ScatterGraphNode: React.FC<Props> = (props: Props) => {
   const [editableLegendY, setEditableLegendY] = useState(legendY)
   const [legendVisible, setLegendVisible] = useState(true)
   const [editActive, setEditActive] = useState(false)
+  const [nullDataPoint, setNullDataPoint] = useState(false)
 
   const [graphData, setGraphData] = useState<EditablePointGraphData>({})
 
@@ -62,6 +63,19 @@ export const ScatterGraphNode: React.FC<Props> = (props: Props) => {
       )
     )
   }, [nodeData])
+
+  useEffect(() => {
+    if (editable)
+      for (const [, values] of Object.entries(Object.values(graphData))) {
+        for (const value of values[1]) {
+          if (value[0] == '' || value[1] == '') {
+            setNullDataPoint(true)
+            return
+          }
+        }
+      }
+    setNullDataPoint(false)
+  }, [editable, graphData])
 
   const handleLegendXChange = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
@@ -185,12 +199,9 @@ export const ScatterGraphNode: React.FC<Props> = (props: Props) => {
                 editableLegendX == '' ||
                 editableLegendY == '' ||
                 Object.values(graphData).filter(
-                  (v) =>
-                    v[0] == '' ||
-                    v[1].length == 0 ||
-                    v[1][0][0] == '' ||
-                    v[1][0][1] == ''
-                ).length > 0
+                  (v) => v[0] == '' || v[1].length == 0
+                ).length > 0 ||
+                nullDataPoint
               }
               toolTip="Check empty fields"
               onClick={async () => {

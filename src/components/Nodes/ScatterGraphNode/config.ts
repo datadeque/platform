@@ -6,7 +6,7 @@ export const config = {
   xFormat: '>-.2f',
   yScale: { type: 'linear', min: 0, max: 'auto' },
   yFormat: '>-.2f',
-  colors: { scheme: 'green_blue' },
   axisTop: null,
   axisRight: null,
+  colors: { scheme: 'paired' },
 } as Partial<Parameters<typeof Scatter>[0]>

@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router'
 import { ReactNode, useContext, useEffect, useState } from 'react'
 
-import { defaultNodeData } from 'src/constants'
+import { defaultNodeData, defaultPointNodeData } from 'src/constants'
 import { ModalContext, PublicProjectContext } from 'src/contexts'
 import { usePublicProjectQuery } from 'src/graphql/hooks'
 import { PomelloNode, ProcessedNode, Project } from 'src/types'
@@ -50,11 +50,15 @@ export const PublicProjectContextProvider: React.FC<Props> = ({
       const nodes: { [id: string]: ProcessedNode } = {}
 
       data.publicProject.nodes.forEach((node: PomelloNode) => {
+        const defaultData =
+          node.type == 'BAR' || node.type == 'PIE'
+            ? defaultNodeData
+            : defaultPointNodeData
         nodes[node.id] = {
           id: node.id,
           position: node.position,
           type: node.type,
-          data: { ...defaultNodeData, ...JSON.parse(node.data) },
+          data: { ...defaultData, ...JSON.parse(node.data) },
         }
       })
 
