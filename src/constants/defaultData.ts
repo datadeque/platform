@@ -24,7 +24,3 @@ export const defaultPointNodeData: PointNodeData = {
     ],
   },
 }
-/*group1: [
-      [100, 130],
-      [200, 150],
-    ],*/
