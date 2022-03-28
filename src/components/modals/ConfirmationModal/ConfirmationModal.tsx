@@ -33,18 +33,16 @@ export const ConfirmationModal: React.FC<ConfirmationModalProps> = (
         {content && <p>{content}</p>}
         <div className={styles.buttons}>
           <Button
-            label="No"
+            label="Cancel"
             variant="secondary"
             onClick={handleCloseClick}
-            size="lg"
           />
           <Button
-            label="Yes"
+            label="Confirm"
             onClick={() => {
               onConfirm()
               handleCloseClick()
             }}
-            size="lg"
           />
         </div>
       </div>

@@ -4,7 +4,6 @@
   @include column;
   @include rounded;
   min-width: 30vw;
-  min-height: 30vh;
   gap: 30px;
   @include themed-styles {
     background-color: themed-colour('background0');
@@ -31,6 +30,12 @@
       color: themed-colour('text-muted');
     }
   }
+
+  @include mobile {
+    gap: 20px;
+    width: 90vw;
+    height: auto;
+  }
 }
 
 .close {
@@ -43,4 +48,5 @@
   gap: 20px;
   align-items: center;
   justify-content: center;
+  padding-bottom: 30px;
 }
