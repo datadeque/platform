@@ -6,6 +6,7 @@ import {
   BarGraphNode,
   PieGraphNode,
   ScatterGraphNode,
+  LineGraphNode,
   RootNode,
 } from 'src/components'
 import { PublicProjectContextProvider } from 'src/providers'
@@ -65,10 +66,20 @@ const Project: React.FC = () => {
                 />
               </div>
             )
-          default:
+          case 'SCATTER':
             return (
               <div key={node.id} className={styles.container}>
                 <ScatterGraphNode
+                  key={node.id}
+                  nodeData={node.data as PointNodeData}
+                  id={node.id}
+                />
+              </div>
+            )
+          default:
+            return (
+              <div key={node.id} className={styles.container}>
+                <LineGraphNode
                   key={node.id}
                   nodeData={node.data as PointNodeData}
                   id={node.id}

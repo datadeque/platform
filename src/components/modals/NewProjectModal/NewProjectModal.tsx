@@ -10,6 +10,7 @@ import {
   BarGraphNode,
   PieGraphNode,
   ScatterGraphNode,
+  LineGraphNode,
 } from 'src/components'
 import { close, lock, unlock, bar, pie, scatter, line } from './icons'
 
@@ -153,8 +154,6 @@ export const NewProjectModal = () => {
                 </button>
                 <button
                   className={styles.button}
-                  disabled={true}
-                  title="Coming Soon!"
                   onClick={() => setData({ ...data, graphType: 'LINE' })}
                 >
                   <svg>{line}</svg>Line
@@ -198,6 +197,9 @@ export const NewProjectModal = () => {
               )) ||
               (data.graphType === 'SCATTER' && (
                 <ScatterGraphNode nodeData={defaultPointNodeData} id="sample" />
+              )) ||
+              (data.graphType === 'LINE' && (
+                <LineGraphNode nodeData={defaultPointNodeData} id="sample" />
               ))}
           </div>
         </div>
