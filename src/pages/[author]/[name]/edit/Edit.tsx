@@ -2,8 +2,13 @@ import { NextPage } from 'next'
 import { useRouter } from 'next/router'
 import { useContext, useMemo } from 'react'
 
-import { BarGraphNode, PieGraphNode, RootNode } from 'src/components'
-import { NodeData, ProcessedNode } from 'src/types'
+import {
+  BarGraphNode,
+  PieGraphNode,
+  ScatterGraphNode,
+  RootNode,
+} from 'src/components'
+import { NodeData, PointNodeData, ProcessedNode } from 'src/types'
 
 import styles from 'src/styles/Project.module.scss'
 import { ProjectContextProvider } from 'src/providers/ProjectContextProvider'
@@ -48,13 +53,27 @@ const Edit: React.FC = () => {
         switch (node.type) {
           case 'BAR':
             return (
-              <div className={styles.container}>
+              <div key={node.id} className={styles.container}>
                 <BarGraphNode
                   updateNode={(data: NodeData) =>
                     updateNode({ id: node.id, data })
                   }
                   key={node.id}
-                  nodeData={node.data}
+                  nodeData={node.data as NodeData}
+                  id={node.id}
+                  editable
+                />
+              </div>
+            )
+          case 'PIE':
+            return (
+              <div key={node.id} className={styles.container}>
+                <PieGraphNode
+                  updateNode={(data: NodeData) =>
+                    updateNode({ id: node.id, data })
+                  }
+                  key={node.id}
+                  nodeData={node.data as NodeData}
                   id={node.id}
                   editable
                 />
@@ -62,13 +81,13 @@ const Edit: React.FC = () => {
             )
           default:
             return (
-              <div className={styles.container}>
-                <PieGraphNode
-                  updateNode={(data: NodeData) =>
+              <div key={node.id} className={styles.container}>
+                <ScatterGraphNode
+                  updateNode={(data: PointNodeData) =>
                     updateNode({ id: node.id, data })
                   }
                   key={node.id}
-                  nodeData={node.data}
+                  nodeData={node.data as PointNodeData}
                   id={node.id}
                   editable
                 />

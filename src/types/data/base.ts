@@ -1,4 +1,4 @@
-export type NodeType = 'BAR'
+export type NodeType = 'BAR' | 'PIE' | 'SCATTER'
 
 export interface PomelloNode {
   id: string
@@ -14,13 +14,25 @@ export interface NodeData {
   data: { [key: string]: number | string }
 }
 
+export interface PointNodeData {
+  title: string
+  description: string
+  legendX: string
+  legendY: string
+  data: { [label: string]: [number | string, number | string][] }
+}
+
 export interface ProcessedNode {
   id: string
   position: string
-  data: NodeData
+  data: NodeData | PointNodeData
   type: NodeType
 }
 
 export interface EditableGraphData {
-  [uuid: string]: [key: string, value: number | string]
+  [uuid: string]: [label: string, value: number | string]
+}
+
+export interface EditablePointGraphData {
+  [uuid: string]: [label: string, value: [number | string, number | string][]]
 }
