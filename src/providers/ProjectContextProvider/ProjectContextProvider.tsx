@@ -79,12 +79,25 @@ export const ProjectContextProvider: React.FC<Props> = ({
   )
 
   const updateProject = useCallback(
-    async ({ name, description }: { name?: string; description?: string }) => {
+    async ({
+      name,
+      description,
+      public: isPublic,
+    }: {
+      name?: string
+      description?: string
+      public?: boolean
+    }) => {
       if (!project) return
       setEditLoading(true)
       await updateProjectMutation({
         variables: {
-          updateProjectInput: { id: project.id, name, description },
+          updateProjectInput: {
+            id: project.id,
+            name,
+            description,
+            public: isPublic,
+          },
         },
       })
       setEditLoading(false)
