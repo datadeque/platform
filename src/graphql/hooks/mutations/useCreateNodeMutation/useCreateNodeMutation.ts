@@ -1,10 +1,8 @@
 import { gql, useMutation } from '@apollo/client'
 
 const createNodeMutation = gql`
-  mutation createNode($createNodeInput: createNodeInput!) {
+  mutation createNode($createNodeInput: CreateNodeInput!) {
     createNode(createNodeInput: $createNodeInput) {
-      title
-      description
       id
       position
       data
