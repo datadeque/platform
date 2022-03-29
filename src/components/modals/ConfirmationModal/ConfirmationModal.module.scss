@@ -1,0 +1,52 @@
+@import 'src/styles/base';
+
+.container {
+  @include column;
+  @include rounded;
+  min-width: 30vw;
+  gap: 30px;
+  @include themed-styles {
+    background-color: themed-colour('background0');
+    box-shadow: 1px 1px 3px themed-colour('shadow-box');
+  }
+
+  h2,
+  p {
+    text-align: center;
+    padding: 0px 20px;
+    margin: 0;
+    @include themed-styles {
+      color: themed-colour('text-primary');
+    }
+  }
+
+  h2 {
+    font-weight: 500;
+    font-size: 20px;
+  }
+
+  p {
+    @include themed-styles {
+      color: themed-colour('text-muted');
+    }
+  }
+
+  @include mobile {
+    gap: 20px;
+    width: 90vw;
+    height: auto;
+  }
+}
+
+.close {
+  @include row;
+  justify-content: flex-end;
+}
+
+.buttons {
+  @include row;
+  gap: 20px;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 30px;
+}
