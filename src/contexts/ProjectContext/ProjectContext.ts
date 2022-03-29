@@ -34,6 +34,5 @@ export const ProjectContext = createContext<IProjectContext>({
   loading: true,
   editLoading: false,
   error: null,
-  node: null,
   updateNode: fn,
 })
