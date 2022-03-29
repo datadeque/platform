@@ -6,6 +6,7 @@ import {
   BarGraphNode,
   PieGraphNode,
   ScatterGraphNode,
+  LineGraphNode,
   RootNode,
 } from 'src/components'
 import { NodeData, PointNodeData, ProcessedNode } from 'src/types'
@@ -79,10 +80,24 @@ const Edit: React.FC = () => {
                 />
               </div>
             )
-          default:
+          case 'SCATTER':
             return (
               <div key={node.id} className={styles.container}>
                 <ScatterGraphNode
+                  updateNode={(data: PointNodeData) =>
+                    updateNode({ id: node.id, data })
+                  }
+                  key={node.id}
+                  nodeData={node.data as PointNodeData}
+                  id={node.id}
+                  editable
+                />
+              </div>
+            )
+          default:
+            return (
+              <div key={node.id} className={styles.container}>
+                <LineGraphNode
                   updateNode={(data: PointNodeData) =>
                     updateNode({ id: node.id, data })
                   }

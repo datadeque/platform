@@ -197,11 +197,20 @@ export const EditPointGraphPanel: React.FC<Props> = (props: Props) => {
                 label="Add new group"
                 disabled={newGroup == ''}
                 onClick={() => {
+                  const newId = uuid()
                   handleDataChange({
                     ...data,
-                    [uuid()]: [newGroup, []],
+                    [newId]: [newGroup, []],
                   })
                   setNewGroup('')
+                  setNewX({
+                    ...newX,
+                    [newId]: '',
+                  })
+                  setNewY({
+                    ...newY,
+                    [newId]: '',
+                  })
                 }}
               />
             </td>

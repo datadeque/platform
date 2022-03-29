@@ -6,7 +6,7 @@ import {
   useState,
 } from 'react'
 
-import { ResponsiveScatterPlot as Scatter } from '@nivo/scatterplot'
+import { ResponsiveLine as Line } from '@nivo/line'
 import { v4 as uuid } from 'uuid'
 
 import { ThemeContext } from 'src/contexts'
@@ -16,7 +16,7 @@ import {
   EditPointGraphPanel,
 } from 'src/components'
 import { lightTheme, darkTheme } from 'src/components/Nodes/theme'
-import { config } from './config'
+import { config, legendConfig } from './config'
 import styles from 'src/components/Nodes/Nodes.module.scss'
 import { EditablePointGraphData, PointNodeData } from 'src/types/data/base'
 import { edit, save } from 'src/components/IconButton/icons'
@@ -29,7 +29,7 @@ interface Props {
   updateNode?: (data: PointNodeData) => void
 }
 
-export const ScatterGraphNode: React.FC<Props> = (props: Props) => {
+export const LineGraphNode: React.FC<Props> = (props: Props) => {
   const { theme } = useContext(ThemeContext)
   const { nodeData, editable = false, updateNode } = props
   const { title, description, data, legendX, legendY } = nodeData
@@ -109,7 +109,7 @@ export const ScatterGraphNode: React.FC<Props> = (props: Props) => {
             [styles.active]: editActive,
           })}
         >
-          <Scatter
+          <Line
             data={
               editable
                 ? Object.values(graphData).map(([key, value]) => ({
@@ -132,42 +132,23 @@ export const ScatterGraphNode: React.FC<Props> = (props: Props) => {
                   }))
             }
             {...config}
-            blendMode={theme == 'dark' ? 'normal' : 'multiply'}
             axisBottom={{
               tickSize: 5,
               tickPadding: 5,
               tickRotation: 0,
               legend: editableLegendX,
+              legendOffset: 36,
               legendPosition: 'middle',
-              legendOffset: 46,
             }}
             axisLeft={{
               tickSize: 5,
               tickPadding: 5,
               tickRotation: 0,
               legend: editableLegendY,
+              legendOffset: -40,
               legendPosition: 'middle',
-              legendOffset: -60,
             }}
-            legends={
-              legendVisible
-                ? [
-                    {
-                      anchor: 'bottom-right',
-                      direction: 'column',
-                      justify: false,
-                      translateX: 130,
-                      translateY: 0,
-                      itemWidth: 100,
-                      itemHeight: 12,
-                      itemsSpacing: 5,
-                      itemDirection: 'left-to-right',
-                      symbolSize: 12,
-                      symbolShape: 'circle',
-                    },
-                  ]
-                : []
-            }
+            legends={legendVisible ? [legendConfig] : []}
             theme={theme == 'dark' ? darkTheme : lightTheme}
           />
         </div>
@@ -204,7 +185,7 @@ export const ScatterGraphNode: React.FC<Props> = (props: Props) => {
                 nullDataPoint
               }
               toolTip="Check empty fields"
-              onClick={async () => {
+              onClick={() => {
                 setEditActive(false)
                 updateNode({
                   ...nodeData,
