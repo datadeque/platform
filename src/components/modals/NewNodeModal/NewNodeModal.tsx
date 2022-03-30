@@ -4,9 +4,10 @@ import { ChangeEvent, useCallback, useContext, useState } from 'react'
 
 import { ModalWrapper } from 'src/components/wrappers/ModalWrapper'
 import { TextField, Button, BarGraphNode, PieGraphNode } from 'src/components'
-import { close, bar, pie, scatter, line } from './icons'
+import { close, bar, pie, scatter, line } from '../NewProjectModal/icons'
 
-import styles from './NewNodeModal.module.scss'
+import styles from '../NewProjectModal/NewProjectModal.module.scss'
+import style from './NewNodeModal.module.scss'
 import { defaultNodeData } from 'src/constants'
 import { useCreateNodeMutation } from 'src/graphql/hooks'
 import { ApolloError } from '@apollo/client'
@@ -44,10 +45,12 @@ export const NewNodeModal = () => {
   const handleCreateNode = useCallback(async () => {
     const title = data.graphName
     const description = data.description
+    const graphType = data.graphType
     try {
       await createNode({
         variables: {
           createNodeInput: {
+            type: graphType,
             data: JSON.stringify({
               ...defaultNodeData,
               title: title,
@@ -56,12 +59,17 @@ export const NewNodeModal = () => {
           },
         },
       })
-      push(`/`)
       setNewNodeModalState(false)
     } catch (err) {
       console.log((err as ApolloError).message)
     }
-  }, [createNode, data.description, data.graphName, push, setNewNodeModalState])
+  }, [
+    createNode,
+    data.description,
+    data.graphName,
+    data.graphType,
+    setNewNodeModalState,
+  ])
 
   return (
     <ModalWrapper>
@@ -129,7 +137,7 @@ export const NewNodeModal = () => {
           />
         </div>
         <div className={styles.panel}>
-          <div className={styles.graph}>
+          <div className={style.graph}>
             {(data.graphType === 'BAR' && (
               <BarGraphNode
                 nodeData={{
