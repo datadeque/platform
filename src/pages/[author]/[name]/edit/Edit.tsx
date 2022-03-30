@@ -1,6 +1,6 @@
 import { NextPage } from 'next'
 import { useRouter } from 'next/router'
-import { useContext, useMemo, useImperativeHandle } from 'react'
+import { useContext, useMemo } from 'react'
 
 import {
   BarGraphNode,
