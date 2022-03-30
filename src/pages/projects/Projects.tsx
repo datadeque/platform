@@ -20,9 +20,6 @@ const Projects: React.FC = () => {
   const {
     useNewProjectModalState: [, setNewProjectModalState],
   } = useContext(ModalContext)
-  const {
-    useConfirmationModalState: [, setConfirmationModalState],
-  } = useContext(ModalContext)
 
   const { push } = useRouter()
 
@@ -46,7 +43,27 @@ const Projects: React.FC = () => {
         </div>
         <div className={styles.list}>
           {projects?.map((project) => (
-            <ProjectContextProvider
+            <ProjectListItem
+              title={project.name}
+              lastEdited={'never'}
+              nodes={1}
+              visibility={project.public ? 'public' : 'private'}
+              actionMenuRoot={{
+                onClick: () => push(`${project.ownerName}/${project.name}`),
+                label: 'View',
+              }}
+              actionMenuLast={{
+                onClick: () => deleteProject(project.id),
+                label: 'Delete',
+              }}
+              actionMenuOptions={[
+                {
+                  onClick: () =>
+                    push(`${project.ownerName}/${project.name}/edit`),
+                  label: 'Edit',
+                },
+              ]}
+              onClick={() => push(`${project.ownerName}/${project.name}/edit`)}
               key={project.id}
               authorName={project.ownerName}
               projectName={project.name}

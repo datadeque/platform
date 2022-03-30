@@ -1,0 +1,11 @@
+@import 'src/styles/base';
+
+.container {
+  @include themed-styles {
+    background: themed-colour('backdrop');
+  }
+  padding: 4% 0 0 4%;
+  Button {
+    width: 150px;
+  }
+}

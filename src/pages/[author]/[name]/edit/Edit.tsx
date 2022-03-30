@@ -1,6 +1,6 @@
 import { NextPage } from 'next'
 import { useRouter } from 'next/router'
-import { useContext, useMemo } from 'react'
+import { useContext, useMemo, useImperativeHandle } from 'react'
 
 import {
   BarGraphNode,
@@ -8,12 +8,14 @@ import {
   ScatterGraphNode,
   LineGraphNode,
   RootNode,
+  Button,
 } from 'src/components'
 import { NodeData, PointNodeData, ProcessedNode } from 'src/types'
 
 import styles from 'src/styles/Project.module.scss'
+import editStyles from './Edit.module.scss'
 import { ProjectContextProvider } from 'src/providers/ProjectContextProvider'
-import { ProjectContext } from 'src/contexts'
+import { ProjectContext, ModalContext } from 'src/contexts'
 
 const EditWrapper: NextPage = () => {
   const router = useRouter()
@@ -32,6 +34,9 @@ const EditWrapper: NextPage = () => {
 const Edit: React.FC = () => {
   const { project, loading, error, updateNode, updateProject } =
     useContext(ProjectContext)
+  const {
+    useNewNodeModalState: [, setNewNodeModalState],
+  } = useContext(ModalContext)
 
   const nodesList = useMemo(
     () => Object.values(project?.nodes ?? []),
@@ -49,6 +54,12 @@ const Edit: React.FC = () => {
           updateProject={updateProject}
           editable
         />
+        <div className={editStyles.container}>
+          <Button
+            label="+ Add Graph"
+            onClick={() => setNewNodeModalState(true)}
+          />
+        </div>
       </div>
       {nodesList.map((node: ProcessedNode) => {
         switch (node.type) {
