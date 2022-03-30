@@ -7,12 +7,11 @@ import { TextField, Button, BarGraphNode, PieGraphNode } from 'src/components'
 import { close, bar, pie, scatter, line } from '../NewProjectModal/icons'
 
 import styles from '../NewProjectModal/NewProjectModal.module.scss'
-import style from './NewNodeModal.module.scss'
+import nodeModalStyles from './NewNodeModal.module.scss'
 import { defaultNodeData } from 'src/constants'
 import { useCreateNodeMutation } from 'src/graphql/hooks'
 import { ApolloError } from '@apollo/client'
 import { ModalContext } from 'src/contexts'
-import { useRouter } from 'next/router'
 
 const initialData = {
   graphName: '',
@@ -21,12 +20,11 @@ const initialData = {
 }
 
 export const NewNodeModal = () => {
-  const [data, setData] = useState({ ...initialData })
+  const [data, setData] = useState(initialData)
   const {
     useNewNodeModalState: [, setNewNodeModalState],
   } = useContext(ModalContext)
   const [createNode] = useCreateNodeMutation()
-  const { push } = useRouter()
 
   const handleNameChange = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
@@ -51,11 +49,11 @@ export const NewNodeModal = () => {
         variables: {
           createNodeInput: {
             type: graphType,
-            data: JSON.stringify({
+            data: {
               ...defaultNodeData,
               title: title,
               description: description,
-            }),
+            },
           },
         },
       })
@@ -137,7 +135,7 @@ export const NewNodeModal = () => {
           />
         </div>
         <div className={styles.panel}>
-          <div className={style.graph}>
+          <div className={nodeModalStyles.graph}>
             {(data.graphType === 'BAR' && (
               <BarGraphNode
                 nodeData={{
