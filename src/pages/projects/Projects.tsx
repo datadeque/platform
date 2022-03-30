@@ -4,7 +4,7 @@ import { useContext } from 'react'
 import { IconButton, ProjectListItem, SearchBar } from 'src/components'
 import { add } from 'src/components/IconButton/icons'
 import { ModalContext, ProjectsContext } from 'src/contexts'
-import { ProjectsContextProvider } from 'src/providers'
+import { ProjectContextProvider, ProjectsContextProvider } from 'src/providers'
 
 import styles from './Projects.module.scss'
 
@@ -46,38 +46,46 @@ const Projects: React.FC = () => {
         </div>
         <div className={styles.list}>
           {projects?.map((project) => (
-            <ProjectListItem
-              title={project.name}
-              lastEdited={'never'}
-              nodes={1}
-              visibility={project.public ? 'public' : 'private'}
-              actionMenuRoot={{
-                onClick: () => push(`${project.ownerName}/${project.name}`),
-                label: 'View',
-              }}
-              actionMenuLast={{
-                onClick: () => {
-                  setConfirmationModalState({
-                    title: `Are you sure you want to delete ${project.name}?`,
-                    content:
-                      'This action will permanently delete your project.',
-                    onConfirm: () => {
-                      deleteProject(project.id)
-                    },
-                  })
-                },
-                label: 'Delete',
-              }}
-              actionMenuOptions={[
-                {
-                  onClick: () =>
-                    push(`${project.ownerName}/${project.name}/edit`),
-                  label: 'Edit',
-                },
-              ]}
-              onClick={() => push(`${project.ownerName}/${project.name}/edit`)}
+            <ProjectContextProvider
               key={project.id}
-            />
+              authorName={project.ownerName}
+              projectName={project.name}
+            >
+              <ProjectListItem
+                title={project.name}
+                lastEdited={'never'}
+                nodes={1}
+                visibility={project.public ? 'public' : 'private'}
+                actionMenuRoot={{
+                  onClick: () => push(`${project.ownerName}/${project.name}`),
+                  label: 'View',
+                }}
+                actionMenuLast={{
+                  onClick: () => {
+                    setConfirmationModalState({
+                      title: `Are you sure you want to delete ${project.name}?`,
+                      content:
+                        'This action will permanently delete your project.',
+                      onConfirm: () => {
+                        deleteProject(project.id)
+                      },
+                    })
+                  },
+                  label: 'Delete',
+                }}
+                actionMenuOptions={[
+                  {
+                    onClick: () =>
+                      push(`${project.ownerName}/${project.name}/edit`),
+                    label: 'Edit',
+                  },
+                ]}
+                onClick={() =>
+                  push(`${project.ownerName}/${project.name}/edit`)
+                }
+                key={project.id}
+              />
+            </ProjectContextProvider>
           ))}
         </div>
       </div>

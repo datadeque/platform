@@ -9,9 +9,11 @@ interface IProjectContext {
   updateProject: ({
     name,
     description,
+    public: isPublic,
   }: {
     name?: string
     description?: string
+    public?: boolean
   }) => void
   updateNode: ({
     id,

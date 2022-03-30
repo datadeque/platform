@@ -1,6 +1,7 @@
-import { ReactNode } from 'react'
+import { ReactNode, useContext } from 'react'
 import styles from './ProjectListItem.module.scss'
 import { Button, DropdownMenu } from 'src/components/'
+import { ProjectContext } from 'src/contexts'
 
 interface Props {
   title: string
@@ -54,6 +55,7 @@ export const ProjectListItem: React.FC<Props> = ({
   actionMenuOptions,
   onClick,
 }: Props) => {
+  const { updateProject } = useContext(ProjectContext)
   const header = (
     <div className={styles.header}>
       <h2>{title}</h2>
@@ -68,7 +70,16 @@ export const ProjectListItem: React.FC<Props> = ({
       <p>{visibility}</p>
       <DropdownMenu
         main={bubbleMenuIcon}
-        options={actionMenuOptions}
+        options={actionMenuOptions.concat([
+          {
+            onClick: () => {
+              updateProject({
+                public: visibility == 'public' ? false : true,
+              })
+            },
+            label: visibility == 'public' ? 'Make private' : 'Make public',
+          },
+        ])}
         rootOption={actionMenuRoot}
         lastOption={actionMenuLast}
       />
