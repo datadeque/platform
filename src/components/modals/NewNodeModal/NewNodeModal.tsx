@@ -3,20 +3,34 @@
 import { ChangeEvent, useCallback, useContext, useState } from 'react'
 
 import { ModalWrapper } from 'src/components/wrappers/ModalWrapper'
-import { TextField, Button, BarGraphNode, PieGraphNode } from 'src/components'
-import { close, bar, pie, scatter, line } from '../NewProjectModal/icons'
+import {
+  TextField,
+  Button,
+  BarGraphNode,
+  PieGraphNode,
+  ScatterGraphNode,
+  LineGraphNode,
+} from 'src/components'
+import {
+  close,
+  bar,
+  pie,
+  scatter,
+  line,
+} from 'src/components/modals/NewProjectModal/icons'
 
-import styles from '../NewProjectModal/NewProjectModal.module.scss'
+import styles from 'src/components/modals/NewProjectModal/NewProjectModal.module.scss'
 import nodeModalStyles from './NewNodeModal.module.scss'
-import { defaultNodeData } from 'src/constants'
+import { defaultNodeData, defaultPointNodeData } from 'src/constants'
 import { useCreateNodeMutation } from 'src/graphql/hooks'
 import { ApolloError } from '@apollo/client'
-import { ModalContext } from 'src/contexts'
+import { ModalContext, ProjectContext } from 'src/contexts'
 
 const initialData = {
   graphName: '',
   description: '',
   graphType: 'BAR',
+  projectId: 0,
 }
 
 export const NewNodeModal = () => {
@@ -25,6 +39,7 @@ export const NewNodeModal = () => {
     useNewNodeModalState: [, setNewNodeModalState],
   } = useContext(ModalContext)
   const [createNode] = useCreateNodeMutation()
+  const { project } = useContext(ProjectContext)
 
   const handleNameChange = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
@@ -44,10 +59,12 @@ export const NewNodeModal = () => {
     const title = data.graphName
     const description = data.description
     const graphType = data.graphType
+    const projectId = project ? project.id : data.projectId
     try {
       await createNode({
         variables: {
           createNodeInput: {
+            projectId: projectId,
             type: graphType,
             data: {
               ...defaultNodeData,
@@ -105,7 +122,6 @@ export const NewNodeModal = () => {
                 </button>
                 <button
                   className={styles.button}
-                  disabled={true}
                   onClick={() => setData({ ...data, graphType: 'LINE' })}
                 >
                   <svg>{line}</svg>Line
@@ -120,7 +136,6 @@ export const NewNodeModal = () => {
                 </button>
                 <button
                   className={styles.button}
-                  disabled={true}
                   onClick={() => setData({ ...data, graphType: 'SCATTER' })}
                 >
                   <svg>{scatter}</svg>Scatter
@@ -152,6 +167,30 @@ export const NewNodeModal = () => {
                 <PieGraphNode
                   nodeData={{
                     ...defaultNodeData,
+                    title: data.graphName ? data.graphName : 'Default Title',
+                    description: data.description
+                      ? data.description
+                      : 'Default description',
+                  }}
+                  id="sample"
+                />
+              )) ||
+              (data.graphType === 'SCATTER' && (
+                <ScatterGraphNode
+                  nodeData={{
+                    ...defaultPointNodeData,
+                    title: data.graphName ? data.graphName : 'Default Title',
+                    description: data.description
+                      ? data.description
+                      : 'Default description',
+                  }}
+                  id="sample"
+                />
+              )) ||
+              (data.graphType === 'LINE' && (
+                <LineGraphNode
+                  nodeData={{
+                    ...defaultPointNodeData,
                     title: data.graphName ? data.graphName : 'Default Title',
                     description: data.description
                       ? data.description

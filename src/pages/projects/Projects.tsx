@@ -20,9 +20,6 @@ const Projects: React.FC = () => {
   const {
     useNewProjectModalState: [, setNewProjectModalState],
   } = useContext(ModalContext)
-  const {
-    useConfirmationModalState: [, setConfirmationModalState],
-  } = useContext(ModalContext)
 
   const { push } = useRouter()
 
@@ -56,16 +53,7 @@ const Projects: React.FC = () => {
                 label: 'View',
               }}
               actionMenuLast={{
-                onClick: () => {
-                  setConfirmationModalState({
-                    title: `Are you sure you want to delete ${project.name}?`,
-                    content:
-                      'This action will permanently delete your project.',
-                    onConfirm: () => {
-                      deleteProject(project.id)
-                    },
-                  })
-                },
+                onClick: () => deleteProject(project.id),
                 label: 'Delete',
               }}
               actionMenuOptions={[
