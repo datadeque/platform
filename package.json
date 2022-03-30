@@ -17,6 +17,7 @@
     "@nivo/line": "^0.79.1",
     "@nivo/pie": "^0.79.1",
     "@nivo/scatterplot": "^0.79.1",
+    "@sentry/nextjs": "^6.19.3",
     "classnames": "^2.3.1",
     "graphql": "^16.3.0",
     "lodash": "^4.17.21",
