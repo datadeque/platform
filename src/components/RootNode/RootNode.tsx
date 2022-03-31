@@ -47,7 +47,7 @@ export const RootNode: React.FC<Props> = (props: Props) => {
             onSave={updateProject && (() => updateProject({ name: titleText }))}
           />
         ) : (
-          <h1>{titleText}</h1>
+          <h1>{title}</h1>
         )}
         {editable ? (
           <EditableDescription

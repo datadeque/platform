@@ -13,7 +13,7 @@ import { NodeData, PointNodeData, ProcessedNode } from 'src/types'
 
 import styles from 'src/styles/Project.module.scss'
 import { ProjectContextProvider } from 'src/providers/ProjectContextProvider'
-import { ProjectContext } from 'src/contexts'
+import { ModalContext, ProjectContext } from 'src/contexts'
 
 const EditWrapper: NextPage = () => {
   const router = useRouter()
@@ -32,6 +32,9 @@ const EditWrapper: NextPage = () => {
 const Edit: React.FC = () => {
   const { project, loading, error, updateNode, updateProject } =
     useContext(ProjectContext)
+
+  const { useNewNodeModalState } = useContext(ModalContext)
+  const [, setNewNodeModalState] = useNewNodeModalState
 
   const nodesList = useMemo(
     () => Object.values(project?.nodes ?? []),
@@ -110,6 +113,11 @@ const Edit: React.FC = () => {
             )
         }
       })}
+      <div className={styles.box}>
+        <button onClick={() => setNewNodeModalState({ projectId: project.id })}>
+          Add Node
+        </button>
+      </div>
     </>
   )
 }

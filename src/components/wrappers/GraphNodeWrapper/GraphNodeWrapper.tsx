@@ -31,7 +31,7 @@ export const GraphNodeWrapper: React.FC<Props> = ({
           onSave={() => onTitleSave && onTitleSave(titleText)}
         />
       ) : (
-        <h1>{titleText}</h1>
+        <h1>{title}</h1>
       )}
       {editable ? (
         <EditableDescription

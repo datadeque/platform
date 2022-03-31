@@ -26,3 +26,24 @@
     }
   }
 }
+
+.box {
+  @include themed-styles {
+    background-color: themed-colour('backdrop');
+  }
+
+  button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    @include themed-styles {
+      color: themed-colour('text-primary');
+      background-color: rgba(themed-colour('accent-secondary'), 0.1);
+  
+      &:hover {
+        background-color: rgba(themed-colour('accent-secondary'), 0.2);
+      }
+    }
+  }
+}
