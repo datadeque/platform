@@ -38,7 +38,7 @@ export const NewProjectModal = () => {
 
   const handleNameChange = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
-      setData({ ...data, projectName: e.target.value })
+      setData({ ...data, projectName: e.target.value.replace(/\s/g, '-') })
     },
     [data]
   )
@@ -94,6 +94,7 @@ export const NewProjectModal = () => {
           <TextField
             label="Project Name"
             variant="outlined"
+            type="text"
             value={data.projectName}
             onChange={handleNameChange}
           />
