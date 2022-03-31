@@ -6,6 +6,7 @@ import {
   useProjectQuery,
   useUpdateNodeMutation,
   useUpdateProjectMutation,
+  useRemoveNodeMutation,
 } from 'src/graphql/hooks'
 import {
   NodeData,
@@ -34,6 +35,7 @@ export const ProjectContextProvider: React.FC<Props> = ({
   const [project, setProject] = useState<Project | null>(null)
   const [updateProjectMutation] = useUpdateProjectMutation()
   const [updateNodeMutation] = useUpdateNodeMutation()
+  const [removeNodeInput] = useRemoveNodeMutation()
   const [editLoading, setEditLoading] = useState<boolean>(false)
 
   useEffect(() => {
@@ -78,6 +80,13 @@ export const ProjectContextProvider: React.FC<Props> = ({
     [project, updateNodeMutation]
   )
 
+  const removeNode = useCallback(
+    async (id: string) => {
+      await removeNodeInput({ variables: { id } })
+    },
+    [removeNodeInput]
+  )
+
   const updateProject = useCallback(
     async ({
       name,
@@ -112,6 +121,7 @@ export const ProjectContextProvider: React.FC<Props> = ({
         loading: projectQueryLoading,
         updateProject,
         updateNode,
+        removeNode,
         project,
         error: projectQueryError?.message ?? null,
       }}
