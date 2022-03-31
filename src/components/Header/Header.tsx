@@ -35,7 +35,7 @@ export const Header: React.FC = () => {
 
   return (
     <div className={styles.header}>
-      <Link href="/" passHref={true}>
+      <Link href={user ? '/projects' : '/'} passHref={true}>
         <div className={styles.icon}>{logo}</div>
       </Link>
       <div className={styles.links}>
