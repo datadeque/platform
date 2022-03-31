@@ -43,7 +43,7 @@ export const RootNode: React.FC<Props> = (props: Props) => {
           <EditableHeading
             value={titleText}
             className={styles.editable}
-            onChange={(e) => setTitleText(e.target.value)}
+            onChange={(e) => setTitleText(e.target.value.replace(/\s/g, '-'))}
             onSave={updateProject && (() => updateProject({ name: titleText }))}
           />
         ) : (
