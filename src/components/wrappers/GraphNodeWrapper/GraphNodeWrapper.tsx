@@ -6,7 +6,7 @@ import {
   EditableHeading,
   IconButton,
 } from 'src/components'
-import { trash } from 'src/components/IconButton/icons'
+import { remove } from 'src/components/IconButton/icons'
 import styles from './GraphNodeWrapper.module.scss'
 import { ProjectContext, ModalContext } from 'src/contexts'
 
@@ -72,7 +72,7 @@ export const GraphNodeWrapper: React.FC<Props> = ({
               })
             }}
           >
-            {trash}
+            {remove}
           </IconButton>
         </div>
       ) : null}
