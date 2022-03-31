@@ -33,10 +33,19 @@
     }
   }
 
+  .delete {
+    display: flex;
+    justify-content: end;
+  }
+
+  button {
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
   &:hover {
-    .icon {
-      display: flex;
-      justify-content: flex-end;
+    button {
+      opacity: 100%;
       cursor: pointer;
     }
   }
@@ -62,16 +71,5 @@
       font-size: 12px !important;
       font-weight: normal;
     }
-  }
-}
-
-.icon {
-  @include row;
-  display: none;
-
-  @include themed-styles {
-    color: themed-colour('text-muted');
-    fill: themed-colour('text-muted');
-    stroke: themed-colour('text-muted');
   }
 }
