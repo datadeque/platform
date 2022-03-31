@@ -30,7 +30,7 @@ const EditWrapper: NextPage = () => {
 }
 
 const Edit: React.FC = () => {
-  const { project, loading, error, updateNode, updateProject, removeNode } =
+  const { project, loading, error, updateNode, updateProject } =
     useContext(ProjectContext)
 
   const { useNewNodeModalState } = useContext(ModalContext)
@@ -66,7 +66,6 @@ const Edit: React.FC = () => {
                   nodeData={node.data as NodeData}
                   id={node.id}
                   editable
-                  removeNode={() => removeNode(node.id)}
                 />
               </div>
             )
@@ -81,7 +80,6 @@ const Edit: React.FC = () => {
                   nodeData={node.data as NodeData}
                   id={node.id}
                   editable
-                  removeNode={() => removeNode(node.id)}
                 />
               </div>
             )
@@ -96,7 +94,6 @@ const Edit: React.FC = () => {
                   nodeData={node.data as PointNodeData}
                   id={node.id}
                   editable
-                  removeNode={() => removeNode(node.id)}
                 />
               </div>
             )
@@ -111,7 +108,6 @@ const Edit: React.FC = () => {
                   nodeData={node.data as PointNodeData}
                   id={node.id}
                   editable
-                  removeNode={() => removeNode(node.id)}
                 />
               </div>
             )

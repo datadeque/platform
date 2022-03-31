@@ -126,6 +126,7 @@ export const ProjectContextProvider: React.FC<Props> = ({
         deleteNode,
         project,
         error: projectQueryError?.message ?? null,
+        refetch,
       }}
     >
       {children}
