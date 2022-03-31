@@ -113,9 +113,11 @@ const Edit: React.FC = () => {
             )
         }
       })}
-      <button onClick={() => setNewNodeModalState({ projectId: project.id })}>
-        Add Node
-      </button>
+      <div className={styles.box}>
+        <button onClick={() => setNewNodeModalState({ projectId: project.id })}>
+          Add Node
+        </button>
+      </div>
     </>
   )
 }

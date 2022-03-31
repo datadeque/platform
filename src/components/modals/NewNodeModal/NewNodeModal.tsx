@@ -3,7 +3,14 @@
 import { ChangeEvent, useCallback, useContext, useState } from 'react'
 
 import { ModalWrapper } from 'src/components/wrappers/ModalWrapper'
-import { TextField, Button, BarGraphNode, PieGraphNode } from 'src/components'
+import {
+  TextField,
+  Button,
+  BarGraphNode,
+  PieGraphNode,
+  ScatterGraphNode,
+  LineGraphNode,
+} from 'src/components'
 import { close, bar, pie, scatter, line } from '../NewProjectModal/icons'
 
 import styles from '../NewProjectModal/NewProjectModal.module.scss'
@@ -181,6 +188,30 @@ export const NewNodeModal: React.FC<NewNodeModalProps> = ({
                 <PieGraphNode
                   nodeData={{
                     ...defaultNodeData,
+                    title: data.graphName ? data.graphName : 'Default Title',
+                    description: data.description
+                      ? data.description
+                      : 'Default description',
+                  }}
+                  id="sample"
+                />
+              )) ||
+              (data.graphType === 'SCATTER' && (
+                <ScatterGraphNode
+                  nodeData={{
+                    ...defaultPointNodeData,
+                    title: data.graphName ? data.graphName : 'Default Title',
+                    description: data.description
+                      ? data.description
+                      : 'Default description',
+                  }}
+                  id="sample"
+                />
+              )) ||
+              (data.graphType === 'LINE' && (
+                <LineGraphNode
+                  nodeData={{
+                    ...defaultPointNodeData,
                     title: data.graphName ? data.graphName : 'Default Title',
                     description: data.description
                       ? data.description
