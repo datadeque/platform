@@ -28,7 +28,7 @@ interface Props {
 
 export const BarGraphNode: React.FC<Props> = (props: Props) => {
   const { theme } = useContext(ThemeContext)
-  const { nodeData, editable = false, updateNode } = props
+  const { nodeData, editable = false, updateNode, id } = props
   const { title, description, legend, data } = nodeData
 
   const [editableLegend, setEditableLegend] = useState(legend)
@@ -69,6 +69,7 @@ export const BarGraphNode: React.FC<Props> = (props: Props) => {
       onDescriptionSave={onDescriptionSave}
       description={description}
       editable={editable}
+      id={id}
     >
       <div className={styles.container}>
         <div

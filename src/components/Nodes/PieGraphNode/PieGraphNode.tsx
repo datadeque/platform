@@ -20,7 +20,7 @@ interface Props {
 }
 
 export const PieGraphNode: React.FC<Props> = (props: Props) => {
-  const { nodeData, editable = false, updateNode } = props
+  const { nodeData, editable = false, updateNode, id } = props
   const { title, description, data } = nodeData
   const { theme } = useContext(ThemeContext)
 
@@ -56,6 +56,7 @@ export const PieGraphNode: React.FC<Props> = (props: Props) => {
       onDescriptionSave={onDescriptionSave}
       description={description}
       editable={editable}
+      id={id}
     >
       <div className={styles.container}>
         <div

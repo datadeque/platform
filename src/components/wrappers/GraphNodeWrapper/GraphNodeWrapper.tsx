@@ -1,9 +1,18 @@
-import { useState } from 'react'
-import { EditableDescription, EditableHeading } from 'src/components'
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+import { useState, useContext } from 'react'
+import {
+  EditableDescription,
+  EditableHeading,
+  IconButton,
+} from 'src/components'
+import { remove } from 'src/components/IconButton/icons'
 import styles from './GraphNodeWrapper.module.scss'
+import { ProjectContext, ModalContext } from 'src/contexts'
 
 interface Props {
   title: string
+  id: string
   description: string
   children: React.ReactNode
   editable?: boolean
@@ -13,6 +22,7 @@ interface Props {
 
 export const GraphNodeWrapper: React.FC<Props> = ({
   title,
+  id,
   description,
   children,
   editable = false,
@@ -21,6 +31,11 @@ export const GraphNodeWrapper: React.FC<Props> = ({
 }: Props) => {
   const [titleText, setTitleText] = useState(title)
   const [descriptionText, setDescriptionText] = useState(description)
+  const { deleteNode } = useContext(ProjectContext)
+  const {
+    useConfirmationModalState: [, setConfirmationModalState],
+  } = useContext(ModalContext)
+
   return (
     <div className={styles.container}>
       {editable ? (
@@ -44,6 +59,23 @@ export const GraphNodeWrapper: React.FC<Props> = ({
         <p>{description}</p>
       )}
       {children}
+      {editable ? (
+        <div className={styles.delete}>
+          <IconButton
+            onClick={() => {
+              setConfirmationModalState({
+                title: `Are you sure you want to delete ${titleText}?`,
+                content: 'This action will permanently delete this node.',
+                onConfirm: () => {
+                  deleteNode(id)
+                },
+              })
+            }}
+          >
+            {remove}
+          </IconButton>
+        </div>
+      ) : null}
     </div>
   )
 }
