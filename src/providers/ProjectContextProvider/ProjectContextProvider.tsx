@@ -31,11 +31,12 @@ export const ProjectContextProvider: React.FC<Props> = ({
     data,
     loading: projectQueryLoading,
     error: projectQueryError,
+    refetch,
   } = useProjectQuery(authorName, projectName)
   const [project, setProject] = useState<Project | null>(null)
   const [updateProjectMutation] = useUpdateProjectMutation()
   const [updateNodeMutation] = useUpdateNodeMutation()
-  const [removeNodeInput] = useRemoveNodeMutation()
+  const [removeNode] = useRemoveNodeMutation()
   const [editLoading, setEditLoading] = useState<boolean>(false)
 
   useEffect(() => {
@@ -80,11 +81,12 @@ export const ProjectContextProvider: React.FC<Props> = ({
     [project, updateNodeMutation]
   )
 
-  const removeNode = useCallback(
+  const deleteNode = useCallback(
     async (id: string) => {
-      await removeNodeInput({ variables: { id } })
+      await removeNode({ variables: { id } })
+      refetch()
     },
-    [removeNodeInput]
+    [refetch, removeNode]
   )
 
   const updateProject = useCallback(
@@ -121,7 +123,7 @@ export const ProjectContextProvider: React.FC<Props> = ({
         loading: projectQueryLoading,
         updateProject,
         updateNode,
-        removeNode,
+        deleteNode,
         project,
         error: projectQueryError?.message ?? null,
       }}

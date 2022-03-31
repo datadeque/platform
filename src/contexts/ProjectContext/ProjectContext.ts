@@ -22,7 +22,8 @@ interface IProjectContext {
     id: string
     data: NodeData | PointNodeData
   }) => void
-  removeNode: (id: string) => void
+  deleteNode: (id: string) => void
+  refetch: VoidFunction
 }
 
 const fn = () => {
@@ -36,5 +37,6 @@ export const ProjectContext = createContext<IProjectContext>({
   editLoading: false,
   error: null,
   updateNode: fn,
-  removeNode: fn,
+  deleteNode: fn,
+  refetch: fn,
 })

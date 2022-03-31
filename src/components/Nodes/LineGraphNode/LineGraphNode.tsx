@@ -27,12 +27,11 @@ interface Props {
   editable?: boolean
   id: string
   updateNode?: (data: PointNodeData) => void
-  removeNode?: (id: string) => void
 }
 
 export const LineGraphNode: React.FC<Props> = (props: Props) => {
   const { theme } = useContext(ThemeContext)
-  const { nodeData, editable = false, updateNode, removeNode, id } = props
+  const { nodeData, editable = false, updateNode, id } = props
   const { title, description, data, legendX, legendY } = nodeData
 
   const [editableLegendX, setEditableLegendX] = useState(legendX)
@@ -55,13 +54,6 @@ export const LineGraphNode: React.FC<Props> = (props: Props) => {
       if (updateNode) updateNode({ ...nodeData, description })
     },
     [nodeData, updateNode]
-  )
-
-  const onRemoveNode = useCallback(
-    (id: string) => {
-      if (removeNode) removeNode(id)
-    },
-    [removeNode]
   )
 
   useEffect(() => {
@@ -110,7 +102,6 @@ export const LineGraphNode: React.FC<Props> = (props: Props) => {
       onDescriptionSave={onDescriptionSave}
       description={description}
       editable={editable}
-      onRemoveNode={onRemoveNode}
       id={id}
     >
       <div className={styles.container}>

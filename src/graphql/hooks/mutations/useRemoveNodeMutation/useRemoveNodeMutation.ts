@@ -1,8 +1,8 @@
 import { gql, useMutation } from '@apollo/client'
 
 const removeNodeMutation = gql`
-  mutation RemoveNode($removeNodeId: String!) {
-    removeNode(id: $removeNodeId) {
+  mutation RemoveNode($id: String!) {
+    removeNode(id: $id) {
       id
       position
       data

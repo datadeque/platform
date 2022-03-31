@@ -1,9 +1,9 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
-
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import { EditableDescription, EditableHeading } from 'src/components'
 import styles from './GraphNodeWrapper.module.scss'
+import { ProjectContext } from 'src/contexts'
 
 interface Props {
   title: string
@@ -13,7 +13,6 @@ interface Props {
   editable?: boolean
   onTitleSave?: (title: string) => void
   onDescriptionSave?: (title: string) => void
-  onRemoveNode?: (id: string) => void
 }
 
 export const trashIcon = (
@@ -36,10 +35,10 @@ export const GraphNodeWrapper: React.FC<Props> = ({
   editable = false,
   onTitleSave,
   onDescriptionSave,
-  onRemoveNode,
 }: Props) => {
   const [titleText, setTitleText] = useState(title)
   const [descriptionText, setDescriptionText] = useState(description)
+  const { deleteNode } = useContext(ProjectContext)
 
   return (
     <div className={styles.container}>
@@ -65,10 +64,7 @@ export const GraphNodeWrapper: React.FC<Props> = ({
       )}
       {children}
       {editable ? (
-        <div
-          className={styles.icon}
-          onClick={() => onRemoveNode && onRemoveNode(id)}
-        >
+        <div className={styles.icon} onClick={() => deleteNode(id)}>
           {trashIcon}
         </div>
       ) : null}

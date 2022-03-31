@@ -24,12 +24,11 @@ interface Props {
   editable?: boolean
   id: string
   updateNode?: (data: NodeData) => void
-  removeNode?: (id: string) => void
 }
 
 export const BarGraphNode: React.FC<Props> = (props: Props) => {
   const { theme } = useContext(ThemeContext)
-  const { nodeData, editable = false, updateNode, removeNode, id } = props
+  const { nodeData, editable = false, updateNode, id } = props
   const { title, description, legend, data } = nodeData
 
   const [editableLegend, setEditableLegend] = useState(legend)
@@ -51,13 +50,6 @@ export const BarGraphNode: React.FC<Props> = (props: Props) => {
     [nodeData, updateNode]
   )
 
-  const onRemoveNode = useCallback(
-    (id: string) => {
-      if (removeNode) removeNode(id)
-    },
-    [removeNode]
-  )
-
   useEffect(() => {
     setGraphData(
       Object.fromEntries(
@@ -77,7 +69,6 @@ export const BarGraphNode: React.FC<Props> = (props: Props) => {
       onDescriptionSave={onDescriptionSave}
       description={description}
       editable={editable}
-      onRemoveNode={onRemoveNode}
       id={id}
     >
       <div className={styles.container}>
