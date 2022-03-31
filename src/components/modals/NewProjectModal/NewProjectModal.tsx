@@ -71,7 +71,7 @@ export const NewProjectModal = () => {
       )
       setNewProjectModalState(false)
     } catch (err) {
-      console.log((err as ApolloError).message)
+      console.error((err as ApolloError).message)
     }
   }, [
     createProject,

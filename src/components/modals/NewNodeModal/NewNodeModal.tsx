@@ -8,10 +8,15 @@ import { close, bar, pie, scatter, line } from '../NewProjectModal/icons'
 
 import styles from '../NewProjectModal/NewProjectModal.module.scss'
 import nodeModalStyles from './NewNodeModal.module.scss'
-import { defaultNodeData } from 'src/constants'
-import { useCreateNodeMutation } from 'src/graphql/hooks'
-import { ApolloError } from '@apollo/client'
+import { defaultNodeData, defaultPointNodeData } from 'src/constants'
+import { projectQuery, useCreateNodeMutation } from 'src/graphql/hooks'
+import { ApolloError, useApolloClient } from '@apollo/client'
 import { ModalContext } from 'src/contexts'
+import { useRouter } from 'next/router'
+
+export interface NewNodeModalProps {
+  projectId: number
+}
 
 const initialData = {
   graphName: '',
@@ -19,8 +24,13 @@ const initialData = {
   graphType: 'BAR',
 }
 
-export const NewNodeModal = () => {
+export const NewNodeModal: React.FC<NewNodeModalProps> = ({
+  projectId,
+}: NewNodeModalProps) => {
   const [data, setData] = useState(initialData)
+  const router = useRouter()
+  const { name } = router.query
+  const client = useApolloClient()
   const {
     useNewNodeModalState: [, setNewNodeModalState],
   } = useContext(ModalContext)
@@ -45,27 +55,48 @@ export const NewNodeModal = () => {
     const description = data.description
     const graphType = data.graphType
     try {
-      await createNode({
+      const {
+        data: { createNode: newNode },
+      } = await createNode({
         variables: {
           createNodeInput: {
             type: graphType,
-            data: {
-              ...defaultNodeData,
+            data: JSON.stringify({
+              ...(graphType === 'BAR' || graphType === 'PIE'
+                ? defaultNodeData
+                : defaultPointNodeData),
               title: title,
               description: description,
-            },
+            }),
+            projectId,
           },
         },
       })
-      setNewNodeModalState(false)
+      const { project } = client.readQuery({
+        query: projectQuery,
+        variables: {
+          name,
+        },
+      })
+      const newProject = { ...project, nodes: [...project.nodes, newNode] }
+      client.writeQuery({
+        query: projectQuery,
+        data: {
+          project: newProject,
+        },
+      })
+      setNewNodeModalState(null)
     } catch (err) {
-      console.log((err as ApolloError).message)
+      console.error((err as ApolloError).message)
     }
   }, [
+    client,
     createNode,
     data.description,
     data.graphName,
     data.graphType,
+    name,
+    projectId,
     setNewNodeModalState,
   ])
 
@@ -75,7 +106,7 @@ export const NewNodeModal = () => {
         <div className={styles.fields}>
           <div className={styles.header}>
             <h1>New Graph</h1>
-            <svg onClick={() => setNewNodeModalState(false)}>{close}</svg>
+            <svg onClick={() => setNewNodeModalState(null)}>{close}</svg>
           </div>
           <TextField
             label="Graph Name"
@@ -105,7 +136,6 @@ export const NewNodeModal = () => {
                 </button>
                 <button
                   className={styles.button}
-                  disabled={true}
                   onClick={() => setData({ ...data, graphType: 'LINE' })}
                 >
                   <svg>{line}</svg>Line
@@ -120,7 +150,6 @@ export const NewNodeModal = () => {
                 </button>
                 <button
                   className={styles.button}
-                  disabled={true}
                   onClick={() => setData({ ...data, graphType: 'SCATTER' })}
                 >
                   <svg>{scatter}</svg>Scatter
@@ -164,7 +193,7 @@ export const NewNodeModal = () => {
         </div>
         <div
           className={styles.close}
-          onClick={() => setNewNodeModalState(false)}
+          onClick={() => setNewNodeModalState(null)}
         >
           <svg>{close}</svg>
         </div>

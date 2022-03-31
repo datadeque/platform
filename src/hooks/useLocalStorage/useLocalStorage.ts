@@ -28,7 +28,7 @@ export const useLocalStorage = <T>(
       if (isClient)
         window?.localStorage?.setItem(key, JSON.stringify(valueToStore))
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
   return [storedValue, setValue]

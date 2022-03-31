@@ -1,6 +1,6 @@
 import { gql, useQuery } from '@apollo/client'
 
-const projectQuery = gql`
+export const projectQuery = gql`
   query Project($name: String!) {
     project(name: $name) {
       id
