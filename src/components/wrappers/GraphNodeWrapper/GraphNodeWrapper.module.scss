@@ -35,16 +35,13 @@
 
   .delete {
     display: flex;
-    justify-content: end;
-  }
-
-  button {
+    justify-content: flex-end;
     opacity: 0;
     transition: opacity 0.3s;
   }
 
   &:hover {
-    button {
+    .delete {
       opacity: 100%;
       cursor: pointer;
     }
