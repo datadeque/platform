@@ -2,7 +2,7 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import classNames from 'classnames'
-import { ReactNode, useState } from 'react'
+import { ReactNode, useEffect, useState } from 'react'
 
 import styles from './DropdownMenu.module.scss'
 
@@ -29,6 +29,17 @@ export const DropdownMenu: React.FC<Props> = ({
   lastOption,
 }: Props) => {
   const [showMenu, setShowMenu] = useState<boolean>(false)
+
+  useEffect(() => {
+    const onClick = () => {
+      setShowMenu(false)
+    }
+
+    document.addEventListener('mousedown', onClick)
+
+    return () => document.removeEventListener('mousedown', onClick)
+  }, [])
+
   return (
     <div className={styles.container}>
       <div className={styles.interface} onClick={() => setShowMenu(!showMenu)}>
