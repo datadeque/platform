@@ -1,6 +1,5 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-
 import { useCallback, useContext, useState } from 'react'
 
 import Link from 'next/link'
@@ -17,12 +16,12 @@ import styles from './Header.module.scss'
 export const Header: React.FC = () => {
   const { pathname, push } = useRouter()
   const [menuActive, setMenuActive] = useState(false)
-  const { user, loading, setSignedIn } = useContext(AuthContext)
+  const { user, loading, logout } = useContext(AuthContext)
 
-  const handleSignOut = useCallback(() => {
-    setSignedIn(false)
+  const handleSignOut = useCallback(async () => {
+    await logout()
     push('/')
-  }, [push, setSignedIn])
+  }, [logout, push])
 
   const onMenuClick = useCallback(() => {
     setMenuActive(!menuActive)

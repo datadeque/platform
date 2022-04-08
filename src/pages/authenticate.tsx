@@ -28,11 +28,7 @@ const Authenticate: NextPage = () => {
   } = useAuthenticate()
   const { push } = useRouter()
   const userErrorRef = useRef<HTMLDivElement | null>(null)
-  const { loading: contextLoading, user, setSignedIn } = useContext(AuthContext)
-
-  useEffect(() => {
-    setSignedIn(true)
-  })
+  const { loading: contextLoading, user } = useContext(AuthContext)
 
   if (user) push('/projects')
 
@@ -63,10 +59,7 @@ const Authenticate: NextPage = () => {
       </div>
       <Button
         label="Sign In"
-        onClick={async () => {
-          await handleSignIn()
-          push('/projects')
-        }}
+        onClick={handleSignIn}
         loading={loading || contextLoading}
       />
       <div className={styles.account}>

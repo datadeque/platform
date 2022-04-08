@@ -1,24 +1,32 @@
-import { ReactNode } from 'react'
+import { ReactNode, useCallback, useEffect } from 'react'
 import { AuthContext } from 'src/contexts'
-import { useProfileQuery } from 'src/graphql/hooks'
-import { useLocalStorage } from 'src/hooks'
+import { useLogoutUserMutation, useProfileQuery } from 'src/graphql/hooks'
 
 export const AuthContextProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }: {
   children: ReactNode
 }) => {
-  const [signedIn, setSignedIn] = useLocalStorage('CLIENT:SIGNED_IN', false)
+  const [logoutUser] = useLogoutUserMutation()
   const { data, error, loading, refetch } = useProfileQuery()
+
+  useEffect(() => {
+    refetch()
+  }, [refetch])
+
+  const logout = useCallback(async () => {
+    await logoutUser()
+    refetch()
+  }, [logoutUser, refetch])
 
   return (
     <AuthContext.Provider
       value={{
-        user: signedIn ? data?.profile : null,
+        user: error ? null : data?.profile,
         error: error ? error.message : '',
         loading,
         refetch,
-        setSignedIn,
+        logout,
       }}
     >
       {children}
