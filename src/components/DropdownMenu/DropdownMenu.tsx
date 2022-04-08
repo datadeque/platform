@@ -55,8 +55,10 @@ export const DropdownMenu: React.FC<Props> = ({
             {rootOption.label}
           </div>
         )}
-        {options.map(({ label, onClick }) => (
-          <div onClick={onClick}>{label}</div>
+        {options.map(({ label, onClick }, index) => (
+          <div onClick={onClick} key={`dropdown-${index}`}>
+            {label}
+          </div>
         ))}
         {lastOption && (
           <div className={styles.final} onClick={lastOption.onClick}>
